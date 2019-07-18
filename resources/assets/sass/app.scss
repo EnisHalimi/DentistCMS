@@ -1,0 +1,26 @@
+// Bootstrap
+@import "node_modules/bootstrap/scss/bootstrap";
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+
+// Variables
+@import "variables";
+@import "../../../vendor/fontawesome-free/css/all.min.css"; 
+@import "../../../vendor/datatables/dataTables.bootstrap4.min.css";
+
+
+// Import Custom SB Admin 2 Mixins and Components
+@import "mixins.scss";
+@import "global.scss";
+@import "utilities.scss";
+
+// Custom Components
+@import "dropdowns.scss";
+@import "navs.scss";
+@import "buttons.scss";
+@import "cards.scss";
+@import "charts.scss";
+@import "login.scss";
+@import "error.scss";
+@import "footer.scss";
+

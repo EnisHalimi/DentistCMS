@@ -15,6 +15,14 @@ Route::get('/', function () {
     return view('index');
 });
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('appointment', 'AppointmentController');
+Route::resource('contact', 'ContactController');
+Route::resource('pacient', 'PacientController');
+Route::resource('report', 'ReportController');
+Route::resource('services', 'ServicesController');
+Route::resource('treatment', 'TreatmentController');
+Route::resource('user', 'UserController');
+Route::resource('visit', 'VisitController');

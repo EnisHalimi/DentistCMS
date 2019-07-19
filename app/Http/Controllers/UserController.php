@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
+use App\User;
 
 class UserController extends Controller
 {
@@ -13,7 +16,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        if(auth()->guest())
+            return redirect('/login')->with('error', 'Unathorized Page');
+        else
+            return view('user.users');
     }
 
     /**
@@ -23,7 +29,10 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        if(auth()->guest())
+            return redirect('/login')->with('error', 'Unathorized Page');
+        else
+            return view('user.create');
     }
 
     /**
@@ -34,7 +43,26 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(auth()->guest())
+        {
+            return redirect('/')->with('error','Unathorized Page'); 
+        }
+        else
+        {
+            $this->validate($request,[
+                'name'=> 'required|min:6|string|max:255|regex:/^[\w&.\-\s]*$/',
+                'email' => 'required|min:6|string|unique:users',
+                'password' => 'required|string|min:6|confirmed',
+                'position'=> 'required|min:6|string|max:255|regex:/^[\w&.\-\s]*$/',
+            ]);
+            $user = new User;
+            $user->name = $request->input('name');
+            $user->email = $request->input('email');
+            $user->password = Hash::make($request->input('password'));
+            $user->position = $request->input('position');
+            $user->save();
+            return redirect('/user')->with('success','U shtua Përdoruesi');
+        }
     }
 
     /**

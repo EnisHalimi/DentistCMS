@@ -1,48 +1,43 @@
 @extends('layouts.app')
-@section('title','Users')
+@section('title','User View')
 @section('user','active')
 @section('content')
-        <!-- Begin Page Content -->
-        <div class="container-fluid mt-4">
-
-          <!-- Page Heading -->
+<div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+          <!-- Nested Row within Card Body -->
           <div class="row">
-            <div class="col-sm-6">
-              <h1 class="h3 mb-4 text-gray-800">Përdoruesit</h1>
+            <div class="col-lg-5 d-none d-lg-block ">
+            <img src="https://www.onlinelogomaker.com/blog/wp-content/uploads/2017/09/Dental-Logo-Design.jpg" class="img-fluid" />
             </div>
-            <div class="col-sm-6 ">
-                <a href="/user/create" class="btn btn-success float-right"><i class="fa fa-plus"></i> Krijo</a>
-              </div>
-          </div>
-          
-          
-          <!-- DataTales Example -->
-          <div class="card shadow mb-4">
-            <div class="card-header py-3">
-              <h6 class="m-0 font-weight-bold text-primary">Lista e përdoruesve</h6>
-            </div>
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>Emri Mbiemri</th>
-                      <th>Email</th>
-                      <th>Password</th>
-                      <th>Pozita</th>
-                      <th>Menaxhimi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    @if(count($users) > 0)
-                    @foreach($users as $user)
-                    <tr>
-                      <td>{{$user->name}}</td>
-                      <td>{{$user->email}}</td>
-                      <td>********</td>
-                      <td>{{$user->position}}</td>
-                      <td>
-                        <a href="/user/{{$user->id}}" class="btn btn-secondary"><i class="fa fa-eye"></i> Shiko</a>
+            <div class="col-lg-7">
+              <div class="p-5">
+                <div class="text-center">
+                  <h1 class="h4 text-gray-900 mb-4">Të dhënat e përdoruesit</h1>
+                </div>
+                <table class="table table-striped ">
+                        <tbody>
+                            <tr>
+                                <th>Emri dhe Mbiemri:</th>
+                                <td scope="row">{{$user->name}}</td>
+                            </tr>
+                            <tr>
+                                <th>E-mail:</th>
+                                <td scope="row">{{$user->email}}</td>
+                            </tr>
+                           
+                            <tr>
+                                <th>Pozita:</th>
+                                <td scope="row">{{$user->position}}</td>
+                            </tr>
+                            <tr>
+                                    <th>Data e regjistrimit:</th>
+                                    <td scope="row">{{$user->created_at}} </td>
+                                </tr>
+                            </tbody>
+                    </table>
+                   
+                <hr>
+                <a class="btn btn-secondary" href="/user" ><i class="fa fa-chevron-left"></i> Kthehu</a>
                         <a href="/user/{{$user->id}}/edit"  class="btn btn-info"><i class="fa fa-pen"></i> Ndrysho</a>
                         <button class="btn btn-danger" data-toggle="modal" data-target="#fshijModal{{$user->id}}"><i class="fa fa-trash"></i> Fshij</button>
                         <div class="modal fade" id="fshijModal{{$user->id}}" tabindex="-1" role="dialog" aria-labelledby="fshijModalLabel{{$user->id}}" aria-hidden="true">
@@ -69,23 +64,9 @@
                                 </div>
                             </div>
                         </div> 
-                      </td>
-                      
-                    </tr>
-                    @endforeach
-                    @else
-                    <tr>
-                      <td colspan="4">Nuk u gjetën përdorues</td>
-                    </tr>
-                    @endif
-                  </tbody>
-                </table>
-                {{ $users->appends(request()->query())->links() }}
               </div>
             </div>
           </div>
-
         </div>
-        <!-- /.container-fluid -->
-
+      </div>
 @endsection

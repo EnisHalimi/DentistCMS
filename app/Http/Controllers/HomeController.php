@@ -3,6 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
+use App\Appointment;
+use App\Treatment;
+use App\Pacient;
+use App\Report;
+use App\Services;
+use App\Visit;
+use App\Contact;
 
 class HomeController extends Controller
 {
@@ -21,8 +29,20 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public static function numers()
+    {
+        return 0;
+    }
     public function index()
     {
-        return view('home');
+        $pacients = Pacient::orderBy('id', 'DESC');
+        $appointements = Appointment::orderBy('id', 'DESC');
+        $treatment = Treatment::orderBy('id', 'DESC');
+        $visit = Visit::orderBy('id', 'DESC');
+        return view('index')->with('pacients', $pacients)
+                            ->with('appointements', $appointements)
+                            ->with('treatment', $treatment)
+                            ->with('visit', $visit);
     }
 }

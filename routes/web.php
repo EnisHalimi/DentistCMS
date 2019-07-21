@@ -11,13 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
-
+Route::get('/', 'HomeController@index');
 Auth::routes(['register' => false]);
-
-Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('appointment', 'AppointmentController');
 Route::resource('contact', 'ContactController');
 Route::resource('pacient', 'PacientController');

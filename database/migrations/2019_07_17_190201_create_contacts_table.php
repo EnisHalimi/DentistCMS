@@ -15,10 +15,10 @@ class CreateContactsTable extends Migration
     {
         Schema::create('contacts', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('pacient_id');
+            $table->integer('pacient_id')->unsigned();
             $table->string('phone_nr');
             $table->string('email')->nullable(true);
-            $table->foreign('pacient_id')->references('id')->on('pacient');
+            $table->foreign('pacient_id')->references('id')->on('pacients');
             $table->timestamps();
         });
     }

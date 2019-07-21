@@ -16,10 +16,11 @@ class UserController extends Controller
      */
     public function index()
     {
+        $users = User::orderBy('id', 'asc')->paginate(15);
         if(auth()->guest())
             return redirect('/login')->with('error', 'Unathorized Page');
         else
-            return view('user.users');
+            return view('user.users')->with('users', $users);
     }
 
     /**
@@ -73,7 +74,11 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::findOrfail($id);
+        if(auth()->guest())
+            return redirect('/login')->with('error', 'Unathorized Page');
+        else
+            return view('user.show')->with('user',$user);
     }
 
     /**
@@ -84,7 +89,11 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::findOrfail($id);
+        if(auth()->guest())
+            return redirect('/login')->with('error', 'Unathorized Page');
+        else
+            return view('user.edit')->with('user',$user);
     }
 
     /**
@@ -96,7 +105,28 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if(auth()->guest())
+        {
+            return redirect('/')->with('error','Unathorized Page'); 
+        }
+        else
+        {
+            $this->validate($request,[
+                'name'=> 'required|min:6|string|max:255|regex:/^[\w&.\-\s]*$/',
+                'email' => 'required|min:6|string',
+                'password' => 'confirmed',
+                'position'=> 'required|min:6|string|max:255|regex:/^[\w&.\-\s]*$/',
+            ]);
+            $user = User::find($id);
+            if($request->input('password')>6)
+                $user->password = Hash::make($request->input('password'));
+            $user->name = $request->input('name');
+            if($user->email !== $request->input('email'))
+                $user->email = $request->input('email');
+            $user->position = $request->input('position');
+            $user->save();
+            return redirect('/user')->with('success','U ndryshua Përdoruesi');
+        }
     }
 
     /**
@@ -107,6 +137,15 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        if(auth()->guest())
+        {
+            return redirect('/')->with('error','Unathorized Page'); 
+        }
+        else
+        {
+            $user->delete();           
+            return redirect('/user')->with('success','Është fshirë Përdoruesi');
+        }
     }
 }

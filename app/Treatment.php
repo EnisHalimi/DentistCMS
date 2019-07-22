@@ -10,4 +10,9 @@ class Treatment extends Model
     {
         return $this->belongsTo('App\Visit');
     }
+
+    public function report()
+    {
+        return $this->hasOne('App\Report');
+    }
 }

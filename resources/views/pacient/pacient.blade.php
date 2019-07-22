@@ -49,19 +49,26 @@
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="fshijModalLabel{{$pacient->id}}">Fshij Pacientin</h5>
+                                <h5 class="modal-title" id="fshijModalLabel{{$pacient->id}}">A jeni i sigurtë që doni të fshini Pacientin?</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
                             <div class="modal-body">
-                                A jeni i sigurtë që doni të vazhdoni?
+                                
+                                <form class="d-inline" method="POST" action="{{ route('pacient.destroy',$pacient->id,)}}" accept-charset="UTF-8">
+                                    {{ csrf_field() }}
+                                    <div class="custom-control custom-checkbox small">
+                                        <input type="checkbox"  name="data"  class="custom-control-input" id="data">
+                                    <label class="custom-control-label" for="data">Fshini të dhënat e Pacientit?</label>
+                                      </div>
+                                   
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Jo</button>
-                                <form class="d-inline" method="POST" action="{{ route('pacient.destroy',$pacient->id)}}" accept-charset="UTF-8">
-                                    {{ csrf_field() }}
+                               
                                     <input name="_method" type="hidden" value="DELETE">
+                                   
                                     <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Fshij</button>
                                 </form>
                                 

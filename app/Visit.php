@@ -6,7 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Visit extends Model
 {
-    //
+    
+    public function treatment()
+    {
+        return $this->hasOne('App\Treatment');
+    }
     
     public function user()
     {

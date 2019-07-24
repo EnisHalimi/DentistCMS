@@ -53,7 +53,7 @@
                         </tbody>
                     </table>
                 <hr>
-                <a class="btn btn-secondary" href="/pacient" ><i class="fa fa-chevron-left"></i> Kthehu</a>
+                <a class="btn btn-secondary" href="{{ url()->previous() }}" ><i class="fa fa-chevron-left"></i> Kthehu</a>
                         <a href="/pacient/{{$pacient->id}}/edit"  class="btn btn-info"><i class="fa fa-pen"></i> Ndrysho</a>
                         <button class="btn btn-danger" data-toggle="modal" data-target="#fshijModal{{$pacient->id}}"><i class="fa fa-trash"></i> Fshij</button>
                         <div class="modal fade" id="fshijModal{{$pacient->id}}" tabindex="-1" role="dialog" aria-labelledby="fshijModalLabel{{$pacient->id}}" aria-hidden="true">

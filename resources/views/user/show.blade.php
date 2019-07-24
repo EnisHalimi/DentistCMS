@@ -37,7 +37,7 @@
                     </table>
                    
                 <hr>
-                <a class="btn btn-secondary" href="/user" ><i class="fa fa-chevron-left"></i> Kthehu</a>
+                <a class="btn btn-secondary" href="{{ url()->previous() }}" ><i class="fa fa-chevron-left"></i> Kthehu</a>
                         <a href="/user/{{$user->id}}/edit"  class="btn btn-info"><i class="fa fa-pen"></i> Ndrysho</a>
                         <button class="btn btn-danger" data-toggle="modal" data-target="#fshijModal{{$user->id}}"><i class="fa fa-trash"></i> Fshij</button>
                         <div class="modal fade" id="fshijModal{{$user->id}}" tabindex="-1" role="dialog" aria-labelledby="fshijModalLabel{{$user->id}}" aria-hidden="true">

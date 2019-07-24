@@ -45,4 +45,9 @@ class HomeController extends Controller
                             ->with('treatment', $treatment)
                             ->with('visit', $visit);
     }
+    public function autocomplete()
+    {
+        $pacient = Pacient::orderBy('id', 'DESC')->pluck('id','first_name','last_name');    
+        return $pacient;
+    }
 }

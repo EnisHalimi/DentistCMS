@@ -42,7 +42,7 @@
       <hr class="sidebar-divider">
 
       <!-- Nav Item - Charts -->
-      <li class="nav-item  @yield('dashboard')">
+      <li class="nav-item  @yield('appointment')">
         <a class="nav-link" href="/appointment">
           <i class="fas fa-fw fa-calendar"></i>
           <span>Terminet</span></a>
@@ -137,47 +137,27 @@
               <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
-                <span class="badge badge-danger badge-counter">3+</span>
+                <span class="badge badge-danger badge-counter">{{App\Notifications::getNotificationsNumber()}}</span>
               </a>
               <!-- Dropdown - Alerts -->
               <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
                 <h6 class="dropdown-header">
                   Njoftimet
                 </h6>
-                <a class="dropdown-item d-flex align-items-center" href="/appointment">
+                @foreach(App\Notifications::getNotifications() as $not)
+                <a class="dropdown-item d-flex align-items-center" href="/notifications">
                   <div class="mr-3">
                     <div class="icon-circle bg-primary">
                       <i class="fas fa-file-alt text-white"></i>
                     </div>
                   </div>
                   <div>
-                    <div class="small text-gray-500">December 12, 2019</div>
-                    <span class="font-weight-bold">Sot keni 3 termine!</span>
+                    <div class="small text-gray-500">{{$not->created_at}}</div>
+                    <span class="font-weight-bold">{{$not->description}}!</span>
                   </div>
                 </a>
-                <a class="dropdown-item d-flex align-items-center" href="/treatment">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-success">
-                      <i class="fas fa-donate text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 7, 2019</div>
-                    Dje jane trajtuar 15 pacient
-                  </div>
-                </a>
-                <a class="dropdown-item d-flex align-items-center" href="#">
-                  <div class="mr-3">
-                    <div class="icon-circle bg-warning">
-                      <i class="fas fa-exclamation-triangle text-white"></i>
-                    </div>
-                  </div>
-                  <div>
-                    <div class="small text-gray-500">December 2, 2019</div>
-                    
-                  </div>
-                </a>
-                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                @endforeach
+                <a class="dropdown-item text-center small text-gray-500" href="/notifications">Show All Alerts</a>
               </div>
             </li>
 
@@ -303,5 +283,36 @@
   
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    <script>
+      $( function() {
+        var availableTags = [
+          "ActionScript",
+          "AppleScript",
+          "Asp",
+          "BASIC",
+          "C",
+          "C++",
+          "Clojure",
+          "COBOL",
+          "ColdFusion",
+          "Erlang",
+          "Fortran",
+          "Groovy",
+          "Haskell",
+          "Java",
+          "JavaScript",
+          "Lisp",
+          "Perl",
+          "PHP",
+          "Python",
+          "Ruby",
+          "Scala",
+          "Scheme"
+        ];
+        $( "#pacient" ).autocomplete({
+          source: availableTags
+        });
+      } );
+  </script>
 </body>
 </html>

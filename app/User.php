@@ -43,4 +43,10 @@ class User extends Authenticatable
         return $this->hasMany('App\Report');
     }
 
+    public static function getUser($id)
+    {
+        $user = User::find($id);
+        return $user->name;
+    }
+
 }

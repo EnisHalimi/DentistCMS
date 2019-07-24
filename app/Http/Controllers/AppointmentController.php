@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Appointment;
 
 class AppointmentController extends Controller
 {
@@ -13,7 +14,11 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        //
+        $appointments = Appointment::orderBy('id', 'asc')->paginate(15);
+        if(auth()->guest())
+            return redirect('/login')->with('error', 'Unathorized Page');
+        else
+            return view('appointment.appointment')->with('appointments', $appointments);
     }
 
     /**
@@ -23,7 +28,10 @@ class AppointmentController extends Controller
      */
     public function create()
     {
-        //
+        if(auth()->guest())
+            return redirect('/login')->with('error', 'Unathorized Page');
+        else
+            return view('appointment.create');
     }
 
     /**

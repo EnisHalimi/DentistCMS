@@ -21,4 +21,10 @@ class Pacient extends Model
     {
         return $this->hasOne('App\Contact');
     }
+
+    public static function getPacient($id)
+    {
+        $pacient = Pacient::find($id);
+        return $pacient->first_name. ' '.$pacient->last_name ;
+    }
 }

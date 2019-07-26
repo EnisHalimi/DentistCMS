@@ -47,7 +47,11 @@ class HomeController extends Controller
     }
     public function autocomplete()
     {
-        $pacient = Pacient::orderBy('id', 'DESC')->pluck('id','first_name','last_name');    
-        return $pacient;
+        $pacients = Pacient::orderBy('id', 'ASC')->get();
+        foreach($pacients as $pacient)
+        {
+            $list[]= "$pacient->first_name $pacient->last_name $pacient->personal_number,$pacient->id";
+        }
+        return response()->json($list);
     }
 }

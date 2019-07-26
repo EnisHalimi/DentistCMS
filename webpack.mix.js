@@ -1,4 +1,4 @@
-let mix = require('laravel-mix');
+const mix = require('laravel-mix');
 
 /*
  |--------------------------------------------------------------------------
@@ -11,14 +11,5 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.sass('resources/assets/sass/app.scss', 'public/css');
-mix.combine([
-      'vendor/jquery/jquery.min.js',
-      'vendor/bootstrap/js/bootstrap.bundle.min.js',
-      'node_modules/jquery-ui/ui/widgets/autocomplete.js',
-      'vendor/jquery-easing/jquery.easing.min.js',
-      'vendor/chart.js/Chart.min.js',    
-      'resources/assets/js/sb-admin-2.min.js',
-      'resources/assets/js/demo/chart-area-demo.js',
-      'resources/assets/js/demo/chart-pie-demo.js'
-  ], 'public/js/app.js');
+mix.js('resources/js/app.js', 'public/js')
+    .sass('resources/sass/app.scss', 'public/css');

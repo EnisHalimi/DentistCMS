@@ -13,7 +13,10 @@ class ServicesController extends Controller
      */
     public function index()
     {
-        //
+        if(auth()->guest())
+        return redirect('/login')->with('error', 'Unathorized Page');
+        else
+        return view('service.service');
     }
 
     /**

@@ -25,6 +25,6 @@ class Pacient extends Model
     public static function getPacient($id)
     {
         $pacient = Pacient::find($id);
-        return $pacient->first_name. ' '.$pacient->last_name ;
+        return $pacient->first_name. ' '.$pacient->last_name. ' '.$pacient->personal_number ;
     }
 }

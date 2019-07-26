@@ -44,7 +44,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        if(auth()->guest())
+       if(auth()->guest())
         {
             return redirect('/')->with('error','Unathorized Page'); 
         }

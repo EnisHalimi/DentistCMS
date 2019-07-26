@@ -76,7 +76,7 @@
             @endforeach
             @else
             <tr>
-              <td colspan="4">Nuk u gjetën termine</td>
+              <td colspan="5">Nuk u gjetën termine</td>
             </tr>
             @endif
           </tbody>

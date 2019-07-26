@@ -15,12 +15,19 @@
               <div class="text-center">
                 <h1 class="h4 text-gray-900 mb-4">Shto Termin!</h1>
               </div>
-              <form class="user" method="POST" action="{{ route('user.store') }}">
+              <form class="user" method="POST" action="{{ route('appointment.store') }}">
                         {{ csrf_field() }}
                 <div class="form-group ">
                     <label class="text-xs" for="pacient">Pacienti</label>
-                  <input id="pacient" name="pacient" value="{{ old('pacient') }}" required autofocus type="text" class="form-control form-control-user"  placeholder="Pacienti">
-                  <input id="pacient_id" name="pacient_id" hidden value="0">
+                    <input  placeholder="Pacienti" class="form-control form-control-user" id="pacient" name="pacient"  data-toggle="dropdown" aria-haspopup="true" data-target="pacient-dropdown" aria-expanded="false" />
+                    <input  hidden id="pacient-id"  name="pacient-id"/>
+                    <div class="dropdown-menu w-75" id="dropdown-pacient">
+                        <input type="text" class="form-control form-control-user" placeholder="Search.." id="search-pacient" onkeyup="filterPacientFunction()">
+                      @foreach($pacients as $pacient)
+                        <a onclick="document.getElementById('pacient').value = '{{$pacient->first_name.' '.$pacient->last_name.' '.$pacient->personal_number}}';
+                            document.getElementById('pacient-id').value = '{{$pacient->id}}';" class="dropdown-item" >{{$pacient->first_name}} {{$pacient->last_name}} {{$pacient->personal_number}}</a>
+                      @endforeach
+                      </div>
                   @if ($errors->has('pacient'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('pacient') }}</strong>
@@ -29,8 +36,15 @@
                 </div>
                 <div class="form-group ">
                         <label class="text-xs" for="user">Dentisti</label>
-                        <input id="user" name="user" value="{{ old('user') }}" required autofocus type="text" class="form-control form-control-user"  placeholder="Dentisti">
-                        <input id="user_id" name="user_id" hidden value="0">
+                        <input  placeholder="Dentisti" class="form-control form-control-user" id="user" name="user"  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" />
+                        <input  hidden id="user-id"  name="user-id"/>
+                    <div class="dropdown-menu w-75" id="dropdown-user">
+                        <input type="text" class="form-control form-control-user" placeholder="Search.." id="search-user" onkeyup="filterUserFunction()">
+                      @foreach($users as $user)
+                        <a onclick="document.getElementById('user').value = '{{$user->name}}';
+                            document.getElementById('user-id').value = '{{$user->id}}';" class="dropdown-item" >{{$user->name}}</a>
+                      @endforeach
+                      </div>
                         @if ($errors->has('user'))
                                           <span class="help-block">
                                               <strong>{{ $errors->first('user') }}</strong>

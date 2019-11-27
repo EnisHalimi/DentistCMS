@@ -37,13 +37,13 @@ class HomeController extends Controller
     public function index()
     {
         $pacients = Pacient::orderBy('id', 'DESC');
-        $appointements = Appointment::orderBy('id', 'DESC');
-        $treatment = Treatment::orderBy('id', 'DESC');
-        $visit = Visit::orderBy('id', 'DESC');
+        $appointements = Appointment::where('date_of_appointment','=',date("Y-m-d"))->orderBy('id', 'DESC')->paginate(15);
+        $treatment = Treatment::where('created_at','=',date("Y-m-d"))->orderBy('id', 'DESC')->paginate(15);
+        $visit = Visit::where('date_of_visit','=',date("Y-m-d"))->orderBy('id', 'DESC')->paginate(15);
         return view('index')->with('pacients', $pacients)
                             ->with('appointements', $appointements)
-                            ->with('treatment', $treatment)
-                            ->with('visit', $visit);
+                            ->with('treatments', $treatment)
+                            ->with('visits', $visit);
     }
     public function autocomplete()
     {

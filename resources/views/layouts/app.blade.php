@@ -106,7 +106,7 @@
           <!-- Topbar Search -->
           <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
-              <input type="text" class="form-control bg-light border-0 small" placeholder="Kërko..." aria-label="Search" aria-describedby="basic-addon2">
+              <input type="text" class="form-control bg-light small" placeholder="Kërko..." aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
                 <button class="btn btn-primary" type="button">
                   <i class="fas fa-search fa-sm"></i>
@@ -300,5 +300,35 @@
     <script type="text/javascript" src="{{ asset('sb/js/demo/chart-pie-demo.js') }}"></script>
     <script src="{{ asset('sb/vendor/jquery-ui/jquery-ui.js') }}"></script>
     <script src="{{ asset('js/app.js')}}"></script>
+
+    <script type="text/javascript">
+      $('#searchPacient').on('keyup',function(){
+        $value=$(this).val();
+        $.ajax({
+      type : 'get',
+      url : '{{URL::to('searchPacient')}}',
+      data:{'search':$value},
+      success:function(data){
+      $('#pacient-table-body').html(data);
+      }
+      });
+      })
+      </script>
+      <script type="text/javascript">
+        $('#searchUser').on('keyup',function(){
+          $value=$(this).val();
+          $.ajax({
+        type : 'get',
+        url : '{{URL::to('searchUser')}}',
+        data:{'search':$value},
+        success:function(data){
+        $('#user-table-body').html(data);
+        }
+        });
+        })
+        </script>
+      <script type="text/javascript">
+      $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
+      </script>
 </body>
 </html>

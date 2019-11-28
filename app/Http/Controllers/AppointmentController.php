@@ -30,8 +30,8 @@ class AppointmentController extends Controller
      */
     public function create()
     {
-        $pacient = Pacient::get();
-        $user = User::get();
+        $pacient = Pacient::orderBy('id', 'desc')->paginate(15);
+        $user = User::orderBy('id', 'desc')->paginate(15);
         if(auth()->guest())
             return redirect('/login')->with('error', 'Unathorized Page');
         else

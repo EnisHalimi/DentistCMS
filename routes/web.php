@@ -23,3 +23,6 @@ Route::resource('user', 'UserController');
 Route::resource('visit', 'VisitController');
 
 Route::get('getPacients', 'HomeController@autocomplete');
+Route::get('/searchPacient', 'SearchController@searchPacient');
+Route::get('/searchUser', 'SearchController@searchUser');
+

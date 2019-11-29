@@ -30,3 +30,36 @@ function filterUserFunction() {
       }
     }
   }
+  function DataTables() {
+    $('#PacientdataTable').DataTable(
+      {
+        "processing": true,
+        "serverSide": true,
+        "ajax":"/pacientDatatable",
+        "columns": [
+          {"data":"first_name"},
+          {"data":"last_name"},
+          {"data":"personal_number"},
+          {"data":"date_of_birth"},
+          {"data":"address"},
+          {"data":"residence"},
+          {"data": "Menaxhimi", "bSearchable": false}
+        ]
+      });
+    $('#UserdataTable').DataTable(
+      {
+        "processing": true,
+        "serverSide": true,
+        "ajax":"/userDatatable",
+        "columns": [
+          {"data":"name"},
+          {"data":"email"},
+          {"data":"password"},
+          {"data":"position"},
+          {"data": "Menaxhimi", "bSearchable": false }
+        ]
+      }
+    );
+  }
+
+DataTables();

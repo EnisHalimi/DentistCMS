@@ -18,6 +18,7 @@
     <link href="{{ asset('sb/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link href="{{ asset('sb/vendor/jquery-ui/jquery-ui.css') }}" rel="stylesheet">
+    <link href="{{ asset('sb/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
 
       
 </head>
@@ -89,7 +90,9 @@
           <i class="fas fa-fw fa-user-nurse"></i>
           <span>Perdoruesit</span></a>
       </li>
-
+      <div class="text-center d-none d-md-inline">
+          <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
     </ul>
     <!-- End of Sidebar -->
 
@@ -102,13 +105,18 @@
         <!-- Topbar -->
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
+              <!-- Sidebar Toggle (Topbar) -->
+          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+              <i class="fa fa-bars"></i>
+            </button>
+
           @if(Auth::check())
           <!-- Topbar Search -->
-          <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+          <form method="GET" action="{{ url('search') }}" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
-              <input type="text" class="form-control bg-light small" placeholder="Kërko..." aria-label="Search" aria-describedby="basic-addon2">
+            <input type="text" class="form-control bg-light small @yield('search')" placeholder="Kërko..." name="search" value="@if(isset($keyword)) {{$keyword}} @endif" id="search" aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
-                <button class="btn btn-primary" type="button">
+                <button type="submit" class="btn btn-primary" type="button">
                   <i class="fas fa-search fa-sm"></i>
                 </button>
               </div>
@@ -294,10 +302,9 @@
     <script type="text/javascript" src="{{ asset('sb/vendor/jquery/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('sb/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('sb/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('sb/vendor/datatables/jquery.dataTables.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('sb/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('sb/js/sb-admin-2.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('sb/vendor/chart.js/Chart.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('sb/js/demo/chart-area-demo.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('sb/js/demo/chart-pie-demo.js') }}"></script>
     <script src="{{ asset('sb/vendor/jquery-ui/jquery-ui.js') }}"></script>
     <script src="{{ asset('js/app.js')}}"></script>
 

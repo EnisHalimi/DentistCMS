@@ -6,9 +6,47 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\User;
+use DataTables;
 
 class UserController extends Controller
 {
+
+    function getUserDataTable()
+    {
+        $users = User::select('name','email','position','id');
+        $table = DataTables::of($users)
+        ->addColumn('password', '*********')
+        ->editColumn('Menaxhimi' ,'<a href="/user/{{$id}}" class="btn btn-circle  btn-secondary"><i class="fa fa-eye"></i></a>
+        <a href="/user/{{$id}}/edit"  class="btn btn-circle  btn-info"><i class="fa fa-pen"></i></a>
+        <button class="btn btn-circle  btn-danger" data-toggle="modal" data-target="#fshijModal{{$id}}"><i class="fa fa-trash"></i></button>
+        <div class="modal fade" id="fshijModal{{$id}}" tabindex="-1" role="dialog" aria-labelledby="fshijModalLabel{{$id}}" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="fshijModalLabel{{$id}}">Fshij Përdoruesin</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        A jeni i sigurtë që doni të vazhdoni?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Jo</button>
+                        <form class="d-inline" method="POST" action="{{ route(\'user.destroy\',$id)}}" accept-charset="UTF-8">
+                            {{ csrf_field() }}
+                            <input name="_method" type="hidden" value="DELETE">
+                            <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Fshij</button>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div> ')
+        ->rawColumns(['Menaxhimi','password'])
+        ->make(true);
+        return $table;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,11 +54,10 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('id', 'asc')->paginate(15);
         if(auth()->guest())
             return redirect('/login')->with('error', 'Unathorized Page');
         else
-            return view('user.users')->with('users', $users);
+            return view('user.users');
     }
 
     /**

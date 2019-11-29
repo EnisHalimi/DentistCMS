@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class Pacient extends Model
 {
     public function visit()
@@ -26,5 +27,11 @@ class Pacient extends Model
     {
         $pacient = Pacient::find($id);
         return $pacient->first_name. ' '.$pacient->last_name. ' '.$pacient->personal_number ;
+    }
+
+    public static function getPacientName($id)
+    {
+        $pacient = Pacient::find($id);
+        return $pacient->first_name. ' '.$pacient->last_name;
     }
 }

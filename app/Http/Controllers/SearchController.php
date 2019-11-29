@@ -3,11 +3,19 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Pacient;
 use DB;
 
 
 class SearchController extends Controller
 {
+    public function search(Request $request)
+    {
+    	$pacients = Pacient::where('first_name','LIKE', $request->search)->paginate(30);	
+        return view('search')->with('pacients',$pacients)->with('keyword',$request->search);
+    }
+
+
     public function searchPacient(Request $request)
     {
         if($request->ajax())
@@ -61,4 +69,6 @@ class SearchController extends Controller
             }
         }
     }
+
+    
 }

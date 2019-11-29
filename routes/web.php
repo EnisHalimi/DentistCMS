@@ -25,4 +25,6 @@ Route::resource('visit', 'VisitController');
 Route::get('getPacients', 'HomeController@autocomplete');
 Route::get('/searchPacient', 'SearchController@searchPacient');
 Route::get('/searchUser', 'SearchController@searchUser');
-
+Route::get('search', 'SearchController@search');
+Route::get('/pacientDatatable', 'PacientController@getPacientDataTable');
+Route::get('/userDatatable', 'UserController@getUserDataTable');

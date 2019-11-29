@@ -3,10 +3,56 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DataTables;
 use App\Pacient;
+use DB;
 
 class PacientController extends Controller
 {
+
+
+    function getPacientDataTable()
+    {
+        $pacients = Pacient::select('first_name','last_name','personal_number','date_of_birth','address','residence','id');
+        $table = DataTables::of($pacients)
+        ->editColumn('Menaxhimi' ,'<a href="/pacient/{{$id}}" class="btn btn-circle btn-secondary "><i class="fa fa-eye"></i></a>
+        <a href="/pacient/{{$id}}/edit"  class="btn btn-circle btn-primary "><i class="fa fa-pen"></i></a>
+        <button class="btn btn-circle btn-danger " data-toggle="modal" data-target="#fshijModal{{$id}}"><i class="fa fa-trash"></i></button>
+        <div class="modal fade" id="fshijModal{{$id}}" tabindex="-1" role="dialog" aria-labelledby="fshijModalLabel{{$id}}" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="fshijModalLabel{{$id}}">A jeni i sigurtë që doni të fshini Pacientin?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        
+                        <form id="form{{$id}}" class="d-inline" method="POST" action="{{ route(\'pacient.destroy\',$id)}}" accept-charset="UTF-8">
+                            {{ csrf_field() }}
+                            <input name="_method" type="hidden" value="DELETE">
+                            <div class="custom-control custom-checkbox small">
+                                <input type="checkbox"  name="data"  class="custom-control-input" id="data">
+                            <label class="custom-control-label" for="data">Fshini të dhënat e Pacientit?</label>
+                              </div>
+                           
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Jo</button>
+                       
+                           
+                            <button type="submit" form="form{{$id}}" class="btn btn-danger"><i class="fa fa-trash"></i> Fshij</button>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div> ')
+        ->rawColumns(['Menaxhimi'])
+        ->make(true);
+        return $table;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,11 +60,10 @@ class PacientController extends Controller
      */
     public function index()
     {
-        $pacients = Pacient::orderBy('id', 'asc')->paginate(15);
         if(auth()->guest())
             return redirect('/login')->with('error', 'Unathorized Page');
         else
-            return view('pacient.pacient')->with('pacients', $pacients);
+            return view('pacient.pacient');
     }
 
     /**

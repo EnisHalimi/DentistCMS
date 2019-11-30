@@ -60,6 +60,48 @@ function filterUserFunction() {
         ]
       }
     );
+    $('#AppointmentdataTable').DataTable(
+      {
+        "processing": true,
+        "serverSide": true,
+        "ajax":"/appointmentDatatable",
+        "columns": [
+          {"data":"pacient_id"},
+          {"data":"user_id"},
+          {"data":"date_of_appointment"},
+          {"data":"time_of_appointment"},
+          {"data": "Menaxhimi", "bSearchable": false }
+        ]
+      }
+    );
+    $('#VisitdataTable').DataTable(
+      {
+        "processing": true,
+        "serverSide": true,
+        "ajax":"/visitDatatable",
+        "columns": [
+          {"data":"pacient_id"},
+          {"data":"user_id"},
+          {"data":"date_of_visit"},
+          {"data":"time_of_visit"},
+          {"data": "Menaxhimi", "bSearchable": false }
+        ]
+      }
+    );
+
+    $('#TreatmentdataTable').DataTable(
+      {
+        "processing": true,
+        "serverSide": true,
+        "ajax":"/treatmentDatatable",
+        "columns": [
+          {"data":"visit_id"},
+          {"data":"type_of_treatment"},
+          {"data":"duration"},
+          {"data": "Menaxhimi", "bSearchable": false }
+        ]
+      }
+    );
   }
 
 DataTables();

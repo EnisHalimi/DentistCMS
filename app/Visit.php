@@ -21,4 +21,11 @@ class Visit extends Model
     {
         return $this->belongsTo('App\Pacient');
     }
+
+    public static function getVisitPacientName($id)
+    {
+        $visit = Visit::find($id);
+        $pacient = Pacient::find($visit->pacient_id);
+        return $pacient->first_name. ' '.$pacient->last_name;
+    }
 }

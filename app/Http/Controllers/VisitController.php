@@ -6,9 +6,53 @@ use Illuminate\Http\Request;
 use App\Visit;
 use App\Pacient;
 use App\User;
+use DB;
+use DataTables;
 
 class VisitController extends Controller
 {
+
+    function getVisitDataTable()
+    {
+        $visits = DB::table('visits')
+                        ->join('users', 'users.id', '=', 'visits.user_id')
+                        ->join('pacients', 'pacients.id', '=', 'visits.pacient_id')
+                        ->select('visits.*', 'users.name', 'pacients.first_name', 'pacients.last_name', 'pacients.personal_number')
+                        ->get();
+        $table = DataTables::of($visits)
+        ->addColumn('Menaxhimi' ,'<a href="/visit/{{$id}}" class="btn btn-circle btn-secondary"><i class="fa fa-eye"></i></a>
+        <a href="/visit/{{$id}}/edit"  class="btn btn-circle btn-info"><i class="fa fa-pen"></i></a>
+        <button class="btn btn-circle btn-danger" data-toggle="modal" data-target="#fshijModal{{$id}}"><i class="fa fa-trash"></i></button>
+        <div class="modal fade" id="fshijModal{{$id}}" tabindex="-1" role="dialog" aria-labelledby="fshijModalLabel{{$id}}" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="fshijModalLabel{{$id}}">Fshij Vizitën</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        A jeni i sigurtë që doni të vazhdoni?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Jo</button>
+                        <form class="d-inline" method="POST" action="{{ route(\'visit.destroy\',$id)}}" accept-charset="UTF-8">
+                            {{ csrf_field() }}
+                            <input name="_method" type="hidden" value="DELETE">
+                            <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Fshij</button>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div> ')
+        ->editColumn('pacient_id',' <a class="btn btn-circle btn-secondary btn-sm" href="/pacient/{{$pacient_id}}"><i class="fa fa-user"></i></a> {{$first_name}}  {{$last_name}}  {{$personal_number}}')
+        ->editColumn('user_id',' <a class="btn btn-circle btn-secondary btn-sm" href="/user/{{$user_id}}"><i class="fa fa-user-md"></i></a> {{$name}}')
+        ->rawColumns(['Menaxhimi','pacient_id','user_id'])
+        ->make(true);
+        return $table;
+    }
     /**
      * Display a listing of the resource.
      *

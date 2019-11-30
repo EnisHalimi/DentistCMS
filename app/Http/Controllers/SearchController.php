@@ -70,5 +70,38 @@ class SearchController extends Controller
         }
     }
 
+    public function searchVisit(Request $request)
+    {
+        if($request->ajax())
+        {
+            $output="";
+            $visits=DB::table('visits')
+            ->join('users', 'users.id', '=', 'visits.user_id')
+            ->join('pacients', 'pacients.id', '=', 'visits.pacient_id')
+            ->select('visits.*', 'users.name', 'pacients.first_name', 'pacients.last_name', 'pacients.personal_number')
+            ->where('pacients.first_name','LIKE','%'.$request->search."%")
+            ->orWhere('pacients.last_name','LIKE','%'.$request->search."%")
+            ->orWhere('visits.date_of_visit','LIKE','%'.$request->search."%")
+            ->limit(25)
+            ->get();
+            if($visits)
+            {
+                foreach ($visits as $key => $visit) 
+                {
+                    $output.="<tr>".
+                    "<td>".$visit->first_name."</td>".
+                    "<td>".$visit->last_name."</td>".
+                    "<td>".$visit->date_of_visit."</td>".
+                    "<td>".$visit->time_of_visit."</td>".
+                    "<td><a class=\"btn btn-circle btn-secondary btn-sm\"   data-dismiss=\"modal\" onclick=\"document.getElementById('visit').value = '".$visit->first_name.' '.$visit->last_name.' ('.$visit->date_of_visit.' | '.$visit->time_of_visit.') '. "';
+                        document.getElementById('visit-id').value = '".$visit->id."';\" ><i class=\"fa text-light fa-arrow-right\"></i></a>
+                        </td>".
+                    "</tr>";
+                }   
+                return Response($output);
+            }
+        }
+    }
+
     
 }

@@ -87,7 +87,7 @@
       </li>
       <li class="nav-item  @yield('user')">
         <a class="nav-link" href="/user">
-          <i class="fas fa-fw fa-user-nurse"></i>
+          <i class="fas fa-fw fa-user-md"></i>
           <span>Perdoruesit</span></a>
       </li>
       <div class="text-center d-none d-md-inline">
@@ -320,9 +320,8 @@
       }
       });
       })
-      </script>
-      <script type="text/javascript">
-        $('#searchUser').on('keyup',function(){
+
+      $('#searchUser').on('keyup',function(){
           $value=$(this).val();
           $.ajax({
         type : 'get',
@@ -333,7 +332,19 @@
         }
         });
         })
-        </script>
+
+        $('#searchVisit').on('keyup',function(){
+          $value=$(this).val();
+          $.ajax({
+        type : 'get',
+        url : '{{URL::to('searchVisit')}}',
+        data:{'search':$value},
+        success:function(data){
+        $('#visit-table-body').html(data);
+        }
+        });
+        })
+      </script>
       <script type="text/javascript">
       $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
       </script>

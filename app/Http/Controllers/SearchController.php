@@ -103,5 +103,38 @@ class SearchController extends Controller
         }
     }
 
+    public function searchService(Request $request)
+    {
+        if($request->ajax())
+        {
+            $output="";
+            $services=DB::table('services')
+            ->limit(25)
+            ->get();
+            if($services)
+            {
+                foreach ($services as $key => $service) 
+                {
+                    $output.="<tr>".
+                    "<td>".$service->name."</td>".
+                    "<td>".$service->price."</td>".
+                    "<td>".$service->discount."</td>".
+                    "<td><a class=\"btn btn-circle btn-secondary btn-sm\"   data-dismiss=\"modal\" onclick=\"
+                        var sel = document.getElementById('services');    
+                        var opt = document.createElement('option');
+                        var inp = document.getElementById('service-list');
+                        opt.appendChild( document.createTextNode('".$service->name."') );
+                        opt.value = '".$service->id."';
+                        sel.appendChild(opt); 
+                        inp.value += '".$service->id."' +   ',';
+                        \" ><i class=\"fa text-light fa-arrow-right\"></i></a>
+                        </td>".
+                    "</tr>";
+                }   
+                return Response($output);
+            }
+        }
+    }
+
     
 }

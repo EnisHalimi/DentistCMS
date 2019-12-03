@@ -3,20 +3,55 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Services;
+use DataTables;
 
 class ServicesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    function getServiceDataTable()
+    {
+        $service = Services::get();
+        $table = DataTables::of($service)
+        ->addColumn('Menaxhimi' ,'<a href="/services/{{$id}}" class="btn btn-circle btn-secondary "><i class="fa fa-eye"></i></a>
+        <a href="/services/{{$id}}/edit"  class="btn btn-circle btn-primary "><i class="fa fa-pen"></i></a>
+        <button class="btn btn-circle btn-danger " data-toggle="modal" data-target="#fshijModal{{$id}}"><i class="fa fa-trash"></i></button>
+        <div class="modal fade" id="fshijModal{{$id}}" tabindex="-1" role="dialog" aria-labelledby="fshijModalLabel{{$id}}" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="fshijModalLabel{{$id}}">Fshij Shërbimin</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                    A jeni i sigurtë që doni të vazhdoni?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Jo</button>
+                    <form class="d-inline" method="POST" action="{{ route(\'services.destroy\',$id)}}" accept-charset="UTF-8">
+                        {{ csrf_field() }}
+                        <input name="_method" type="hidden" value="DELETE">
+                        <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Fshij</button>
+                    </form>
+                    
+                </div>
+                </div>
+            </div>
+        </div> ')
+        ->editColumn('discount','{{$discount}} %')
+        ->editColumn('price','{{$price}} €')
+        ->rawColumns(['Menaxhimi'])
+        ->make(true);
+        return $table;
+    }
+
     public function index()
     {
         if(auth()->guest())
-        return redirect('/login')->with('error', 'Unathorized Page');
+            return redirect('/login')->with('error', 'Unathorized Page');
         else
-        return view('service.service');
+            return view('service.service');
     }
 
     /**
@@ -26,7 +61,10 @@ class ServicesController extends Controller
      */
     public function create()
     {
-        //
+        if(auth()->guest())
+        return redirect('/login')->with('error', 'Unathorized Page');
+    else
+        return view('service.create');
     }
 
     /**
@@ -37,7 +75,25 @@ class ServicesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(auth()->guest())
+        {
+            return redirect('/')->with('error','Unathorized Page'); 
+        }
+        else
+        {
+            $this->validate($request,[
+                'name'=> 'required|min:6|string',
+                'price' => 'required|numeric',
+                'discount' => 'required|numeric',
+            ]);
+            
+            $service = new Services;
+            $service->name = $request->input('name');
+            $service->price = $request->input('price');
+            $service->discount = $request->input('discount');
+            $service->save();
+            return redirect('/services')->with('success','U shtua shërbimi');
+        }
     }
 
     /**
@@ -48,7 +104,11 @@ class ServicesController extends Controller
      */
     public function show($id)
     {
-        //
+        $service = Services::find($id);
+        if(auth()->guest())
+            return redirect('/login')->with('error', 'Unathorized Page');
+        else
+            return view('service.show')->with('service',$service);
     }
 
     /**
@@ -59,7 +119,11 @@ class ServicesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $service = Services::find($id);
+        if(auth()->guest())
+            return redirect('/login')->with('error', 'Unathorized Page');
+        else
+            return view('service.edit')->with('service',$service);
     }
 
     /**
@@ -71,7 +135,25 @@ class ServicesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if(auth()->guest())
+        {
+            return redirect('/')->with('error','Unathorized Page'); 
+        }
+        else
+        {
+            $this->validate($request,[
+                'name'=> 'required|min:6|string',
+                'price' => 'required|numeric',
+                'discount' => 'required|numeric',
+            ]);
+            
+            $service = Services::find($id);
+            $service->name = $request->input('name');
+            $service->price = $request->input('price');
+            $service->discount = $request->input('discount');
+            $service->save();
+            return redirect('/services')->with('success','U ndryshua shërbimi');
+        }
     }
 
     /**
@@ -82,6 +164,16 @@ class ServicesController extends Controller
      */
     public function destroy($id)
     {
-        //
+         
+        $service = Services::find($id);
+        if(auth()->guest())
+        {
+            return redirect('/')->with('error','Unathorized Page'); 
+        }
+        else
+        {
+            $service->delete();           
+            return redirect('/services')->with('success','Është fshirë Shërbimi');
+        }
     }
 }

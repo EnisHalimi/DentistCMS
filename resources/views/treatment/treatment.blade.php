@@ -11,7 +11,7 @@
         <h1 class="h3 mb-4 text-gray-800">Trajtimet</h1>
       </div>
       <div class="col-sm-6 ">
-          <a href="/treatment/create" class="btn btn-success float-right"><i class="fa fa-plus"></i> Krijo</a>
+          <a href="/treatment/create" class="btn btn-success float-right"><i class="fa fa-plus"></i></a>
         </div>
     </div>
     
@@ -26,8 +26,8 @@
           <table class="table table-bordered" id="TreatmentdataTable" width="100%" cellspacing="0">
             <thead>
               <tr>
-                <th>Vizita</th>
-                <th>Trajtimi</th>
+                <th>Pacienti</th>
+                <th>Data e Fillimit</th>
                 <th>Kohëzgjatja</th>
                 <th>Menaxhimi</th>
               </tr>

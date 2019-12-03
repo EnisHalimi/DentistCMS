@@ -18,8 +18,18 @@
                         {{ csrf_field() }}
                 <div class="form-group ">
                     <label class="text-xs" for="pacient">Pacienti</label>
-                    <input  placeholder="Pacienti" class="form-control form-control-user" id="pacient" name="pacient"  data-toggle="modal" data-target="#pacientModal"/>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <button class="btn btn-outline-primary" type="button"  data-toggle="modal" data-target="#pacientModal"><i class="fa fa-plus"></i> </button>
+                        </div>
+                    <input  placeholder="Pacienti" class="form-control form-control-user" id="pacient" name="pacient"  />
                     <input  hidden id="pacient-id"  name="pacient-id"/>
+                    <div class="input-group-append">
+                        <button type="button"  class="btn btn-outline-danger" onclick="document.getElementById('pacient').value=''; document.getElementById('pacient-id').value='';" >
+                          <i class="fa fa-trash"></i>
+                        </button>
+                      </div>
+                </div>
                     <div class="modal fade" id="pacientModal" tabindex="-1" role="dialog" aria-labelledby="pacientModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                           <div class="modal-content">
@@ -55,8 +65,18 @@
                 </div>
                 <div class="form-group ">
                         <label class="text-xs" for="user">Dentisti</label>
-                        <input  placeholder="Dentisti" class="form-control form-control-user" id="user" name="user"  data-toggle="modal" data-target="#userModal" />
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <button class="btn btn-outline-primary" type="button"  data-toggle="modal" data-target="#userModal"><i class="fa fa-plus"></i> </button>
+                            </div>
+                        <input  placeholder="Dentisti" class="form-control form-control-user" id="user" name="user"   />
                         <input  hidden id="user-id"  name="user-id"/>
+                        <div class="input-group-append">
+                            <button type="button"  class="btn btn-outline-danger" onclick="document.getElementById('pacient').value=''; document.getElementById('pacient-id').value='';" >
+                              <i class="fa fa-trash"></i>
+                            </button>
+                          </div>
+                    </div>
                         <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                               <div class="modal-content">
@@ -130,9 +150,10 @@
                           <option>19:30</option>
                         </select>
                 </div>
-                  <button type="submit"  class="btn btn-primary btn-user btn-block">
-                  Regjistro
-                </button>
+                <div class="form-group">
+                <a class="btn btn-circle btn-secondary" href="{{ url()->previous() }}" ><i class="fa fa-chevron-left"></i></a>
+                  <button type="submit"  class="btn btn-circle btn-primary float-right"><i class="fa fa-save"></i></button>
+                </div>
               </form>
               <hr>
             </div>

@@ -104,9 +104,10 @@
                                             @endif
                               </div>
                 </div>
-                  <button type="submit"  class="btn btn-primary btn-user btn-block">
-                  Regjistro
-                </button>
+                <div class="form-group">
+                        <a class="btn btn-circle btn-secondary" href="{{ url()->previous() }}" ><i class="fa fa-chevron-left"></i></a>
+                          <button type="submit"  class="btn btn-circle btn-primary float-right"><i class="fa fa-save"></i></button>
+                        </div>
               </form>
               <hr>
             </div>

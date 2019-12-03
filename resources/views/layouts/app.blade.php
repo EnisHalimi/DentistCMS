@@ -15,10 +15,10 @@
     <!-- SB CSS -->
     <link href="{{ asset('sb/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-    <link href="{{ asset('sb/css/sb-admin-2.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
     <link href="{{ asset('sb/vendor/jquery-ui/jquery-ui.css') }}" rel="stylesheet">
     <link href="{{ asset('sb/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('sb/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
       
 </head>
@@ -153,15 +153,29 @@
               <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
+                @if(App\Notifications::getNotificationsNumber() > 0)
                 <span class="badge badge-danger badge-counter">{{App\Notifications::getNotificationsNumber()}}</span>
+                @else 
+                @endif
+                
               </a>
               <!-- Dropdown - Alerts -->
               <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
                 <h6 class="dropdown-header">
                   Njoftimet
                 </h6>
-                @foreach(App\Notifications::getNotifications() as $not)
+                @if(App\Notifications::getNotificationsNumber() === 0)
                 <a class="dropdown-item d-flex align-items-center" href="/notifications">
+                  <div class="mr-3">
+                  </div>
+                  <div>
+                    <span>Nuk ka njoftime</span>
+                  </div>
+                </a>
+
+                @else
+                @foreach(App\Notifications::getNotifications() as $not)
+                <div class="dropdown-item d-flex align-items-center" >
                   <div class="mr-3">
                     <div class="icon-circle bg-primary">
                       <i class="fas fa-file-alt text-white"></i>
@@ -171,9 +185,17 @@
                     <div class="small text-gray-500">{{$not->created_at}}</div>
                     <span class="font-weight-bold">{{$not->description}}!</span>
                   </div>
-                </a>
+                  <div class="float-right">
+                      <button type="button" class="close" >
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                  </div>
+                </div>
                 @endforeach
-                <a class="dropdown-item text-center small text-gray-500" href="/notifications">Show All Alerts</a>
+                
+                
+                @endif
+                <a class="dropdown-item text-center small text-gray-500" href="/notifications">Shiko të gjitha njoftimet</a>
               </div>
             </li>
 
@@ -341,6 +363,18 @@
         data:{'search':$value},
         success:function(data){
         $('#visit-table-body').html(data);
+        }
+        });
+        })
+
+        $('#searchService').on('keyup',function(){
+          $value=$(this).val();
+          $.ajax({
+        type : 'get',
+        url : '{{URL::to('searchService')}}',
+        data:{'search':$value},
+        success:function(data){
+        $('#service-table-body').html(data);
         }
         });
         })

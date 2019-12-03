@@ -39,10 +39,10 @@ class PacientController extends Controller
                            
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Jo</button>
+                        <button type="button" class="btn btn-circle btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i></button>
                        
                            
-                            <button type="submit" form="form{{$id}}" class="btn btn-danger"><i class="fa fa-trash"></i> Fshij</button>
+                            <button type="submit" form="form{{$id}}" class="btn btn-circle btn-danger"><i class="fa fa-trash"></i></button>
                         </form>
                         
                     </div>

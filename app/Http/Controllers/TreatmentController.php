@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use DB;
 use App\User;
 use App\Treatment;
+use App\Services;
 use DataTables;
 
 class TreatmentController extends Controller
@@ -13,11 +14,7 @@ class TreatmentController extends Controller
 
     function getTreatmentDataTable()
     {
-        $treatment = DB::table('treatments')
-        ->join('visits', 'visits.id', '=', 'treatments.visit_id')
-        ->join('pacients', 'pacients.id', '=', 'visits.pacient_id')
-        ->select('treatments.*','pacients.first_name','pacients.last_name')
-        ->get();
+        $treatment = Treatment::select('pacient_id','starting_date','duration','id');
         $table = DataTables::of($treatment)
         ->addColumn('Menaxhimi' ,'<a href="/treatment/{{$id}}" class="btn btn-circle btn-secondary "><i class="fa fa-eye"></i></a>
         <a href="/treatment/{{$id}}/edit"  class="btn btn-circle btn-primary "><i class="fa fa-pen"></i></a>
@@ -46,8 +43,8 @@ class TreatmentController extends Controller
                 </div>
             </div>
         </div> ')
-        ->editColumn('visit_id','<a class="btn btn-circle btn-secondary btn-sm" href="/visit/{{$visit_id}}"><i class="fa fa-eye"></i></a> {{$first_name}}  {{$last_name}} ')
-        ->rawColumns(['Menaxhimi','visit_id'])
+        ->editColumn('pacient_id','<a class="btn btn-circle btn-secondary btn-sm" href="/pacient/{{$pacient_id}}"><i class="fa fa-eye"></i></a> {{App\Pacient::getPacientName($pacient_id)}} ')
+        ->rawColumns(['Menaxhimi','pacient_id'])
         ->make(true);
         return $table;
     }
@@ -71,16 +68,10 @@ class TreatmentController extends Controller
      */
     public function create()
     {
-        $visits = DB::table('visits')
-                        ->join('users', 'users.id', '=', 'visits.user_id')
-                        ->join('pacients', 'pacients.id', '=', 'visits.pacient_id')
-                        ->select('visits.*', 'users.name', 'pacients.first_name', 'pacients.last_name', 'pacients.personal_number')
-                        ->get();
-        $users = User::get();
         if(auth()->guest())
             return redirect('/login')->with('error', 'Unathorized Page');
         else
-            return view('treatment.create')->with('visits',$visits)->with('users',$users);
+            return view('treatment.create');
     }
 
     /**
@@ -98,16 +89,27 @@ class TreatmentController extends Controller
         else
         {
             $this->validate($request,[
-                'visit-id'=> 'required|numeric',
-                'type_of_treatment' => 'required|min:3',
+                'pacient-id'=> 'required|numeric',
+                'starting_date' => 'required|date',
                 'duration' => 'required|min:3',
+                'service-list' => 'required',
             ]);
             
             $treatment = new Treatment;
-            $treatment->visit_id = $request->input('visit-id');
-            $treatment->type_of_treatment = $request->input('type_of_treatment');
+            $treatment->pacient_id = $request->input('pacient-id');
+            $treatment->starting_date = $request->input('starting_date');
             $treatment->duration = $request->input('duration');
+            $services  = explode(",",$request->input('service-list'));
             $treatment->save();
+            foreach($services as $service)
+            {
+                if($service !== ' ')
+                {   
+                    $temp = Services::find($service);
+                    $treatment->services()->attach($temp);
+                }
+              
+            }
             return redirect('/treatment')->with('success','U shtua trajtimi');
         }
     }
@@ -121,10 +123,11 @@ class TreatmentController extends Controller
     public function show($id)
     {
         $treatment = Treatment::find($id);
+        $services = $treatment->services()->where('treatment_id','=',$id)->get();
         if(auth()->guest())
             return redirect('/login')->with('error', 'Unathorized Page');
         else
-            return view('treatment.show')->with('treatment',$treatment);
+            return view('treatment.show')->with('treatment',$treatment)->with('services',$services);
     }
 
     /**
@@ -136,10 +139,13 @@ class TreatmentController extends Controller
     public function edit($id)
     {
         $treatment = Treatment::find($id);
+        $services_id = $treatment->services()->where('treatment_id','=',$id)->select('services_id')->get();
+        $services = $treatment->services()->where('treatment_id','=',$id)->get();
+        
         if(auth()->guest())
             return redirect('/login')->with('error', 'Unathorized Page');
         else
-            return view('treatment.edit')->with('treatment',$treatment);
+            return view('treatment.edit')->with('treatment',$treatment)->with('services_id',$services_id)->with('services',$services);;
     }
 
     /**
@@ -158,16 +164,28 @@ class TreatmentController extends Controller
         else
         {
             $this->validate($request,[
-                'visit-id'=> 'required|numeric',
-                'type_of_treatment' => 'required|min:3',
+                'pacient-id'=> 'required|numeric',
+                'starting_date' => 'required|date',
                 'duration' => 'required|min:3',
+                'service-list' => 'required',
             ]);
             
             $treatment = Treatment::find($id);
-            $treatment->visit_id = $request->input('visit-id');
-            $treatment->type_of_treatment = $request->input('type_of_treatment');
+            $treatment->pacient_id = $request->input('pacient-id');
+            $treatment->starting_date = $request->input('starting_date');
             $treatment->duration = $request->input('duration');
+            $services  = explode(",",$request->input('service-list'));
             $treatment->save();
+            $treatment->services()->detach();
+            foreach($services as $service)
+            {
+                if($service !== ' ')
+                {   
+                    $temp = Services::find($service);
+                    $treatment->services()->attach($temp);
+                }
+              
+            }
             return redirect('/treatment')->with('success','U ndryshua trajtimi');
         }
     }
@@ -188,6 +206,7 @@ class TreatmentController extends Controller
         }
         else
         {
+            $treatment->services()->detach();
             $treatment->delete();           
             return redirect('/treatment')->with('success','Është fshirë Trajtimi');
         }

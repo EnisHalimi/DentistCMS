@@ -37,14 +37,14 @@
                     </table>
                    
                 <hr>
-                <a class="btn btn-secondary" href="{{ url()->previous() }}" ><i class="fa fa-chevron-left"></i> Kthehu</a>
-                        <a href="/appointment/{{$appointment->id}}/edit"  class="btn btn-info"><i class="fa fa-pen"></i> Ndrysho</a>
-                        <button class="btn btn-danger" data-toggle="modal" data-target="#fshijModal{{$appointment->id}}"><i class="fa fa-trash"></i> Fshij</button>
+                <a class="btn btn-secondary btn-circle" href="{{ url()->previous() }}" ><i class="fa fa-chevron-left"></i></a>
+                        <a href="/appointment/{{$appointment->id}}/edit"  class="btn btn-circle btn-primary"><i class="fa fa-pen"></i></a>
+                        <button class="btn btn-circle btn-danger" data-toggle="modal" data-target="#fshijModal{{$appointment->id}}"><i class="fa fa-trash"></i></button>
                         <div class="modal fade" id="fshijModal{{$appointment->id}}" tabindex="-1" role="dialog" aria-labelledby="fshijModalLabel{{$appointment->id}}" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="fshijModalLabel{{$appointment->id}}">Fshij Përdoruesin</h5>
+                                        <h5 class="modal-title" id="fshijModalLabel{{$appointment->id}}">Fshij Terminin</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>
@@ -53,11 +53,11 @@
                                         A jeni i sigurtë që doni të vazhdoni?
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Jo</button>
+                                        <button type="button" class="btn btn-circle btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i></button>
                                         <form class="d-inline" method="POST" action="{{ route('appointment.destroy',$appointment->id)}}" accept-charset="UTF-8">
                                             {{ csrf_field() }}
                                             <input name="_method" type="hidden" value="DELETE">
-                                            <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Fshij</button>
+                                            <button type="submit" class="btn btn-circle btn-danger"><i class="fa fa-trash"></i></button>
                                         </form>
                                         
                                     </div>

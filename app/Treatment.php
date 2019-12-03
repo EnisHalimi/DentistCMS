@@ -15,4 +15,9 @@ class Treatment extends Model
     {
         return $this->hasOne('App\Report');
     }
+
+    public function services()
+    {
+        return $this->belongsToMany('App\Services');
+    }
 }

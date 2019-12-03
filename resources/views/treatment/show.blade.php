@@ -11,25 +11,31 @@
         <img src="https://www.onlinelogomaker.com/blog/wp-content/uploads/2017/09/Dental-Logo-Design.jpg" class="img-fluid" />
         </div>
         <div class="col-lg-7">
-          <div class="p-5">
+          <div class="p-5">+
             <div class="text-center">
               <h1 class="h4 text-gray-900 mb-4">Të dhënat e trajtimit</h1>
             </div>
             <table class="table table-striped ">
                     <tbody>
                         <tr>
-                            <th>Vizita:</th>
-                            <td scope="row"><a class="btn btn-circle btn-secondary btn-sm" href="/visit/{{$treatment->visit_id}}"><i class="fa fa-eye"></i></a> {{App\Visit::getVisitPacientName($treatment->visit_id)}}</td>
+                            <th>Pacienti:</th>
+                            <td scope="row"><a class="btn btn-circle btn-secondary btn-sm" href="/pacient/{{$treatment->pacient_id}}"><i class="fa fa-eye"></i></a> {{App\Pacient::getPacientName($treatment->pacient_id)}}</td>
                         </tr>
                        
                         <tr>
-                            <th>Trajtimi</th>
-                            <td scope="row">{{$treatment->type_of_treatment}}</td>
+                            <th>Data e fillimit</th>
+                            <td scope="row">{{$treatment->starting_date}}</td>
                         </tr>
                         <tr>
                                 <th>Kohëzgjatja:</th>
                                 <td scope="row">{{$treatment->duration}} </td>
-                            </tr>
+                        </tr>
+                        @foreach($services as $service)
+                        <tr>
+                                <th>Shërbimi:</th>
+                                <td scope="row">{{$service->name}} - {{$service->price}} €</td>
+                        </tr>
+                        @endforeach
                         </tbody>
                 </table>
                

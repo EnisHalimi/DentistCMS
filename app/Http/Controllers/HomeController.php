@@ -11,6 +11,8 @@ use App\Report;
 use App\Services;
 use App\Visit;
 use App\Contact;
+use App\Notifications;
+use DataTables;
 
 class HomeController extends Controller
 {
@@ -54,4 +56,24 @@ class HomeController extends Controller
         }
         return response()->json($list);
     }
+
+    public function notifications()
+    {
+        $notifications = Notifications::orderBy('created_at', 'DESC');
+        return view('notifications')->with('notifications', $notifications);
+                            
+    }
+
+    public function getNotificationsDataTable()
+    {
+        $notifications = Notifications::get();
+        $table = DataTables::of($notifications)
+        ->editColumn ('description','@if($opened) {{$description}} @else <p style="color:black"><b>{{$description}}</b></p> @endif')
+        ->editColumn ('created_at','@if($opened) {{$created_at}} @else  <p style="color:black"><b>{{$created_at}}</b></p> @endif')
+        ->rawColumns(['description','created_at'])
+        ->make(true);
+        return $table;
+                            
+    }
+    
 }

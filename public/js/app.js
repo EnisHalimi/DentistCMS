@@ -207,14 +207,39 @@ function DataTables() {
     "serverSide": true,
     "ajax": "/treatmentDatatable",
     "columns": [{
-      "data": "visit_id"
+      "data": "pacient_id"
     }, {
-      "data": "type_of_treatment"
+      "data": "starting_date"
     }, {
       "data": "duration"
     }, {
       "data": "Menaxhimi",
       "bSearchable": false
+    }]
+  });
+  $('#ServicedataTable').DataTable({
+    "processing": true,
+    "serverSide": true,
+    "ajax": "/serviceDatatable",
+    "columns": [{
+      "data": "name"
+    }, {
+      "data": "price"
+    }, {
+      "data": "discount"
+    }, {
+      "data": "Menaxhimi",
+      "bSearchable": false
+    }]
+  });
+  $('#NotificationsdataTable').DataTable({
+    "processing": true,
+    "serverSide": true,
+    "ajax": "/notificationsDatatable",
+    "columns": [{
+      "data": "description"
+    }, {
+      "data": "created_at"
     }]
   });
 }

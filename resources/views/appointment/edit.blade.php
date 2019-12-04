@@ -6,8 +6,8 @@
       <div class="card-body p-0">
         <!-- Nested Row within Card Body -->
         <div class="row">
-          <div class="col-lg-5 d-none d-lg-block ">
-          <img src="https://www.onlinelogomaker.com/blog/wp-content/uploads/2017/09/Dental-Logo-Design.jpg" class="img-fluid" />
+          <div class="col-lg-5 d-flex justify-content-center ">
+          <img src="{{App\User::getLogo()}}" class="img-fluid" />
           </div>
           <div class="col-lg-7">
             <div class="p-5">
@@ -73,7 +73,7 @@
                                 <input  value="{{App\User::getUser($appointment->user_id)}}" placeholder="Dentisti" class="form-control form-control-user" id="user" name="user" data-toggle="modal" data-target="#userModal"  />
                                 <input  hidden id="user-id"  value="{{$appointment->user_id}}" name="user-id"/>
                                 <div class="input-group-append">
-                                    <button type="button"  class="btn btn-outline-danger" onclick="document.getElementById('pacient').value=''; document.getElementById('pacient-id').value='';" >
+                                    <button type="button"  class="btn btn-outline-danger" onclick="document.getElementById('user').value=''; document.getElementById('user-id').value='';" >
                                       <i class="fa fa-trash"></i>
                                     </button>
                                   </div>

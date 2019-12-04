@@ -11,7 +11,7 @@
         <h1 class="h3 mb-4 text-gray-800">Shërbimet</h1>
       </div>
       <div class="col-sm-6 ">
-          <a href="/services/create" class="btn btn-success float-right"><i class="fa fa-plus"></i> Krijo</a>
+          <a href="/services/create" class="btn btn-circle btn-success float-right"><i class="fa fa-plus"></i></a>
         </div>
     </div>
     

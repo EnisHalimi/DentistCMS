@@ -7,8 +7,8 @@
       <div class="card-body p-0">
         <!-- Nested Row within Card Body -->
         <div class="row">
-          <div class="col-lg-5 d-none d-lg-block ">
-          <img src="https://www.onlinelogomaker.com/blog/wp-content/uploads/2017/09/Dental-Logo-Design.jpg" class="img-fluid" />
+          <div class="col-lg-5 d-flex justify-content-center ">
+          <img src="{{App\User::getLogo()}}" class="img-fluid" />
           </div>
           <div class="col-lg-7">
             <div class="p-5">
@@ -52,12 +52,13 @@
                                 @endif
                   </div>
                   <div class="col-sm-6">
-                    <input id="password-confirm" name="password_confirmation" required type="password" class="form-control form-control-user" placeholder="Repeat Password">
+                    <input id="password-confirm" name="password_confirmation" required type="password" class="form-control form-control-user" placeholder="Përsërit Password">
                   </div>
                 </div>
-                  <button type="submit"  class="btn btn-primary btn-user btn-block">
-                  Regjistro
-                </button>
+                <div class="form-group">
+                  <a class="btn btn-circle btn-secondary" href="{{ url()->previous() }}" ><i class="fa fa-chevron-left"></i></a>
+                    <button type="submit"  class="btn btn-circle btn-primary float-right"><i class="fa fa-save"></i></button>
+                  </div>
               </form>
               <hr>
             </div>

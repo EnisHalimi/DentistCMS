@@ -11,7 +11,7 @@
             <h1 class="h3 mb-4 text-gray-800">Vizitat</h1>
           </div>
           <div class="col-sm-6 ">
-              <a href="/visit/create" class="btn btn-success float-right"><i class="fa fa-plus"></i> Krijo</a>
+              <a href="/visit/create" class="btn btn-circle btn-success float-right"><i class="fa fa-plus"></i></a>
             </div>
         </div>
         

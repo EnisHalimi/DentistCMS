@@ -21,7 +21,7 @@ class VisitController extends Controller
                         ->get();
         $table = DataTables::of($visits)
         ->addColumn('Menaxhimi' ,'<a href="/visit/{{$id}}" class="btn btn-circle btn-secondary"><i class="fa fa-eye"></i></a>
-        <a href="/visit/{{$id}}/edit"  class="btn btn-circle btn-info"><i class="fa fa-pen"></i></a>
+        <a href="/visit/{{$id}}/edit"  class="btn btn-circle btn-primary"><i class="fa fa-pen"></i></a>
         <button class="btn btn-circle btn-danger" data-toggle="modal" data-target="#fshijModal{{$id}}"><i class="fa fa-trash"></i></button>
         <div class="modal fade" id="fshijModal{{$id}}" tabindex="-1" role="dialog" aria-labelledby="fshijModalLabel{{$id}}" aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -36,11 +36,11 @@ class VisitController extends Controller
                         A jeni i sigurtë që doni të vazhdoni?
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Jo</button>
+                        <button type="button" class="btn btn-circle btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i></button>
                         <form class="d-inline" method="POST" action="{{ route(\'visit.destroy\',$id)}}" accept-charset="UTF-8">
                             {{ csrf_field() }}
                             <input name="_method" type="hidden" value="DELETE">
-                            <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Fshij</button>
+                            <button type="submit" class="btn btn-circle btn-danger"><i class="fa fa-trash"></i></button>
                         </form>
                         
                     </div>

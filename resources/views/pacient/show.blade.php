@@ -6,8 +6,8 @@
     <div class="card-body p-0">
         <!-- Nested Row within Card Body -->
         <div class="row">
-            <div class="col-lg-5 d-none d-lg-block ">
-                <img src="https://www.onlinelogomaker.com/blog/wp-content/uploads/2017/09/Dental-Logo-Design.jpg" class="img-fluid" />
+            <div class="col-lg-5 d-flex justify-content-center ">
+                <img src="{{App\User::getLogo()}}" class="img-fluid" />
             </div>
         <div class="col-lg-7">
             <div class="p-5">
@@ -50,6 +50,14 @@
                                         <th>Qyteti:</th>
                                         <td scope="row">{{$pacient->city}} </td>
                                     </tr>
+                                    <tr>
+                                            <th>Telefoni:</th>
+                                            <td scope="row">{{$pacient->phone}} </td>
+                                        </tr>
+                                        <tr>
+                                                <th>Email:</th>
+                                                <td scope="row">{{$pacient->email}} </td>
+                                            </tr>
                         </tbody>
                     </table>
                 <hr>

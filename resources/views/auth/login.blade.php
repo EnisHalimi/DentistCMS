@@ -13,8 +13,8 @@
           <div class="card-body p-0">
             <!-- Nested Row within Card Body -->
             <div class="row">
-              <div class="col-lg-6 d-none d-lg-block ">
-              <img src="https://www.onlinelogomaker.com/blog/wp-content/uploads/2017/09/Dental-Logo-Design.jpg" class="img-fluid" /></div>
+              <div class="col-lg-6  d-flex justify-content-center">
+              <img src="{{App\User::getLogo()}}" class="img-fluid text-center" /></div>
               <div class="col-lg-6">
                 <div class="p-5">
                   <div class="text-center">
@@ -41,7 +41,7 @@
                     <div class="form-group">
                       <div class="custom-control custom-checkbox small">
                         <input type="checkbox"  name="remember" {{ old('remember') ? 'checked' : '' }} class="custom-control-input" id="customCheck">
-                        <label class="custom-control-label" for="customCheck">Remember Me</label>
+                        <label class="custom-control-label" for="customCheck">Mbaj në mend</label>
                       </div>
                     </div>
                     <button button type="submit"  class="btn btn-primary btn-user btn-block">
@@ -49,9 +49,7 @@
                     </button>
                   </form>
                   <hr>
-                  <div class="text-center">
-                    <a class="small"  href="{{ route('password.request') }}">Forgot Password?</a>
-                  </div>
+                  
                 </div>
               </div>
             </div>

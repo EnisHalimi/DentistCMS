@@ -102,6 +102,7 @@ class PacientController extends Controller
                 'address'=> 'required|min:6|string|max:255|regex:/^[\w&.\-\s]*$/',
                 'residence'=> 'required|min:6|string|max:255|regex:/^[\w&.\-\s]*$/',
                 'city'=> 'required|min:6|string|max:255|regex:/^[\w&.\-\s]*$/',
+                'phone'=> 'required|min:9|numeric',
             ]);
             $pacient = new Pacient;
             $pacient->first_name = $request->input('first_name');
@@ -113,6 +114,8 @@ class PacientController extends Controller
             $pacient->address = $request->input('address');
             $pacient->residence = $request->input('residence');
             $pacient->city = $request->input('city');
+            $pacient->phone = $request->input('phone');
+            $pacient->email = $request->input('email');
             $pacient->save();
             return redirect('/pacient')->with('success','U shtua Pacienti');
         }
@@ -172,6 +175,7 @@ class PacientController extends Controller
                 'address'=> 'required|min:6|string|max:255|regex:/^[\w&.\-\s]*$/',
                 'residence'=> 'required|min:6|string|max:255|regex:/^[\w&.\-\s]*$/',
                 'city'=> 'required|min:6|string|max:255|regex:/^[\w&.\-\s]*$/',
+                'phone'=> 'required|min:9|numeric',
             ]);
             $pacient =  Pacient::find($id);
             $pacient->first_name = $request->input('first_name');
@@ -183,6 +187,8 @@ class PacientController extends Controller
             $pacient->address = $request->input('address');
             $pacient->residence = $request->input('residence');
             $pacient->city = $request->input('city');
+            $pacient->phone = $request->input('phone');
+            $pacient->email = $request->input('email');
             $pacient->save();
             return redirect('/pacient')->with('success','U ndryshua Pacienti');
         }

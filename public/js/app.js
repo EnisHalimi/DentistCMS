@@ -232,6 +232,21 @@ function DataTables() {
       "bSearchable": false
     }]
   });
+  $('#ReportdataTable').DataTable({
+    "processing": true,
+    "serverSide": true,
+    "ajax": "/reportDatatable",
+    "columns": [{
+      "data": "pacient_id"
+    }, {
+      "data": "starting_date"
+    }, {
+      "data": "created_at"
+    }, {
+      "data": "Menaxhimi",
+      "bSearchable": false
+    }]
+  });
   $('#NotificationsdataTable').DataTable({
     "processing": true,
     "serverSide": true,

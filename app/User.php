@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use DB;
 
 class User extends Authenticatable
 {
@@ -47,6 +48,12 @@ class User extends Authenticatable
     {
         $user = User::find($id);
         return $user->name;
+    }
+
+    public static function getLogo()
+    {
+        $settings = DB::table('settings')->first();
+        return asset('img/'.$settings->logo.'');
     }
 
 }

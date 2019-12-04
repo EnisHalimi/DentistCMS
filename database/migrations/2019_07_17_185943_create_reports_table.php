@@ -16,9 +16,9 @@ class CreateReportsTable extends Migration
         Schema::create('reports', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('treatment_id')->unsigned();
-            $table->integer('user_id')->unsigned();
+            $table->integer('pacient_id')->unsigned();
             $table->text('description');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('pacient_id')->references('id')->on('pacients');
             $table->foreign('treatment_id')->references('id')->on('treatments');
             $table->timestamps();
         });

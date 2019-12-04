@@ -13,6 +13,7 @@ use App\Visit;
 use App\Contact;
 use App\Notifications;
 use DataTables;
+use DB;
 
 class HomeController extends Controller
 {
@@ -61,6 +62,13 @@ class HomeController extends Controller
     {
         $notifications = Notifications::orderBy('created_at', 'DESC');
         return view('notifications')->with('notifications', $notifications);
+                            
+    }
+
+    public function settings()
+    {
+        $settings = DB::table('settings')->first();
+        return view('settings')->with('settings', $settings);
                             
     }
 

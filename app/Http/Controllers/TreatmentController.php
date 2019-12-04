@@ -32,18 +32,18 @@ class TreatmentController extends Controller
                     A jeni i sigurtë që doni të vazhdoni?
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Jo</button>
+                    <button type="button" class="btn btn-circle btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i></button>
                     <form class="d-inline" method="POST" action="{{ route(\'treatment.destroy\',$id)}}" accept-charset="UTF-8">
                         {{ csrf_field() }}
                         <input name="_method" type="hidden" value="DELETE">
-                        <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> Fshij</button>
+                        <button type="submit" class="btn  btn-circle btn-danger"><i class="fa fa-trash"></i></button>
                     </form>
                     
                 </div>
                 </div>
             </div>
         </div> ')
-        ->editColumn('pacient_id','<a class="btn btn-circle btn-secondary btn-sm" href="/pacient/{{$pacient_id}}"><i class="fa fa-eye"></i></a> {{App\Pacient::getPacientName($pacient_id)}} ')
+        ->editColumn('pacient_id','<a class="btn btn-circle btn-secondary btn-sm" href="/pacient/{{$pacient_id}}"><i class="fa fa-user"></i></a> {{App\Pacient::getPacientName($pacient_id)}} ')
         ->rawColumns(['Menaxhimi','pacient_id'])
         ->make(true);
         return $table;

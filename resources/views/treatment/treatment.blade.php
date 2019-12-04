@@ -11,7 +11,7 @@
         <h1 class="h3 mb-4 text-gray-800">Trajtimet</h1>
       </div>
       <div class="col-sm-6 ">
-          <a href="/treatment/create" class="btn btn-success float-right"><i class="fa fa-plus"></i></a>
+          <a href="/treatment/create" class="btn btn-circle btn-success float-right"><i class="fa fa-plus"></i></a>
         </div>
     </div>
     

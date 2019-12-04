@@ -6,8 +6,8 @@
   <div class="card-body p-0">
     <!-- Nested Row within Card Body -->
     <div class="row">
-      <div class="col-lg-5 d-none d-lg-block ">
-      <img src="https://www.onlinelogomaker.com/blog/wp-content/uploads/2017/09/Dental-Logo-Design.jpg" class="img-fluid" />
+      <div class="col-lg-5 d-flex justify-content-center ">
+      <img src="{{App\User::getLogo()}}" class="img-fluid" />
       </div>
       <div class="col-lg-7">
         <div class="p-5">
@@ -19,8 +19,18 @@
                     {{ csrf_field() }}
                     <div class="form-group ">
                         <label class="text-xs" for="pacient">Pacienti</label>
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                              <button class="btn btn-outline-primary" type="button"  data-toggle="modal" data-target="#pacientModal"><i class="fa fa-plus"></i> </button>
+                          </div>
                         <input  value="{{App\Pacient::getPacient($visit->pacient_id)}}" placeholder="Pacienti" class="form-control form-control-user" id="pacient" name="pacient"  data-toggle="modal" data-target="#pacientModal"/>
                         <input  hidden id="pacient-id" value="{{$visit->pacient_id}}"  name="pacient-id"/>
+                        <div class="input-group-append">
+                          <button type="button"  class="btn btn-outline-danger" onclick="document.getElementById('pacient').value=''; document.getElementById('pacient-id').value='';" >
+                            <i class="fa fa-trash"></i>
+                          </button>
+                        </div>
+                  </div>
                         <div class="modal fade" id="pacientModal" tabindex="-1" role="dialog" aria-labelledby="pacientModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                               <div class="modal-content">
@@ -56,8 +66,18 @@
                     </div>
                     <div class="form-group ">
                             <label class="text-xs" for="user">Dentisti</label>
+                            <div class="input-group mb-3">
+                              <div class="input-group-prepend">
+                                  <button class="btn btn-outline-primary" type="button"  data-toggle="modal" data-target="#userModal"><i class="fa fa-plus"></i> </button>
+                              </div>
                             <input  value="{{App\User::getUser($visit->user_id)}}" placeholder="Dentisti" class="form-control form-control-user" id="user" name="user"   data-toggle="modal" data-target="#userModal"  />
                             <input  hidden id="user-id"  value="{{$visit->user_id}}" name="user-id"/>
+                            <div class="input-group-append">
+                              <button type="button"  class="btn btn-outline-danger" onclick="document.getElementById('user').value=''; document.getElementById('user-id').value='';" >
+                                <i class="fa fa-trash"></i>
+                              </button>
+                            </div>
+                      </div>
                             <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                   <div class="modal-content">
@@ -131,9 +151,10 @@
                       <option @if($visit->time_of_visit == "19:30") selected @else @endif>19:30</option>
                     </select>
             </div>
-              <button type="submit"  class="btn btn-primary btn-user btn-block">
-              Ndrysho
-            </button>
+            <div class="form-group">
+              <a class="btn btn-circle btn-secondary" href="{{ url()->previous() }}" ><i class="fa fa-chevron-left"></i></a>
+                <button type="submit"  class="btn btn-circle btn-primary float-right"><i class="fa fa-pen"></i></button>
+              </div>
           </form>
           <hr>
         </div>

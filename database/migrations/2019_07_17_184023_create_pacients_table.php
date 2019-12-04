@@ -24,6 +24,8 @@ class CreatePacientsTable extends Migration
             $table->string('address');
             $table->string('residence');
             $table->string('city');
+            $table->string('phone');
+            $table->string('email')->nullable(true);
             $table->timestamps();
         });
     }

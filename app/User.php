@@ -53,7 +53,19 @@ class User extends Authenticatable
     public static function getLogo()
     {
         $settings = DB::table('settings')->first();
+        if(empty($settings))
+            return 'http://maestroselectronics.com/wp-content/uploads/2017/12/No_Image_Available.jpg';
+        if(substr($settings->logo, 0, 4 ) === "http")	
+			return $settings->logo;
         return asset('img/'.$settings->logo.'');
+    }
+
+    public static function getAppName()
+    {
+        $settings = DB::table('settings')->first();
+        if(empty($settings))
+        return 'DentistCMS';
+        return $settings->app_name;
     }
 
 }

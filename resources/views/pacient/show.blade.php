@@ -30,6 +30,10 @@
                                 <td scope="row">{{$pacient->last_name}}</td>
                             </tr>
                             <tr>
+                                    <th>Numri Personal:</th>
+                                    <td scope="row">{{$pacient->personal_number}}</td>
+                                </tr>
+                            <tr>
                                 <th>Gjinia:</th>
                                 <td scope="row">{{$pacient->gender}} </td>
                             </tr>
@@ -90,7 +94,129 @@
                         </div> 
             </div>
           </div>
+
+         
         </div>
+        <div class="card-body">
+                <div class="text-center">
+                        <h1 class="h4 text-gray-900 mb-4">Historiku</h1>
+                    </div>
+                <table class="table table-bordered"  width="100%" cellspacing="0">
+                    <h3>Terminet</h3> <hr>
+                        <thead class="bg-dark text-light">
+                          <tr>
+                            <th>Pacienti</th>
+                            <th>Dentisti</th>
+                            <th>Data</th>
+                            <th>Ora</th>
+                            <th>Menaxhimi</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          @if(count($appointments)>0)  
+                          @foreach($appointments as $appointment)
+                            <tr>
+                            <td>{{App\Pacient::getPacient($appointment->pacient_id)}}</td>
+                            <td>{{App\User::getUser($appointment->user_id)}}</td>
+                            <td>{{$appointment->date_of_appointment}}</td>
+                            <td>{{$appointment->time_of_appointment}}</td>
+                            <td><a class="btn btn-circle btn-secondary btn-sm" href="/appointment/{{$appointment->id}}"><i class="fa fa-eye"></i></a></td>
+                            </tr>
+                          @endforeach
+                          @else
+                          <tr>
+                              <td colspan="5">Nuk ka të dhëna</td> </tr>
+                          @endif
+                        </tbody>
+                      </table>
+<hr class="mb-5">
+<table class="table table-bordered"  width="100%" cellspacing="0">
+        <h3>Vizitat</h3> <hr>
+            <thead class="bg-dark text-light">
+              <tr>
+                <th>Pacienti</th>
+                <th>Dentisti</th>
+                <th>Data</th>
+                <th>Ora</th>
+                <th>Menaxhimi</th>
+              </tr>
+            </thead>
+            <tbody>
+              @if(count($visits)>0)  
+              @foreach($visits as $visit)
+                <tr>
+                <td>{{App\Pacient::getPacient($visit->pacient_id)}}</td>
+                <td>{{App\User::getUser($visit->user_id)}}</td>
+                <td>{{$visit->date_of_visit}}</td>
+                <td>{{$visit->time_of_visit}}</td>
+                <td><a class="btn btn-circle btn-secondary btn-sm" href="/visit/{{$visit->id}}"><i class="fa fa-eye"></i></a></td>
+                </tr>
+              @endforeach
+              @else
+              <tr>
+                  <td colspan="5">Nuk ka të dhëna</td> </tr>
+              @endif
+            </tbody>
+          </table>
+
+          <hr class="mb-5">
+<table class="table table-bordered"  width="100%" cellspacing="0">
+        <h3>Trajtimet</h3> <hr>
+            <thead class="bg-dark text-light">
+              <tr>
+                <th>Pacienti</th>
+                <th>Data e fillimit</th>
+                <th>Kohëzgjatja</th>
+                <th>Menaxhimi</th>
+              </tr>
+            </thead>
+            <tbody>
+              @if(count($treatments)>0)  
+              @foreach($treatments as $treatment)
+                <tr>
+                <td>{{App\Pacient::getPacient($treatment->pacient_id)}}</td>
+                <td>{{$treatment->starting_date}}</td>
+                <td>{{$treatment->duration}}</td>
+                <td><a class="btn btn-circle btn-secondary btn-sm" href="/treatment/{{$treatment->id}}"><i class="fa fa-eye"></i></a></td>
+                </tr>
+              @endforeach
+              @else
+              <tr>
+                  <td colspan="5">Nuk ka të dhëna</td> </tr>
+              @endif
+            </tbody>
+          </table>
+
+          <hr class="mb-5">
+<table class="table table-bordered"  width="100%" cellspacing="0">
+        <h3>Raporti</h3> <hr>
+            <thead class="bg-dark text-light">
+              <tr>
+                <th>Pacienti</th>
+                <th>Trajtimi</th>
+                <th>Data</th>
+                <th>Menaxhimi</th>
+              </tr>
+            </thead>
+            <tbody>
+              @if(count($reports)>0)  
+              @foreach($reports as $report)
+                <tr>
+                <td>{{App\Pacient::getPacient($report->pacient_id)}}</td>
+                <td><a class="btn btn-circle btn-secondary btn-sm" href="/treatment/{{$report->treatment_id}}"><i class="fa fa-syringe"></i></a> {{App\Treatment::getStartingDate($report->treatment_id)}}</td>
+                <td>{{$report->created_at}}</td>
+                <td><a class="btn btn-circle btn-secondary btn-sm" href="/report/{{$report->id}}"><i class="fa fa-eye"></i></a></td>
+                </tr>
+              @endforeach
+              @else
+              <tr>
+                  <td colspan="5">Nuk ka të dhëna</td> </tr>
+              @endif
+            </tbody>
+          </table>
+
+       
+    </div>
       </div>
     </div>
 @endsection

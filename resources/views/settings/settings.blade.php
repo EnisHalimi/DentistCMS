@@ -23,7 +23,10 @@
                         </tr>
                         <tr>
                             <th>Logoja:</th>
-                        <td scope="row"><img src="{{asset('img/'.$settings->logo.'')}}" class="img-fluid" /></td>
+                        <td scope="row"><img src=" @if(substr($settings->logo, 0, 4 ) === "http")
+                          {{$settings->logo}}
+                          @else 	
+                          {{asset('img/'.$settings->logo.'')}} @endif" class="img-fluid" /></td>
                         </tr>
                        
                         <tr>
@@ -41,7 +44,7 @@
                 </table>
                
             <hr>
-            
+            <a href="settings/edit" class="btn btn-circle btn-primary"><i class="fa fa-pen"></i></a>
           </div>
         </div>
       </div>

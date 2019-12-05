@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DataTables;
 use App\Pacient;
+use App\Treatment;
+use App\Appointment;
+use App\Visit;
+use App\Report;
 use DB;
 
 class PacientController extends Controller
@@ -130,10 +134,19 @@ class PacientController extends Controller
     public function show($id)
     {
         $pacient = Pacient::findOrfail($id);
+        $treatment = Treatment::where('pacient_id','=',$id)->get();
+        $visit = Visit::where('pacient_id','=',$id)->get();
+        $report = Report::where('pacient_id','=',$id)->get();
+        $appointment = Appointment::where('pacient_id','=',$id)->get();
         if(auth()->guest())
             return redirect('/login')->with('error', 'Unathorized Page');
         else
-            return view('pacient.show')->with('pacient',$pacient);
+            return view('pacient.show')
+                    ->with('pacient',$pacient)
+                    ->with('treatments',$treatment)
+                    ->with('visits',$visit)
+                    ->with('reports',$report)
+                    ->with('appointments',$appointment);
     }
 
     /**

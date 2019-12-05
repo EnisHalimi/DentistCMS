@@ -38,7 +38,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Faturat sot</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{App\Http\Controllers\HomeController::numers()}}</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{count($reports)}}</div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-scroll fa-2x text-gray-300"></i>
@@ -96,25 +96,48 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Earnings Overview</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Vizitat sot</h6>
                   <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                      <div class="dropdown-header">Dropdown Header:</div>
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Something else here</a>
+                      <div class="dropdown-header">Më shumë:</div>
+                      <a class="dropdown-item" href="#">Shiko të gjithë vizitat</a>
+                      <a class="dropdown-item" href="#">Krijo vizitë të re</a>
                     </div>
                   </div>
                 </div>
                 <!-- Card Body -->
-                <div class="card-body">
-                  <div class="chart-area">
-                    <canvas id="myAreaChart"></canvas>
-                  </div>
+                <div class="card-body scroll py-0">
+                    <table class="table table-stripped">
+                        <thead>
+                          <th>Pacienti</th>
+                          <th>Dentisti</th>
+                          <th>Data</th>
+                          <th>Ora</th>
+                          <th>Detajet</th>
+                        </thead>
+                        <tbody>
+                            @if(count($visits) > 0)
+                            @foreach($visits as $visit)
+                          <tr>
+                            <td>{{App\Pacient::getPacientName($visit->pacient_id)}}</td>
+                            <td>{{App\User::getUser($visit->user_id)}}</td>
+                            <td>{{$visit->time_of_visit}}</td>
+                            <td>{{$visit->time_of_visit}}</td>
+                            <td><a href="/visit/{{$visit->id}}" class="btn btn-circle btn-secondary btn-sm"><i class="fa fa-eye"></i></a> </td>
+
+    
+                          </tr>
+                          @endforeach
+                          @else
+                          <tr>
+                            <td colspan="5">Nuk janë regjistruar vizita sot</td>
+                          </tr>
+                          @endif
+                        </tbody>
+                      </table>
                 </div>
               </div>
             </div>
@@ -130,16 +153,14 @@
                       <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
-                      <div class="dropdown-header">Dropdown Header:</div>
-                      <a class="dropdown-item" href="#">Action</a>
-                      <a class="dropdown-item" href="#">Another action</a>
-                      <div class="dropdown-divider"></div>
-                      <a class="dropdown-item" href="#">Something else here</a>
+                      <div class="dropdown-header">Më shumë:</div>
+                      <a class="dropdown-item" href="/appointment">Shiko të gjithë terminet</a>
+                      <a class="dropdown-item" href="/appointment/create">Krijo termin të ri</a>
                     </div>
                   </div>
                 </div>
                 <!-- Card Body -->
-                <div class="card-body py-0 ">
+                <div class="card-body py-0 scroll">
                   <table class="table table-stripped">
                     <thead>
                       <th>Pacienti</th>
@@ -156,6 +177,10 @@
 
                       </tr>
                       @endforeach
+                      @else
+                      <tr>
+                        <td colspan="3">Nuk ka termine për sot</td>
+                      </tr>
                       @endif
                     </tbody>
                   </table>
@@ -173,84 +198,38 @@
               <!-- Project Card Example -->
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Pacientët sot</h6>
                 </div>
-                <div class="card-body">
-                  <h4 class="small font-weight-bold">Server Migration <span class="float-right">20%</span></h4>
-                  <div class="progress mb-4">
-                    <div class="progress-bar bg-danger" role="progressbar" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <h4 class="small font-weight-bold">Sales Tracking <span class="float-right">40%</span></h4>
-                  <div class="progress mb-4">
-                    <div class="progress-bar bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <h4 class="small font-weight-bold">Customer Database <span class="float-right">60%</span></h4>
-                  <div class="progress mb-4">
-                    <div class="progress-bar" role="progressbar" style="width: 60%" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <h4 class="small font-weight-bold">Payout Details <span class="float-right">80%</span></h4>
-                  <div class="progress mb-4">
-                    <div class="progress-bar bg-info" role="progressbar" style="width: 80%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                  <h4 class="small font-weight-bold">Account Setup <span class="float-right">Complete!</span></h4>
-                  <div class="progress">
-                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
-                  </div>
-                </div>
+                <div class="card-body py-0 scroll">
+                    <table class="table table-stripped">
+                        <thead>
+                          <th>Emri</th>
+                          <th>Mbiemri</th>
+                          <th>Data e lindjes</th>
+                          <th>Vendbanimi</th>
+                          <th>Detajet</th>
+                        </thead>
+                        <tbody>
+                            @if(count($pacients) > 0)
+                            @foreach($pacients as $pacient)
+                          <tr>
+                            <td>{{$pacient->first_name}}</td>
+                            <td>{{$pacient->last_name}}</td>
+                            <td>{{$pacient->date_of_birth}}</td>
+                            <td>{{$pacient->residence}}</td>
+                            <td><a href="/pacient/{{$pacient->id}}" class="btn btn-circle btn-secondary btn-sm"><i class="fa fa-eye"></i></a> </td>
+    
+                          </tr>
+                          @endforeach
+                          @else
+                          <tr>
+                            <td colspan="5">Nuk janë regjistuar Pacientë sot</td>
+                          </tr>
+                          @endif
+                        </tbody>
+                      </table>
               </div>
-
-              <!-- Color System -->
-              <div class="row">
-                <div class="col-lg-6 mb-4">
-                  <div class="card bg-primary text-white shadow">
-                    <div class="card-body">
-                      Primary
-                      <div class="text-white-50 small">#4e73df</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6 mb-4">
-                  <div class="card bg-success text-white shadow">
-                    <div class="card-body">
-                      Success
-                      <div class="text-white-50 small">#1cc88a</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6 mb-4">
-                  <div class="card bg-info text-white shadow">
-                    <div class="card-body">
-                      Info
-                      <div class="text-white-50 small">#36b9cc</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6 mb-4">
-                  <div class="card bg-warning text-white shadow">
-                    <div class="card-body">
-                      Warning
-                      <div class="text-white-50 small">#f6c23e</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6 mb-4">
-                  <div class="card bg-danger text-white shadow">
-                    <div class="card-body">
-                      Danger
-                      <div class="text-white-50 small">#e74a3b</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-6 mb-4">
-                  <div class="card bg-secondary text-white shadow">
-                    <div class="card-body">
-                      Secondary
-                      <div class="text-white-50 small">#858796</div>
-                    </div>
-                  </div>
-                </div>
               </div>
-
             </div>
 
             <div class="col-lg-6 mb-4">
@@ -258,27 +237,37 @@
               <!-- Illustrations -->
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Illustrations</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Raportet</h6>
                 </div>
-                <div class="card-body">
-                  <div class="text-center">
-                    <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;" src="img/undraw_posting_photo.svg" alt="">
-                  </div>
-                  <p>Add some quality, svg illustrations to your project courtesy of <a target="_blank" rel="nofollow" href="https:undraw.co">unDraw</a>, a constantly updated collection of beautiful svg images that you can  completely free and without attribution!</p>
-                  <a target="_blank" rel="nofollow" href="http">Browse Illustrations on unDraw &rarr;</a>
-                </div>
+                <div class="card-body py-0 scroll">
+                    <table class="table table-stripped">
+                        <thead>
+                          <th>Pacienti</th>
+                          <th>Trajtimi</th>
+                          <th>Data</th>
+                          <th>Detajet</th>
+                        </thead>
+                        <tbody>
+                            @if(count($reports) > 0)
+                            @foreach($reports as $report)
+                          <tr>
+                            <td>{{App\Pacient::getPacientName($report->pacient_id)}}</td>
+                            <td>{{App\Treatment::getStartingDate($report->treatment_id)}}</td>
+                            <td>{{date('d/m/Y',strtotime($report->created_at))}}</td>
+                            <td><a href="/report/{{$report->id}}" class="btn btn-circle btn-secondary btn-sm"><i class="fa fa-eye"></i></a> </td>
+    
+                          </tr>
+                          @endforeach
+                          @else
+                          <tr>
+                            <td colspan="4">Nuk janë regjistuar Raporte sot</td>
+                          </tr>
+                          @endif
+                        </tbody>
+                      </table>
+              </div>
               </div>
 
-              <!-- Approach -->
-              <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
-                </div>
-                <div class="card-body">
-                  <p>SB Admin 2 makes extensive  of Bootstrap 4 utility classes in order to reduce CSS bloat and poor page performance. Custom CSS classes are used to create custom components and custom utility classes.</p>
-                  <p class="mb-0">Before working with this theme, you should become familiar with the Bootstrap framework, especially the utility classes.</p>
-                </div>
-              </div>
 
             </div>
           </div>

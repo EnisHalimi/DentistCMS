@@ -8,6 +8,7 @@ use DB;
 use App\Appointment;
 use App\User;
 use App\Pacient;
+use App\Notifications;
 
 class AppointmentController extends Controller
 {
@@ -108,6 +109,12 @@ class AppointmentController extends Controller
             $appointment->date_of_appointment = $request->input('data');
             $appointment->time_of_appointment = $request->input('time');
             $appointment->save();
+            $pacient = Pacient::find($request->input('pacient-id'));
+            $notifications = new Notifications;
+            $notifications->description = $pacient->first_name.' '.$pacient->last_name.' ka terminin për ditën e nesërme në ora '.$appointment->time_of_appointment.'.';
+            $notifications->date = $appointment->date_of_appointment;
+            $notifications->opened = false;
+            $notifications->save();
             return redirect('/appointment')->with('success','U shtua termini');
         }
     }
@@ -166,11 +173,19 @@ class AppointmentController extends Controller
                 'data' => 'required|date',
             ]);
             $appointment = Appointment::find($id);
+            $pacient = Pacient::find($request->input('pacient-id'));
+            $notifications = Notifications::where('description','=',$pacient->first_name.' '.$pacient->last_name.' ka terminin për ditën e nesërme në ora '.$appointment->time_of_appointment.'.')->first();
             $appointment->pacient_id = $request->input('pacient-id');
             $appointment->user_id = $request->input('user-id');
             $appointment->date_of_appointment = $request->input('data');
             $appointment->time_of_appointment = $request->input('time');
             $appointment->save();
+            if(!empty($notifications))
+            {
+                $notifications->description = $pacient->first_name.' '.$pacient->last_name.' ka terminin për ditën e nesërme në ora '.$appointment->time_of_appointment.'.';
+                $notifications->date = $appointment->date_of_appointment;
+                $notifications->save();
+            }
             return redirect('/appointment')->with('success','U ndryshua termini');
         }
     }
@@ -184,12 +199,16 @@ class AppointmentController extends Controller
     public function destroy($id)
     {
         $appointment = Appointment::find($id);
+        
         if(auth()->guest())
         {
             return redirect('/')->with('error','Unathorized Page'); 
         }
         else
         {
+            $pacient = Pacient::find($appointment->pacient_id);
+            $notifications = Notifications::where('description','=',$pacient->first_name.' '.$pacient->last_name.' ka terminin për ditën e nesërme në ora '.$appointment->time_of_appointment.'.');
+            $notifications->delete();
             $appointment->delete();           
             return redirect('/appointment')->with('success','Është fshirë Termini');
         }

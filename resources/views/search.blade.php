@@ -1,6 +1,5 @@
 @extends('layouts.app')
 @section('title','Kerkimi')
-@section('search','border-bottom-dark')
 @section('content')
 
 <!-- Begin Page Content -->
@@ -26,23 +25,27 @@
           <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
               <tr>
-                <th>Emri Mbiemri</th>
-                <th>Numri Personal</th>
-                <th>Data e lindjes</th>
-                <th>Adresa</th>
-                <th>Menaxhimi</th>
+                  <th>Emri</th>
+                  <th>Mbiemri</th>
+                  <th>Numri Personal</th>
+                  <th>Data e lindjes</th>
+                  <th>Adresa</th>
+                  <th>Vendbanimi</th>
+                  <th>Menaxhimi</th>
               </tr>
             </thead>
             <tbody>
               @if(count($pacients) > 0)
               @foreach($pacients as $pacient)
               <tr>
-                <td>{{$pacient->first_name}} {{$pacient->last_name}}</td>
+                <td>{{$pacient->first_name}}</td>
+                <td>{{$pacient->last_name}}</td>
                 <td>{{$pacient->personal_number}}</td>
                 <td>{{$pacient->date_of_birth}}</td>
                 <td>{{$pacient->address}}</td>
+                <td>{{$pacient->residence}}</td>
                 <td>
-                  <a href="/pacient/{{$pacient->id}}" class="btn btn-secondary"><i class="fa fa-eye"></i> Shiko</a>
+                  <a href="/pacient/{{$pacient->id}}" class="btn btn-circle btn-secondary"><i class="fa fa-eye"></i></a>
                 </td>
                 
               </tr>

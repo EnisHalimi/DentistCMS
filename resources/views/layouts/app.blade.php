@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title') - Metropolis</title>
+    <title>@yield('title') - {{App\User::getAppName()}}</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -31,10 +31,10 @@
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
+        <div class="sidebar-brand-icon">
+          <img src="{{App\User::getLogo()}}" class="img-fluid"/>
         </div>
-        <div class="sidebar-brand-text mx-3">Metropolis</div>
+        <div class="sidebar-brand-text mx-3">{{App\User::getAppName()}}</div>
       </a>
 
       <!-- Divider -->
@@ -113,11 +113,11 @@
           @if(Auth::check())
           <!-- Topbar Search -->
           <form method="GET" action="{{ url('search') }}" class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-            <div class="input-group">
-            <input type="text" class="form-control bg-light small @yield('search')" placeholder="Kërko..." name="search" value="@if(isset($keyword)) {{$keyword}} @endif" id="search" aria-label="Search" aria-describedby="basic-addon2">
+            <div class="input-group mb-3">
+            <input type="text" class="form-control bg-light " placeholder="Kërko..." name="search" value="@if(isset($keyword)) {{$keyword}} @endif" id="search" aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
-                <button type="submit" class="btn btn-primary" type="button">
-                  <i class="fas fa-search fa-sm"></i>
+                <button type="submit" class="btn btn-primary btn-sm px-3" >
+                  <i class="fa fa-search fa-sm"></i>
                 </button>
               </div>
             </div>
@@ -135,12 +135,12 @@
               </a>
               <!-- Dropdown - Messages -->
               <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in" aria-labelledby="searchDropdown">
-                <form class="form-inline mr-auto w-100 navbar-search">
+                <form class="form-inline mr-auto w-100 navbar-search" method="GET" action="{{ url('search') }}" >
                   <div class="input-group">
-                    <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+                      <input type="text" class="form-control bg-light " placeholder="Kërko..." name="search" value="@if(isset($keyword)) {{$keyword}} @endif" id="search" aria-label="Search" aria-describedby="basic-addon2">
                     <div class="input-group-append">
-                      <button class="btn btn-primary" type="button">
-                        <i class="fas fa-search fa-sm"></i>
+                      <button class="btn btn-primary btn-sm px-3" type="submit">
+                        <i class="fa fa-search fa-sm"></i>
                       </button>
                     </div>
                   </div>
@@ -186,9 +186,12 @@
                     <span class="font-weight-bold">{{$not->description}}!</span>
                   </div>
                   <div class="float-right">
-                      <button type="button" class="close" >
+                  <form id="notification{{$not->id}}">
+                    <input id="id" name="id" hidden value="{{$not->id}}">
+                      <button type="submit" id="deleteNotification"  class="close" >
                           <span aria-hidden="true">&times;</span>
                         </button>
+                    </form>
                   </div>
                 </div>
                 @endforeach
@@ -374,6 +377,35 @@
         }
         });
         })
+
+
+        $('#searchTreatment').on('keyup',function(){
+          $value=$(this).val();
+          $.ajax({
+        type : 'get',
+        url : '{{URL::to('searchTreatment')}}',
+        data:{'search':$value},
+        success:function(data){
+        $('#treatment-table-body').html(data);
+        }
+        });
+        })
+
+        $("form[id*='notification']").click(function(e){
+          e.preventDefault();
+          var id = $("input[name=id]").val();
+          $.ajax({
+            type:'POST',
+            url:'/markAsRead',
+            data:{
+               "_token": "{{ csrf_token() }}",
+              "id":id},
+            success:function(data)
+            {
+              alert(data.success);
+            }
+          });
+          });
       </script>
       <script type="text/javascript">
       $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });

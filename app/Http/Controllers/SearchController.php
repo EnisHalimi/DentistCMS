@@ -11,7 +11,16 @@ class SearchController extends Controller
 {
     public function search(Request $request)
     {
-    	$pacients = Pacient::where('first_name','LIKE', $request->search)->paginate(30);	
+        $pacients = Pacient::where('first_name','LIKE','%'.$request->search."%")
+        ->orWhere('last_name','LIKE','%'.$request->search."%")
+        ->orWhere('personal_number','LIKE','%'.$request->search."%")
+        ->orWhere('city','LIKE','%'.$request->search."%")
+        ->orWhere('residence','LIKE','%'.$request->search."%")
+        ->orWhere('address','LIKE','%'.$request->search."%")
+        ->orWhere('fathers_name','LIKE','%'.$request->search."%")
+        ->orWhere('phone','LIKE','%'.$request->search."%")
+        ->orWhere('email','LIKE','%'.$request->search."%")
+        ->paginate(30);	
         return view('search')->with('pacients',$pacients)->with('keyword',$request->search);
     }
 
@@ -109,6 +118,7 @@ class SearchController extends Controller
         {
             $output="";
             $services=DB::table('services')
+            ->where('name','LIKE','%'.$request->search."%")
             ->limit(25)
             ->get();
             if($services)
@@ -135,6 +145,40 @@ class SearchController extends Controller
             }
         }
     }
+
+    public function searchTreatment(Request $request)
+    {
+        if($request->ajax())
+        {
+            $output="";
+            $treatments=DB::table('treatments')
+            ->join('pacients', 'pacients.id', '=', 'treatments.pacient_id')
+            ->select('treatments.*','pacients.first_name', 'pacients.last_name')
+            ->where('pacients.first_name','LIKE','%'.$request->search."%")
+            ->orWhere('pacients.last_name','LIKE','%'.$request->search."%")
+            ->orWhere('treatments.starting_date','LIKE','%'.$request->search."%")
+            ->orWhere('treatments.duration','LIKE','%'.$request->search."%")
+            ->limit(25)
+            ->get();
+            if($treatments)
+            {
+                foreach ($treatments as $key => $treatment) 
+                {
+                    $output.="<tr>".
+                    "<td>".$treatment->first_name." ".$treatment->last_name."</td>".
+                    "<td>".$treatment->starting_date."</td>".
+                    "<td>".$treatment->duration."</td>".
+                    "<td><a class=\"btn btn-circle btn-secondary btn-sm\"   data-dismiss=\"modal\" onclick=\"document.getElementById('treatment').value = '".$treatment->first_name.' '.$treatment->last_name.' ('.$treatment->starting_date.' | '.$treatment->duration.') '. "';
+                        document.getElementById('treatment-id').value = '".$treatment->id."';
+                        document.getElementById('pacient-id').value = '".$treatment->pacient_id."';\" ><i class=\"fa text-light fa-arrow-right\"></i></a>
+                        </td>".
+                    "</tr>";
+                }   
+                return Response($output);
+            }
+        }
+    }
+
 
     
 }

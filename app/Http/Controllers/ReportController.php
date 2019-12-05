@@ -107,7 +107,25 @@ class ReportController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(auth()->guest())
+        {
+            return redirect('/')->with('error','Unathorized Page'); 
+        }
+        else
+        {
+            $this->validate($request,[
+                'treatment-id'=> 'required',
+                'pacient-id' => 'required',
+                'description' => 'required|min:10',
+            ]);
+            
+            $report = new Report;
+            $report->treatment_id = $request->input('treatment-id');
+            $report->pacient_id = $request->input('pacient-id');
+            $report->description = $request->input('description');
+            $report->save();
+            return redirect('/report')->with('success','U shtua raporti');
+        }
     }
 
     /**
@@ -136,7 +154,11 @@ class ReportController extends Controller
      */
     public function edit($id)
     {
-        //
+        $report = Report::find($id);
+        if(auth()->guest())
+            return redirect('/login')->with('error', 'Unathorized Page');
+        else
+            return view('report.edit')->with('report',$report);
     }
 
     /**
@@ -148,7 +170,25 @@ class ReportController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if(auth()->guest())
+        {
+            return redirect('/')->with('error','Unathorized Page'); 
+        }
+        else
+        {
+            $this->validate($request,[
+                'treatment-id'=> 'required',
+                'pacient-id' => 'required',
+                'description' => 'required|min:10',
+            ]);
+            
+            $report = Report::find($id);
+            $report->treatment_id = $request->input('treatment-id');
+            $report->pacient_id = $request->input('pacient-id');
+            $report->description = $request->input('description');
+            $report->save();
+            return redirect('/report')->with('success','U ndryshua raporti');
+        }
     }
 
     /**

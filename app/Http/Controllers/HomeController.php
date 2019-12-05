@@ -33,19 +33,17 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public static function numers()
-    {
-        return 0;
-    }
     public function index()
     {
-        $pacients = Pacient::orderBy('id', 'DESC');
-        $appointements = Appointment::where('date_of_appointment','=',date("Y-m-d"))->orderBy('id', 'DESC')->paginate(15);
-        $treatment = Treatment::where('created_at','=',date("Y-m-d"))->orderBy('id', 'DESC')->paginate(15);
-        $visit = Visit::where('date_of_visit','=',date("Y-m-d"))->orderBy('id', 'DESC')->paginate(15);
+        $pacients = Pacient::whereDate('created_at','=',date("Y-m-d"))->orderBy('id', 'DESC')->get();
+        $appointements = Appointment::where('date_of_appointment','=',date("Y-m-d"))->orderBy('id', 'DESC')->get();
+        $treatment = Treatment::whereDate('created_at','=',date("Y-m-d"))->orderBy('id', 'DESC')->get();
+        $visit = Visit::where('date_of_visit','=',date("Y-m-d"))->orderBy('id', 'DESC')->get();
+        $reports = Report::whereDate('created_at','LIKE',date("Y-m-d"))->orderBy('id', 'DESC')->get();
         return view('index')->with('pacients', $pacients)
                             ->with('appointements', $appointements)
                             ->with('treatments', $treatment)
+                            ->with('reports', $reports)
                             ->with('visits', $visit);
     }
     public function autocomplete()
@@ -68,7 +66,62 @@ class HomeController extends Controller
     public function settings()
     {
         $settings = DB::table('settings')->first();
-        return view('settings')->with('settings', $settings);
+        if(empty($settings))
+        {
+            DB::table('settings')->insert(
+                ['app_name' => 'DentistCMS', 'logo' => 'http://maestroselectronics.com/wp-content/uploads/2017/12/No_Image_Available.jpg', 'theme' => false]
+            );
+            $settings = DB::table('settings')->first();
+            return view('settings.settings')->with('settings', $settings);
+        }
+        return view('settings.settings')->with('settings', $settings);
+                            
+    }
+
+    public function settingsEdit()
+    {
+        $settings = DB::table('settings')->first();
+        if(empty($settings))
+        {
+            DB::table('settings')->insert(
+                ['app_name' => 'DentistCMS', 'logo' => 'http://maestroselectronics.com/wp-content/uploads/2017/12/No_Image_Available.jpg', 'theme' => false]
+            );
+            $settings = DB::table('settings')->first();
+            return view('settings.edit')->with('settings', $settings);
+        }
+        return view('settings.edit')->with('settings', $settings);
+                            
+    }
+
+    public function settingsSave(Request $request)
+    {
+        $this->validate($request,[
+            'app_name' =>'required',
+            'logo' =>'image|nullable|max:1999',
+        ]);
+        $settings =  DB::table('settings')->first();
+        if($request->input('theme') == 0)
+            $theme = false;
+        else
+            $theme = true;
+        if($request->hasFile('logo'))
+        {
+            $fileNamewithExt = $request->file('logo')->getClientOriginalName();
+            $fileName = pathInfo($fileNamewithExt, PATHINFO_FILENAME);
+            $extension = $request->file('logo')->getClientOriginalExtension();
+            $fileNametoStore = $settings->app_name.'.'.$extension;
+            $request->file('logo')->move(public_path('img'), $fileNametoStore);
+            $add = DB::table('settings')->where('id', $settings->id)
+            ->update(['app_name' =>  $request->input('app_name'), 'logo' => $fileNametoStore, 'theme' => $theme]);
+        }
+        else
+        {
+            $add = DB::table('settings')->where('id', $settings->id)
+            ->update(['app_name' =>  $request->input('app_name'), 'theme' => $theme]);
+        }
+        
+		
+        return redirect('/settings')->with('success','U ndryshua Aranzhimi');
                             
     }
 
@@ -82,6 +135,17 @@ class HomeController extends Controller
         ->make(true);
         return $table;
                             
+    }
+
+    public function markAsRead(Request $request)
+    {
+        if($request->ajax())
+        {
+            $notification = Notifications::find($request->input('id'));
+            $notification->opened = true;
+            $notification->save();
+            return response()->json(['success'=>'U markua si e lexuar.']);
+        }
     }
     
 }

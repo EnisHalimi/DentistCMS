@@ -13,12 +13,8 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <!-- SB CSS -->
-    <link href="{{ asset('sb/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-    <link href="{{ asset('sb/vendor/jquery-ui/jquery-ui.css') }}" rel="stylesheet">
-    <link href="{{ asset('sb/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('sb/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
       
 </head>
@@ -89,6 +85,11 @@
         <a class="nav-link" href="/user">
           <i class="fas fa-fw fa-user-md"></i>
           <span>Perdoruesit</span></a>
+      </li>
+      <li class="nav-item  @yield('daljet')">
+        <a class="nav-link" href="/daljet">
+          <i class="fas fa-fw fa-sign-out-alt"></i>
+          <span>Daljet</span></a>
       </li>
       <div class="text-center d-none d-md-inline">
           <button class="rounded-circle border-0" id="sidebarToggle"></button>
@@ -270,18 +271,21 @@
         <!-- Begin Page Content -->
         <div class="container-fluid">
         @if(session('error'))
-            <div class="card mb-4  border-bottom-danger" >
-                <div class="card-body">
-                {{session('error')}}
-                </div>
-              </div>
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <strong>Error</strong>  {{session('error')}}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+              
         @endif
               @if(session('success'))
-              <div class="card mb-4  border-bottom-success" onclick="hide();" >
-                  <div class="card-body">
-                  {{session('success')}}
-                  </div>
-                </div>
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>Success</strong>  {{session('success')}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
 		            
 	            
             @endif
@@ -320,95 +324,6 @@
   
     <!-- Scripts -->
     <!-- SB Scripts -->
-    <script type="text/javascript" src="{{ asset('sb/vendor/jquery/jquery.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('sb/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('sb/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('sb/vendor/datatables/jquery.dataTables.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('sb/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('sb/js/sb-admin-2.min.js') }}"></script>
-    <script src="{{ asset('sb/vendor/jquery-ui/jquery-ui.js') }}"></script>
+   
     <script src="{{ asset('js/app.js')}}"></script>
-
-    <script type="text/javascript">
-      $('#searchPacient').on('keyup',function(){
-        $value=$(this).val();
-        $.ajax({
-      type : 'get',
-      url : '{{URL::to('searchPacient')}}',
-      data:{'search':$value},
-      success:function(data){
-      $('#pacient-table-body').html(data);
-      }
-      });
-      })
-
-      $('#searchUser').on('keyup',function(){
-          $value=$(this).val();
-          $.ajax({
-        type : 'get',
-        url : '{{URL::to('searchUser')}}',
-        data:{'search':$value},
-        success:function(data){
-        $('#user-table-body').html(data);
-        }
-        });
-        })
-
-        $('#searchVisit').on('keyup',function(){
-          $value=$(this).val();
-          $.ajax({
-        type : 'get',
-        url : '{{URL::to('searchVisit')}}',
-        data:{'search':$value},
-        success:function(data){
-        $('#visit-table-body').html(data);
-        }
-        });
-        })
-
-        $('#searchService').on('keyup',function(){
-          $value=$(this).val();
-          $.ajax({
-        type : 'get',
-        url : '{{URL::to('searchService')}}',
-        data:{'search':$value},
-        success:function(data){
-        $('#service-table-body').html(data);
-        }
-        });
-        })
-
-
-        $('#searchTreatment').on('keyup',function(){
-          $value=$(this).val();
-          $.ajax({
-        type : 'get',
-        url : '{{URL::to('searchTreatment')}}',
-        data:{'search':$value},
-        success:function(data){
-        $('#treatment-table-body').html(data);
-        }
-        });
-        })
-
-        $("form[id*='notification']").click(function(e){
-          e.preventDefault();
-          var id = $("input[name=id]").val();
-          $.ajax({
-            type:'POST',
-            url:'/markAsRead',
-            data:{
-               "_token": "{{ csrf_token() }}",
-              "id":id},
-            success:function(data)
-            {
-              alert(data.success);
-            }
-          });
-          });
-      </script>
-      <script type="text/javascript">
-      $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
-      </script>
-</body>
 </html>

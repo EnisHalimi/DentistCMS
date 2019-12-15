@@ -6,7 +6,7 @@
     <div class="card-body p-0">
         <!-- Nested Row within Card Body -->
         <div class="row">
-            <div class="col-lg-5 d-flex justify-content-center ">
+            <div class="col-lg-5 m-auto d-flex justify-content-center ">
                 <img src="{{App\User::getLogo()}}" class="img-fluid" />
             </div>
         <div class="col-lg-7">
@@ -106,7 +106,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-6 mb-3 mb-sm-0">
-                        <input id="phone" name="phone" required type="text" class="form-control form-control-user"  placeholder="Numri i telefonit">      
+                        <input id="phone" name="phone" required type="text" class="form-control form-control-user @error('phone') is-invalid @enderror"  placeholder="Numri i telefonit">      
                         @if ($errors->has('phone'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('phone') }}</strong>

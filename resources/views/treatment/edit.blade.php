@@ -5,7 +5,7 @@
 <div class="card o-hidden border-0 shadow-lg my-5">
   <div class="card-body p-0">
     <div class="row">
-      <div class="col-lg-5 d-flex justify-content-center ">
+      <div class="col-lg-5 m-auto d-flex justify-content-center ">
         <img src="{{App\User::getLogo()}}" class="img-fluid" />
       </div>
       <div class="col-lg-7">

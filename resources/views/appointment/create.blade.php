@@ -6,7 +6,7 @@
       <div class="card-body p-0">
         <!-- Nested Row within Card Body -->
         <div class="row">
-          <div class="col-lg-5 d-flex justify-content-center ">
+          <div class="col-lg-5 m-auto d-flex justify-content-center ">
           <img src="{{App\User::getLogo()}}" class="img-fluid" />
           </div>
           <div class="col-lg-7">
@@ -57,9 +57,9 @@
                           </div>
                         </div>
                       </div>
-                  @if ($errors->has('pacient'))
+                  @if ($errors->has('pacient-id'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('pacient') }}</strong>
+                                        <strong>{{ $errors->first('pacient-id') }}</strong>
                                     </span>
                                 @endif
                 </div>
@@ -105,9 +105,9 @@
                               </div>
                             </div>
                           </div> 
-                        @if ($errors->has('user'))
+                        @if ($errors->has('user-id'))
                                           <span class="help-block">
-                                              <strong>{{ $errors->first('user') }}</strong>
+                                              <strong>{{ $errors->first('user-id') }}</strong>
                                           </span>
                                       @endif
                 </div>

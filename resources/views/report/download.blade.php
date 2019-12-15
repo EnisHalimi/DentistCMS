@@ -1,162 +1,129 @@
-<table style="color: black" cellspacing="0" border="0">
-        <colgroup width="15"></colgroup>
-        <colgroup width="125"></colgroup>
-        <colgroup width="144"></colgroup>
-        <colgroup width="189"></colgroup>
-        <colgroup width="114"></colgroup>
-        <colgroup width="111"></colgroup>
-        <tr>
-            <td height="127" align="left" valign=bottom><font face="Garamond"><br></font></td>
-            <td colspan=2 align="left" valign=bottom><font color="#7F7F7F"><img src="https://financialtribune.com/sites/default/files/field/image/08_implant.png" width=200 height=200 hspace=57 vspace=31>
-            </font></td>
-            <td colspan=3 align="right" valign=middle><b><font face="Calibri" size=7 color="#5590A8">FATURË</font></b></td>
-            </tr>
-        <tr>
-            <td colspan=2 height="22" align="left" valign=bottom><b><font face="Garamond"><br></font></b></td>
-            <td colspan=4 align="left" valign=bottom><font face="Garamond"><br></font></td>
-            </tr>
-        <tr>
-            <td height="22" align="left" valign=bottom><font face="Garamond"><br></font></td>
-            <td align="left" valign=bottom><b><font face="Calibri" color="#231F20">Metropolis</font></b></td>
-            <td align="left" valign=bottom><b><font face="Calibri" color="#231F20"><br></font></b></td>
-            <td align="left" valign=bottom><font size=3 color="#00AEDB"><br></font></td>
-            <td align="left" valign=bottom><font size=3 color="#00AEDB"><br></font></td>
-            <td align="left" valign=bottom><font size=3 color="#00AEDB"><br></font></td>
-        </tr>
-        <tr>
-            <td height="22" align="left" valign=bottom><font face="Garamond" size=1 color="#4A4B4B"><br></font></td>
-            <td colspan=2 align="left" valign=bottom><font face="Calibri">Rruga Besim Shala Nr.1</font></td>
-            <td align="right" valign=bottom><b><font face="Calibri" color="#231F20">Fatura Nr :</font></b></td>
-            <td colspan=3 align="left" valign=bottom><font face="Calibri">{{$report->id}}</font></td>
-            </tr>
-        <tr>
-            <td height="22" align="left" valign=bottom><font face="Garamond" size=1 color="#4A4B4B"><br></font></td>
-            <td colspan=2 align="left" valign=bottom><font face="Calibri">20000, Prizren, Kosovë</font></td>
-            <td align="right" valign=bottom><b><font face="Calibri" color="#231F20">Date :</font></b></td>
-        <td align="left" valign=bottom sdval="43803" sdnum="2057;2057;DD/MM/YYYY"><font face="Calibri">{{date('d/m/Y', strtotime($report->created_at))}}</font></td>
-            <td align="left" valign=bottom sdnum="2057;1033;MMMM D\, YYYY;@"><font color="#4A4B4B"><br></font></td>
-        </tr>
-        <tr>
-            <td height="22" align="left" valign=bottom><font face="Garamond" size=1 color="#4A4B4B"><br></font></td>
-            <td colspan=2 align="left" valign=bottom><font face="Calibri">+383 49 727 700</font></td>
-            <td align="right" valign=bottom><b><font face="Calibri" color="#231F20">Customer ID :</font></b></td>
-            <td align="left" valign=bottom><font face="Calibri">{{$pacient->personal_number}}</font></td>
-            <td align="left" valign=bottom><font color="#4A4B4B"><br></font></td>
-        </tr>
-        <tr>
-            <td height="22" align="left" valign=bottom><font face="Garamond" size=1 color="#4A4B4B"><br></font></td>
-            <td colspan=2 align="left" valign=bottom><font face="Calibri">metropolis@gmail.com</font></td>
-            <td align="left" valign=bottom><font color="#4A4B4B"><br></font></td>
-            <td align="left" valign=bottom><font color="#4A4B4B"><br></font></td>
-            <td align="right" valign=bottom><font color="#4A4B4B"><br></font></td>
-        </tr>
-        <tr>
-            <td height="22" align="left" valign=bottom><font size=1 color="#4A4B4B"><br></font></td>
-            <td align="left" valign=bottom><font face="Calibri"><br></font></td>
-            <td align="left" valign=bottom><font face="Calibri"><br></font></td>
-            <td align="left" valign=bottom><font color="#4A4B4B"><br></font></td>
-            <td align="left" valign=bottom><font color="#4A4B4B"><br></font></td>
-            <td align="left" valign=bottom><font color="#4A4B4B"><br></font></td>
-        </tr>
-        <tr>
-            <td height="22" align="center" valign=middle><font face="Calibri"><br></font></td>
-        <td colspan=2 align="left" valign=bottom><font face="Calibri">{{$pacient->first_name}} {{$pacient->fathers_name}} {{$pacient->last_name}}</font></td>
-            <td align="left" valign=bottom><b><font color="#4A4B4B"><br></font></b></td>
-            <td align="left" valign=bottom><b><font color="#4A4B4B"><br></font></b></td>
-            <td align="left" valign=bottom><b><font color="#4A4B4B"><br></font></b></td>
-        </tr>
-        <tr>
-            <td height="22" align="left" valign=bottom><b><font size=1 color="#4A4B4B"><br></font></b></td>
-        <td colspan=2 align="left" valign=bottom><font face="Calibri">{{date('d/m/Y',strtotime($pacient->date_of_birth))}}</font></td>
-            <td align="left" valign=bottom><b><font color="#4A4B4B"><br></font></b></td>
-            <td align="left" valign=bottom><b><font color="#4A4B4B"><br></font></b></td>
-            <td align="left" valign=bottom><b><font color="#4A4B4B"><br></font></b></td>
-        </tr>
-        <tr>
-            <td height="22" align="left" valign=bottom><font size=1 color="#4A4B4B"><br></font></td>
-            <td colspan=2 align="left" valign=bottom><font face="Calibri">{{$pacient->address}}</font></td>
-            <td align="left" valign=bottom><b><font color="#4A4B4B"><br></font></b></td>
-            <td align="left" valign=bottom><b><font color="#4A4B4B"><br></font></b></td>
-            <td align="left" valign=bottom><b><font color="#4A4B4B"><br></font></b></td>
-        </tr>
-        <tr>
-            <td height="22" align="left" valign=bottom><font size=1 color="#4A4B4B"><br></font></td>
-            <td colspan=2 align="left" valign=bottom><font face="Calibri">{{$pacient->residence}} {{$pacient->city}}</font></td>
-            <td align="left" valign=bottom><b><font color="#4A4B4B"><br></font></b></td>
-            <td align="left" valign=bottom><b><font color="#4A4B4B"><br></font></b></td>
-            <td align="left" valign=bottom><b><font color="#4A4B4B"><br></font></b></td>
-        </tr>
-        <tr>
-            <td height="22" align="left" valign=bottom><font size=1 color="#4A4B4B"><br></font></td>
-            <td colspan=2 align="left" valign=bottom><font face="Calibri">{{$pacient->phone}} {{$pacient->email}}</font></td>
-            <td align="left" valign=bottom><b><font color="#4A4B4B"><br></font></b></td>
-            <td align="left" valign=bottom><b><font color="#4A4B4B"><br></font></b></td>
-            <td align="left" valign=bottom><b><font color="#4A4B4B"><br></font></b></td>
-        </tr>
-        <tr>
-            <td colspan=6 height="22" align="left" valign=bottom><font size=1 color="#4A4B4B"><br></font></td>
-            </tr>
-        
-        <tr>
-            <td height="22" align="center" valign=bottom bgcolor="#FFFFFF" sdnum="2057;0;0.00"><font size=1 color="#4A4B4B"><br></font></td>
-            <td align="center" valign=bottom bgcolor="#FFFFFF" sdnum="2057;0;0.00"><font size=1 color="#4A4B4B"><br></font></td>
-            <td align="left" valign=bottom bgcolor="#FFFFFF"><font size=1 color="#4A4B4B"><br></font></td>
-            <td align="left" valign=bottom bgcolor="#FFFFFF"><font size=1 color="#4A4B4B"><br></font></td>
-            <td style="border-right: 2px solid #ffffff" align="left" valign=bottom bgcolor="#FFFFFF"><font size=1 color="#4A4B4B"><br></font></td>
-            <td align="right" valign=bottom bgcolor="#FFFFFF" sdnum="2057;0;_(&quot;$&quot;* #,##0.00_);_(&quot;$&quot;* \(#,##0.00\);_(&quot;$&quot;* &quot;-&quot;??_);_(@_)"><font size=1 color="#4A4B4B"><br></font></td>
-        </tr>
-        <tr>
-            <td height="36" align="left" valign=bottom><font face="Calibri" color="#FFFFFF">QUANTITY</font></td>
-            <td style="border-right: 2px solid #ffffff" colspan=2 align="left" valign=middle bgcolor="#5590A8"><b><font face="Calibri" size=3 color="#231F20">Shërbimi</font></b></td>
-            <td style="border-right: 2px solid #ffffff" align="left" valign=middle bgcolor="#5590A8"><b><font face="Calibri" size=3 color="#231F20">Qmimi</font></b></td>
-            <td style="border-right: 2px solid #ffffff" align="left" valign=middle bgcolor="#5590A8"><b><font face="Calibri" size=3 color="#231F20">Zbritja</font></b></td>
-            <td align="left" valign=middle bgcolor="#5590A8"><b><font face="Calibri" size=3 color="#231F20">Qmimi Total</font></b></td>
-        </tr>
-        @foreach($services as $service)
-        <tr>
-            <td height="22" align="left" valign=middle sdnum="2057;0;0.00"><font size=1 color="#4A4B4B"><br></font></td>
-            <td style="border-right: 2px solid #ffffff" colspan=2 align="left" valign=middle bgcolor="#E6E6E6">{{$service->name}}</td>
-            <td style="border-right: 2px solid #ffffff" align="left" valign=middle bgcolor="#E6E6E6">{{$service->price}} €</td>
-            <td style="border-right: 2px solid #ffffff" align="left" valign=middle bgcolor="#E6E6E6" sdnum="2057;0;&quot;$&quot;#,##0.00">{{$service->discount}} %</td>
-        <td align="left" valign=middle bgcolor="#CFCFCF" sdnum="2057;0;&quot;$&quot;#,##0.00">{{$service->price - ($service->price * ($service->discount / 100))}} € </td>
-        </tr>
-        @endforeach
-        <tr>
-            <td height="27" align="left" valign=middle><font size=1 color="#4A4B4B"><br></font></td>
-            <td align="left" valign=middle><font size=1 color="#4A4B4B"><br></font></td>
-            <td align="left" valign=middle><font size=1 color="#4A4B4B"><br></font></td>
-            <td align="left" valign=middle><font size=1 color="#4A4B4B"><br></font></td>
-            <td style="border-right: 2px solid #ffffff" align="left" valign=middle><b><font size=3 color="#5590A8">TOTALI</font></b></td>
-        <td align="left" valign=middle bgcolor="#5590A8" sdnum="2057;0;_(&quot;$&quot;* #,##0.00_);_(&quot;$&quot;* \(#,##0.00\);_(&quot;$&quot;* &quot;-&quot;??_);_(@_)">{{App\Report::getTotal($report->id)}} €<font size=1 color="#FFFFFF">  </font></td>
-        </tr>
-        <tr>
-            <td height="17" align="left" valign=bottom><font face="Garamond"><br></font></td>
-            <td align="left" valign=bottom><font face="Garamond"><br></font></td>
-            <td align="left" valign=bottom><font face="Garamond"><br></font></td>
-            <td align="left" valign=bottom><font face="Garamond"><br></font></td>
-            <td align="left" valign=bottom><font face="Garamond"><br></font></td>
-            <td align="left" valign=bottom><font face="Garamond"><br></font></td>
-        </tr>
-        <tr>
-            <td height="25" align="left" valign=bottom><font face="Calibri" color="#FFFFFF"></font></td>
-             <td align="left" colspan=3  valign=middle bgcolor="#5590A8"><b><font face="Calibri" size=3 color="#231F20">Përshkrimi i barnave</font></b></td>
-        </tr>
-        <tr>
-            <td height="17" align="left" valign=bottom><font face="Garamond"><br></font></td>
-            <td style="border-right: 2px solid #ffffff" colspan=3 align="left" valign=middle bgcolor="#E6E6E6">{{$report->description}}</td>
-        </tr>
-        <tr>
-                <td height="17" align="left" valign=bottom><font face="Garamond"><br></font></td>
-             
-        </tr>
-        <tr>
-            <td height="28" align="left" valign=bottom><font face="Garamond"><br></font></td>
-            <td colspan=5 align="center" valign=middle><font face="Calibri">Klinika Dentare Metropolis</font></td>
-            </tr>
-        <tr>
-            <td height="36" align="center" valign=middle><b><font face="Calibri" size=3 color="#5590A8"><br></font></b></td>
-            <td colspan=5 align="center" valign=middle><b><font face="Calibri" size=3 color="#5590A8">JU FALEMINDERIT QE NA ZGJODHET!</font></b></td>
-            </tr>
+<html>
+<head>
+	
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<style type="text/css">
+		body,div,table,thead,tbody,tfoot,tr,th,td,p { font-family:"Calibri"; font-size:x-small }
+		a.comment-indicator:hover + comment { background:#ffd; position:absolute; display:block; border:1px solid black; padding:0.5em;  } 
+		a.comment-indicator { background:red; display:inline-block; border:1px solid black; width:0.5em; height:0.5em;  } 
+		comment { display:none;  } 
+        table {width:100%}
+	</style>
+	
+</head>
 
-            
-    </table>
+<body>
+<table cellspacing="0" border="0">
+	<colgroup width="55"></colgroup>
+	<colgroup width="669"></colgroup>
+	<colgroup width="373"></colgroup>
+	<colgroup width="349"></colgroup>
+	<tr>
+		<td height="39" align="left" valign=bottom><font color="#000000"><br></font></td>
+		<td align="left" valign=bottom><i><font face="Palatino Linotype" size=4> Ordinanca  stomatologjike</font></i></td>
+		<td align="left" valign=bottom><b><i><font face="Palatino Linotype" size=6><br></font></i></b></td>
+		<td align="left" valign=bottom><i><font face="Palatino Linotype" size=5><br></font></i></td>
+	</tr>
+	<tr>
+		<td height="39" align="left" valign=bottom><b><i><font face="Palatino Linotype" size=6><br></font></i></b></td>
+		<td align="left" valign=bottom><b><i><font face="Palatino Linotype" size=6>  &quot; M E T R O P O L I S &quot;</font></i></b></td>
+		<td align="left" valign=bottom><font face="Arial"><br></font></td>
+		<td align="left" valign=bottom><font face="Arial"><br></font></td>
+	</tr>
+	<tr>
+		<td height="26" align="left" valign=bottom><font face="Arial"><br></font></td>
+		<td align="left" valign=bottom><i><font face="Palatino Linotype" size=4><br></font></i></td>
+		<td align="left" valign=bottom><font face="Arial"><br></font></td>
+		<td align="left" valign=bottom><font face="Arial"><br></font></td>
+	</tr>
+	<tr>
+		<td height="26" align="left" valign=bottom><i><font face="Palatino Linotype" size=4><br></font></i></td>
+		<td align="left" valign=bottom><font face="Arial" size=4 color="#222222">Prizren, Sh.i Lidhjes,8</font></td>
+		<td colspan=2 align="center" valign=bottom><b><i><font face="Palatino Linotype" size=4>Shfrytëzuesi i shërbimeve</font></i></b></td>
+		</tr>
+	<tr>
+		<td height="26" align="left" valign=bottom><i><font face="Palatino Linotype" size=4><br></font></i></td>
+		<td align="left" valign=bottom><font face="Arial" size=4>Nr. regj: 810982464</font></td>
+		<td colspan=2 rowspan=2 align="center" valign=bottom><i><font face="Palatino Linotype"><u>{{$pacient->first_name}} {{$pacient->fathers_name}} {{$pacient->last_name}}</ul></font></i></td>
+		</tr>
+	<tr>
+		<td height="18" align="left" valign=bottom><font face="Arial"><br></font></td>
+		<td align="left" valign=bottom><font face="Arial"><br></font></td>
+		</tr>
+	<tr>
+		<td height="26" align="left" valign=bottom><font face="Arial"><br></font></td>
+    <td align="left" valign=bottom><i><font face="Palatino Linotype" size=4>Fatura nr. <u>{{$report->id}}</ul></font></i></td>
+		<td colspan=2 align="center" valign=bottom><i><font face="Palatino Linotype"><u>{{$pacient->personal_number}} {{$pacient->residence}} {{$pacient->city}}</ul></font></i></td>
+		</tr>
+	<tr>
+		<td height="18" align="left" valign=bottom><i><font face="Palatino Linotype"><br></font></i></td>
+		<td align="left" valign=bottom><i><font face="Palatino Linotype"><br></font></i></td>
+		<td align="left" valign=bottom><i><font face="Palatino Linotype"><br></font></i></td>
+		<td align="left" valign=bottom><i><font face="Palatino Linotype"><br></font></i></td>
+	</tr>
+	<tr>
+		<td height="26" align="left" valign=bottom><i><font face="Palatino Linotype"><br></font></i></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><i><font face="Palatino Linotype" size=4>Përshkrimi i punës së kryer</font></i></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><i><font face="Palatino Linotype" size=4>Dhëmb</font></i></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=bottom><i><font face="Palatino Linotype" size=4>Çmimi</font></i></td>
+    </tr>
+    @foreach($services as $service)
+	<tr>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="26" align="left" valign=bottom><i><font face="Palatino Linotype" size=4><br></font></i></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom> <i><font face="Palatino Linotype" size=4><br>{{$service->name}}</font></i></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><i><font face="Palatino Linotype" size=4><br></font></i></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=bottom><i><font face="Palatino Linotype" size=4><br>{{$service->price - ($service->price * ($service->discount /100))}} €</font></i></td>
+    </tr>
+    @endforeach
+	<tr>
+		<td style="border-top: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" height="26" align="left" valign=bottom><i><font face="Palatino Linotype" size=4><br></font></i></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="center" valign=bottom><i><font face="Palatino Linotype" size=4>V  L  E  R  A</font></i></td>
+		<td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left" valign=bottom><i><font face="Palatino Linotype" size=4><br></font></i></td>
+		<td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="left" valign=bottom><i><font face="Palatino Linotype" size=4><br>{{App\Report::getTotal($report->id)}} €</font></i></td>
+	</tr>
+	<tr>
+		<td height="18" align="left" valign=bottom><i><font face="Palatino Linotype"><br></font></i></td>
+		<td align="left" valign=bottom><i><font face="Palatino Linotype"><br></font></i></td>
+		<td align="left" valign=bottom><i><font face="Palatino Linotype"><br></font></i></td>
+		<td align="left" valign=bottom><font color="#000000"><br></font></td>
+	</tr>
+	<tr>
+		<td height="18" align="left" valign=bottom><i><font face="Palatino Linotype"><br></font></i></td>
+		<td align="left" valign=bottom><i><font face="Palatino Linotype"><br></font></i></td>
+		<td align="left" valign=bottom><i><font face="Palatino Linotype"><br></font></i></td>
+		<td align="left" valign=bottom><i><font face="Palatino Linotype"><br></font></i></td>
+	</tr>
+	<tr>
+		<td height="18" align="left" valign=bottom><i><font face="Palatino Linotype"><br></font></i></td>
+		<td align="left" valign=bottom><i><font face="Palatino Linotype"><br></font></i></td>
+		<td align="left" valign=bottom><i><font face="Palatino Linotype"><br></font></i></td>
+		<td align="left" valign=bottom><i><font face="Palatino Linotype"><br></font></i></td>
+	</tr>
+	<tr>
+		<td height="18" align="left" valign=bottom><i><font face="Palatino Linotype"><br></font></i></td>
+		<td align="left" valign=bottom><i><font face="Palatino Linotype"><br></font></i></td>
+		<td align="left" valign=bottom><i><font face="Palatino Linotype"><br></font></i></td>
+		<td align="left" valign=bottom><i><font face="Palatino Linotype"><br></font></i></td>
+	</tr>
+	<tr>
+		<td height="23" align="left" valign=bottom><i><font face="Palatino Linotype"><br></font></i></td>
+		<td align="left" valign=bottom><b><i><font face="Palatino Linotype" size=4>P r i z r e n</font></i></b></td>
+		<td colspan=2 align="center" valign=bottom><b><i><font face="Palatino Linotype" size=4>Personi i përgjegjës</font></i></b></td>
+		</tr>
+	<tr>
+		<td height="23" align="left" valign=bottom><i><font face="Palatino Linotype"><br></font></i></td>
+		<td align="left" valign=bottom><b><i><font face="Palatino Linotype" size=4><br></font></i></b></td>
+		<td align="left" valign=bottom><b><i><font face="Palatino Linotype" size=4><br></font></i></b></td>
+		<td align="left" valign=bottom><b><i><font face="Palatino Linotype" size=4><br></font></i></b></td>
+	</tr>
+	<tr>
+		<td height="23" align="left" valign=bottom><i><font face="Palatino Linotype"><br></font></i></td>
+		<td align="left" valign=bottom><b><i><font face="Palatino Linotype" size=4>Ditë {{date('d/m/Y', strtotime($report->created_at))}} g.</font></i></b></td>
+		<td align="left" valign=bottom><font color="#000000"><br></font></td>
+		<td align="left" valign=bottom><b><i><font face="Palatino Linotype" size=4>____________________</font></i></b></td>
+	</tr>
+</table>
+</body>
+
+</html>

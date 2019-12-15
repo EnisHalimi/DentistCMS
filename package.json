@@ -24,6 +24,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "datatables.net": "^1.10.20",
         "jquery-ui": "^1.12.1",
         "mdbootstrap": "^4.10.0"
     }

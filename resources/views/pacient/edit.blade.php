@@ -55,7 +55,7 @@
                                       @endif
                         </div>
                         <div class="col-sm-4 mb-3 mb-sm-0">
-                                <input id="date_of_birth" name="date_of_birth" required  type="date" value="{{$pacient->date_of_birth}}" class="form-control form-control-user "96>
+                                <input id="date_of_birth" name="date_of_birth" required  type="date" value="{{$pacient->birth_day}}" class="form-control form-control-user "96>
                                 @if ($errors->has('date_of_birth'))
                                           <span class="help-block">
                                               <strong>{{ $errors->first('date_of_birth') }}</strong>

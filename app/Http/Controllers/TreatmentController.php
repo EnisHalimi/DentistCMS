@@ -14,7 +14,7 @@ class TreatmentController extends Controller
 
     function getTreatmentDataTable()
     {
-        $treatment = Treatment::select('pacient_id','starting_date','duration','id');
+        $treatment = Treatment::all();
         $table = DataTables::of($treatment)
         ->addColumn('Menaxhimi' ,'<a href="/treatment/{{$id}}" class="btn btn-circle btn-secondary "><i class="fa fa-eye"></i></a>
         <a href="/treatment/{{$id}}/edit"  class="btn btn-circle btn-primary "><i class="fa fa-pen"></i></a>

@@ -4,21 +4,23 @@ require('./components/sb-admin-2')
 require('./components/jquery.easing.min')
 require('./components/datatables.min')
   function jQuery() {
-    $.ajaxSetup({ headers: { 'csrftoken' : '{{ csrf_token() }}' } });
-
-    $('#searchPacient').on('keyup change hover',function(){
-      $value=$(this).val();
-      $.ajax({
-    type : 'get',
-    url : '/searchPacient',
-    data:{'search':$value},
-    success:function(data){
-    $('#pacient-table-body').html(data);
-    }
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+      }
     });
-    })
+
     $(document).ready(function(){
-      $('#dalje-pacient').hide();
+      if (window.location.href.indexOf("daljet/create") > -1)
+      {
+        $('#dalje-pacient').hide();
+        $('#dalje-subject').hide();
+        $('#dalje-billnr').hide();
+        $('#dalje-photo').hide();
+        $('#dalje-value').hide();
+        $('#dalje-deadline').hide();
+      }
+    
     });
 
     $('#type').on('load change',function() {
@@ -29,68 +31,143 @@ require('./components/datatables.min')
           $('#dalje-photo').show();
           $('#dalje-pacient').hide();
           $('#pacient-id').val(0);
+          $('#dalje-value').show();
+          $('#dalje-deadline').show();
         }
-        else
+        else if($(this).val()=="Borgj")
         {
           $('#dalje-pacient').show();
+          $('#dalje-value').show();
+          $('#dalje-deadline').show();
           $('#dalje-subject').hide();
           $('#subject').val("Ska");
           $('#dalje-billnr').hide();
           $('#bill_number').val(0);
           $('#dalje-photo').hide();
-
+        }
+        else
+        {
+          $('#dalje-pacient').hide();
+          $('#dalje-subject').hide();
+          $('#dalje-billnr').hide();
+          $('#dalje-photo').hide();
+          $('#dalje-value').hide();
+          $('#dalje-deadline').hide();
         }
 
     });
 
-    $('#searchUser').on('keyup change hover',function(){
-        $value=$(this).val();
-        $.ajax({
-      type : 'get',
-      url : '/searchUser',
-      data:{'search':$value},
-      success:function(data){
-      $('#user-table-body').html(data);
-      }
+    $('#searchPacient').DataTable(
+      {
+        "processing": true,
+        "serverSide": true,
+        "ajax":"/searchPacient",
+        "columns": [
+          {"data":"first_name"},
+          {"data":"last_name"},
+          {"data":"personal_number"},
+          {"data": "Shto", "bSearchable": false}
+        ],
+        "language": {
+          "lengthMenu": "Shfaq _MENU_ për faqe",
+          "zeroRecords": "Nuk u gjet asnjë e dhënë",
+          "info": "Duke shfaqur faqen _PAGE_ nga _PAGES_",
+          "infoEmpty": "Nuk ka të dhëna",
+          "infoFiltered": "(Të filtruar nga _MAX_ total)",
+          "processing":     "Duke procesuar...",
+          "search":         "",
+          "paginate": {
+            "first":      "Fillimi",
+            "last":       "Fundi",
+            "next":       "Para",
+            "previous":   "Prapa"}
+          }
       });
-      })
 
-      $('#searchVisit').on('keyup change hover',function(){
-        $value=$(this).val();
-        $.ajax({
-      type : 'get',
-      url : '/searchVisit',
-      data:{'search':$value},
-      success:function(data){
-      $('#visit-table-body').html(data);
+    $('#searchUser').DataTable(
+      {
+        "processing": true,
+        "serverSide": true,
+        "ajax":"/searchUser",
+        "columns": [
+          {"data":"name"},
+          {"data":"email"},
+          {"data": "Shto", "bSearchable": false }
+        ],
+        "language": {
+          "lengthMenu": "Shfaq _MENU_ për faqe",
+          "zeroRecords": "Nuk u gjet asnjë e dhënë",
+          "info": "Duke shfaqur faqen _PAGE_ nga _PAGES_",
+          "infoEmpty": "Nuk ka të dhëna",
+          "infoFiltered": "(Të filtruar nga _MAX_ total)",
+          "processing":     "Duke procesuar...",
+          "search":         "",
+          "paginate": {
+            "first":      "Fillimi",
+            "last":       "Fundi",
+            "next":       "Para",
+            "previous":   "Prapa"}
+          }
       }
-      });
-      })
-
-      $('#searchService').on('keyup change hover',function(){
-        $value=$(this).val();
-        $.ajax({
-      type : 'get',
-      url : '/searchService',
-      data:{'search':$value},
-      success:function(data){
-      $('#service-table-body').html(data);
-      }
-      });
-      })
+    );
 
 
-      $('#searchTreatment').on('keyup change hover',function(){
-        $value=$(this).val();
-        $.ajax({
-      type : 'get',
-      url : '/searchTreatment',
-      data:{'search':$value},
-      success:function(data){
-      $('#treatment-table-body').html(data);
-      }
-      });
-      })
+      $('#searchService').DataTable(
+        {
+          "processing": true,
+          "serverSide": true,
+          "ajax":"/searchService",
+          "columns": [
+            {"data":"name"},
+            {"data":"price"},
+            {"data":"discount"},
+            {"data": "Shto", "bSearchable": false }
+          ],
+          "language": {
+            "lengthMenu": "Shfaq _MENU_ për faqe",
+            "zeroRecords": "Nuk u gjet asnjë e dhënë",
+            "info": "Duke shfaqur faqen _PAGE_ nga _PAGES_",
+            "infoEmpty": "Nuk ka të dhëna",
+            "infoFiltered": "(Të filtruar nga _MAX_ total)",
+            "processing":     "Duke procesuar...",
+            "search":         "",
+            "paginate": {
+              "first":      "Fillimi",
+              "last":       "Fundi",
+              "next":       "Para",
+              "previous":   "Prapa"}
+            }
+        }
+      );
+
+
+      $('#searchTreatment').DataTable(
+        {
+          "processing": true,
+          "serverSide": true,
+          "ajax":"/searchTreatment",
+          "columns": [
+            {"data":"pacient_id"},
+            {"data":"starting_date"},
+            {"data":"duration"},
+            {"data": "Shto", "bSearchable": false }
+          ],
+          "language": {
+            "lengthMenu": "Shfaq _MENU_ për faqe",
+            "zeroRecords": "Nuk u gjet asnjë e dhënë",
+            "info": "Duke shfaqur faqen _PAGE_ nga _PAGES_",
+            "infoEmpty":"Nuk ka të dhëna",
+            "infoFiltered": "(Të filtruar nga _MAX_ total)",
+            "processing":     "Duke procesuar...",
+            "search":         "",
+            "paginate": {
+              "first":      "Fillimi",
+              "last":       "Fundi",
+              "next":       "Para",
+              "previous":   "Prapa"}
+            }
+        }
+      );
 
       $("form[id*='notification']").click(function(e){
         e.preventDefault();
@@ -99,7 +176,6 @@ require('./components/datatables.min')
           type:'POST',
           url:'/markAsRead',
           data:{
-             "_token": "{{ csrf_token() }}",
             "id":id},
           success:function(data)
           {

@@ -30,7 +30,6 @@ Route::get('/notificationsDatatable', 'HomeController@getNotificationsDataTable'
 Route::get('getPacients', 'HomeController@autocomplete');
 Route::get('/searchPacient', 'SearchController@searchPacient');
 Route::get('/searchUser', 'SearchController@searchUser');
-Route::get('/searchVisit', 'SearchController@searchVisit');
 Route::get('/searchTreatment', 'SearchController@searchTreatment');
 Route::get('/searchService', 'SearchController@searchService');
 Route::get('search', 'SearchController@search');

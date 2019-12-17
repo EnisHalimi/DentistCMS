@@ -27,4 +27,9 @@ class Report extends Model
         }
         return $price;
     }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return date('d/m/Y H:m',strtotime($value));
+    }
 }

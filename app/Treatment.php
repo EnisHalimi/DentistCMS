@@ -5,9 +5,12 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Pacient;
 use App\Treatment;
+use Carbon\Carbon;
 
 class Treatment extends Model
 {
+
+    protected $dates = ['created_at', 'starting_date'];
     public function visit()
     {
         return $this->belongsTo('App\Visit');
@@ -34,5 +37,20 @@ class Treatment extends Model
     {
         $treatment = Treatment::find($id);
         return $treatment->starting_date;
+    }
+
+    public function getStartingDateAttribute($value)
+    {
+        return date('d/m/Y',strtotime($value));
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return date('d/m/Y H:m',strtotime($value));
+    }
+
+    public function getDateStartingAttribute()
+    {
+        return Carbon::createFromFormat('d/m/Y', $this->starting_date)->format('Y-m-d');
     }
 }

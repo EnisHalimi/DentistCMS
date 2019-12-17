@@ -3,10 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 
 class Pacient extends Model
 {
+
+    protected $dates = ['created_at', 'date_of_birth'];
+
     public function visit()
     {
         return $this->hasMany('App\Visit');
@@ -15,12 +19,6 @@ class Pacient extends Model
     public function appointment()
     {
         return $this->hasMany('App\Appointment');
-    }
-
-
-    public function contact()
-    {
-        return $this->hasOne('App\Contact');
     }
 
     public static function getPacient($id)
@@ -39,5 +37,20 @@ class Pacient extends Model
     {
         $pacient = Pacient::find($id);
         return ''.$pacient->personal_number;
+    }
+
+    public function getDateOfBirthAttribute($value)
+    {
+        return date('d/m/Y',strtotime($value));
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return date('d/m/Y H:m',strtotime($value));
+    }
+
+    public function getBirthDayAttribute()
+    {
+        return Carbon::createFromFormat('d/m/Y', $this->date_of_birth)->format('Y-m-d');
     }
 }

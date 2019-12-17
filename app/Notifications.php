@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Notifications extends Model
 {
+
+    protected $dates = ['created_at', 'date'];
+
     public static function getNotificationsNumber()
     {
         $notifications = Notifications::where('date','=',date('Y-m-d',strtotime('tomorrow')))->
@@ -20,4 +23,11 @@ class Notifications extends Model
         where('opened','=',false)->get();
         return $notifications;
     }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return date('d/m/Y H:m:s',strtotime($value));
+    }
+
+    
 }

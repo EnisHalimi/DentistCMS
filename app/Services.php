@@ -10,4 +10,9 @@ class Services extends Model
     {
         return $this->belongsToMany('App\Treatment');
     }
+
+    public function getCreatedAtAttribute($value)
+    {
+        return date('d/m/Y H:m',strtotime($value));
+    }
 }

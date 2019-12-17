@@ -15,11 +15,7 @@ class AppointmentController extends Controller
 
     function getAppointmentDataTable()
     {
-        $appointments = DB::table('appointments')
-                        ->join('users', 'users.id', '=', 'appointments.user_id')
-                        ->join('pacients', 'pacients.id', '=', 'appointments.pacient_id')
-                        ->select('appointments.*', 'users.name', 'pacients.first_name', 'pacients.last_name', 'pacients.personal_number')
-                        ->get();
+        $appointments = Appointment::all();
         $table = DataTables::of($appointments)
         ->addColumn('Menaxhimi' ,'<a href="/appointment/{{$id}}" class="btn btn-circle btn-secondary"><i class="fa fa-eye"></i></a>
         <a href="/appointment/{{$id}}/edit"  class="btn btn-circle btn-primary"><i class="fa fa-pen"></i></a>
@@ -48,8 +44,8 @@ class AppointmentController extends Controller
                 </div>
             </div>
         </div> ')
-        ->editColumn('pacient_id',' <a class="btn btn-circle btn-secondary btn-sm" href="/pacient/{{$pacient_id}}"><i class="fa fa-user"></i></a> {{$first_name}}  {{$last_name}}  {{$personal_number}}')
-        ->editColumn('user_id',' <a class="btn btn-circle btn-secondary btn-sm" href="/user/{{$user_id}}"><i class="fa fa-user-md"></i></a> {{$name}}')
+        ->editColumn('pacient_id',' <a class="btn btn-circle btn-secondary btn-sm" href="/pacient/{{$pacient_id}}"><i class="fa fa-user"></i></a> {{App\Pacient::getPacient($pacient_id)}}')
+        ->editColumn('user_id',' <a class="btn btn-circle btn-secondary btn-sm" href="/user/{{$user_id}}"><i class="fa fa-user-md"></i></a> {{App\User::getUser($user_id)}}')
         ->rawColumns(['Menaxhimi','pacient_id','user_id'])
         ->make(true);
         return $table;
@@ -112,7 +108,7 @@ class AppointmentController extends Controller
             $pacient = Pacient::find($request->input('pacient-id'));
             $notifications = new Notifications;
             $notifications->description = $pacient->first_name.' '.$pacient->last_name.' ka terminin për ditën e nesërme në ora '.$appointment->time_of_appointment.'.';
-            $notifications->date = $appointment->date_of_appointment;
+            $notifications->date = $request->input('data');
             $notifications->opened = false;
             $notifications->save();
             return redirect('/appointment')->with('success','U shtua termini');

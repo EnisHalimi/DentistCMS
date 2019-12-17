@@ -14,11 +14,7 @@ class VisitController extends Controller
 
     function getVisitDataTable()
     {
-        $visits = DB::table('visits')
-                        ->join('users', 'users.id', '=', 'visits.user_id')
-                        ->join('pacients', 'pacients.id', '=', 'visits.pacient_id')
-                        ->select('visits.*', 'users.name', 'pacients.first_name', 'pacients.last_name', 'pacients.personal_number')
-                        ->get();
+        $visits = Visit::all();
         $table = DataTables::of($visits)
         ->addColumn('Menaxhimi' ,'<a href="/visit/{{$id}}" class="btn btn-circle btn-secondary"><i class="fa fa-eye"></i></a>
         <a href="/visit/{{$id}}/edit"  class="btn btn-circle btn-primary"><i class="fa fa-pen"></i></a>
@@ -47,8 +43,8 @@ class VisitController extends Controller
                 </div>
             </div>
         </div> ')
-        ->editColumn('pacient_id',' <a class="btn btn-circle btn-secondary btn-sm" href="/pacient/{{$pacient_id}}"><i class="fa fa-user"></i></a> {{$first_name}}  {{$last_name}}  {{$personal_number}}')
-        ->editColumn('user_id',' <a class="btn btn-circle btn-secondary btn-sm" href="/user/{{$user_id}}"><i class="fa fa-user-md"></i></a> {{$name}}')
+        ->editColumn('pacient_id',' <a class="btn btn-circle btn-secondary btn-sm" href="/pacient/{{$pacient_id}}"><i class="fa fa-user"></i></a> {{App\Pacient::getPacient($pacient_id)}}')
+        ->editColumn('user_id',' <a class="btn btn-circle btn-secondary btn-sm" href="/user/{{$user_id}}"><i class="fa fa-user-md"></i></a> {{App\User::getUser($user_id)}}')
         ->rawColumns(['Menaxhimi','pacient_id','user_id'])
         ->make(true);
         return $table;

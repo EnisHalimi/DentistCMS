@@ -153,7 +153,7 @@
                     </tr>
                     <tr>
                         <td height="23" align="left" valign=bottom><i><font face="Palatino Linotype"><br></font></i></td>
-                        <td align="left" valign=bottom><b><i><font face="Palatino Linotype" size=4>Ditë {{date('d/m/Y', strtotime($report->created_at))}} g.</font></i></b></td>
+                        <td align="left" valign=bottom><b><i><font face="Palatino Linotype" size=4>Ditë {{$report->created_at}} g.</font></i></b></td>
                         <td align="left" valign=bottom><font color="#000000"><br></font></td>
                         <td align="left" valign=bottom><b><i><font face="Palatino Linotype" size=4>____________________</font></i></b></td>
                     </tr>

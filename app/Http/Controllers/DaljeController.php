@@ -11,7 +11,7 @@ class DaljeController extends Controller
 
     function getDaljeDataTable()
     {
-        $dalje = Dalje::select('type','subject','pacient_id','bill_number','deadline','value','id');
+        $dalje = Dalje::all();
         $table = DataTables::of($dalje)
         ->addColumn('Menaxhimi' ,'<a href="/daljet/{{$id}}" class="btn btn-circle btn-secondary "><i class="fa fa-eye"></i></a>
         <a href="/daljet/{{$id}}/edit"  class="btn btn-circle btn-primary "><i class="fa fa-pen"></i></a>
@@ -132,7 +132,11 @@ class DaljeController extends Controller
      */
     public function show($id)
     {
-        //
+        $dalje = Dalje::findOrFail($id);
+        if(auth()->guest())
+            return redirect('/login')->with('error', 'Unathorized Page');
+        else
+            return view('daljet.show')->with('dalje',$dalje); 
     }
 
     /**
@@ -143,7 +147,11 @@ class DaljeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $dalje = Dalje::findOrFail($id);
+        if(auth()->guest())
+            return redirect('/login')->with('error', 'Unathorized Page');
+        else
+            return view('daljet.edit')->with('dalje',$dalje); 
     }
 
     /**
@@ -155,7 +163,45 @@ class DaljeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if(auth()->guest())
+        {
+            return redirect('/')->with('error','Unathorized Page'); 
+        }
+        else
+        {
+            $this->validate($request,[
+                'Tipi'=> 'required',
+                'pacient-id' => 'required',
+                'Subjekti' => 'required|string',
+                'Nr_fatures' => 'required|string',
+                'Vlera' => 'required|numeric',
+                'Afati' => 'required|date',
+                'Foto' =>'image|nullable|max:1999',
+            ]);
+            $dajle = Dalje::find($id);
+            if($request->hasFile('Foto'))
+            {
+                $fileNamewithExt = $request->file('Foto')->getClientOriginalName();
+                $fileName = pathInfo($fileNamewithExt, PATHINFO_FILENAME);
+                $extension = $request->file('Foto')->getClientOriginalExtension();
+                $date = date('d-m-Y');
+                $fileNametoStore = $request->input('Tipi').'-'.$date.'.'.$extension;
+                $request->file('Foto')->move(public_path('/img/faturat'), $fileNametoStore);
+            }
+            else
+            {
+                $fileNametoStore = $dajle->file;
+            }
+            $dajle->type = $request->input('Tipi');
+            $dajle->pacient_id = $request->input('pacient-id');
+            $dajle->subject = $request->input('Subjekti');
+            $dajle->bill_number = $request->input('Nr_fatures');
+            $dajle->deadline = $request->input('Afati');
+            $dajle->value = $request->input('Vlera');
+            $dajle->file = $fileNametoStore;
+            $dajle->save();
+            return redirect('/daljet')->with('success','U ndryshua dalja');
+        }
     }
 
     /**
@@ -166,6 +212,15 @@ class DaljeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $dalje = Dalje::find($id);
+        if(auth()->guest())
+        {
+            return redirect('/')->with('error','Unathorized Page'); 
+        }
+        else
+        {
+            $dalje->delete();           
+            return redirect('/daljet')->with('success','Është fshirë Dalja');
+        }
     }
 }

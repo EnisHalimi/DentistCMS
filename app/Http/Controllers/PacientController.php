@@ -17,7 +17,7 @@ class PacientController extends Controller
 
     function getPacientDataTable()
     {
-        $pacients = Pacient::select('first_name','last_name','personal_number','date_of_birth','address','residence','id');
+        $pacients = Pacient::all();
         $table = DataTables::of($pacients)
         ->editColumn('Menaxhimi' ,'<a href="/pacient/{{$id}}" class="btn btn-circle btn-secondary "><i class="fa fa-eye"></i></a>
         <a href="/pacient/{{$id}}/edit"  class="btn btn-circle btn-primary "><i class="fa fa-pen"></i></a>
@@ -98,14 +98,14 @@ class PacientController extends Controller
         else
         {
             $this->validate($request,[  
-                'first_name'=> 'required|min:3|string|max:255|regex:/^[\w&.\-\s]*$/',
-                'fathers_name'=> 'required|min:3|string|max:255|regex:/^[\w&.\-\s]*$/',
-                'last_name'=> 'required|min:3|string|max:255|regex:/^[\w&.\-\s]*$/',
+                'first_name'=> 'required|min:3',
+                'fathers_name'=> 'required|min:3',
+                'last_name'=> 'required|min:3',
                 'personal_number' => 'required|digits:10|numeric',
                 'date_of_birth' => 'required|date',
-                'address'=> 'required|min:6|string|max:255|regex:/^[\w&.\-\s]*$/',
-                'residence'=> 'required|min:6|string|max:255|regex:/^[\w&.\-\s]*$/',
-                'city'=> 'required|min:6|string|max:255|regex:/^[\w&.\-\s]*$/',
+                'address'=> 'required|min:1',
+                'residence'=> 'required|min:1',
+                'city'=> 'required|min:1',
                 'phone'=> 'required|min:9|numeric',
             ]);
             $pacient = new Pacient;
@@ -180,14 +180,14 @@ class PacientController extends Controller
         else
         {
             $this->validate($request,[
-                'first_name'=> 'required|min:3|string|max:255|regex:/^[\w&.\-\s]*$/',
-                'fathers_name'=> 'required|min:3|string|max:255|regex:/^[\w&.\-\s]*$/',
-                'last_name'=> 'required|min:3|string|max:255|regex:/^[\w&.\-\s]*$/',
+                'first_name'=> 'required|min:3',
+                'fathers_name'=> 'required|min:3',
+                'last_name'=> 'required|min:3',
                 'personal_number' => 'required|digits:10|numeric',
                 'date_of_birth' => 'required|date',
-                'address'=> 'required|min:6|string|max:255|regex:/^[\w&.\-\s]*$/',
-                'residence'=> 'required|min:6|string|max:255|regex:/^[\w&.\-\s]*$/',
-                'city'=> 'required|min:6|string|max:255|regex:/^[\w&.\-\s]*$/',
+                'address'=> 'required|min:1',
+                'residence'=> 'required|min:1',
+                'city'=> 'required|min:1',
                 'phone'=> 'required|min:9|numeric',
             ]);
             $pacient =  Pacient::find($id);
@@ -237,7 +237,6 @@ class PacientController extends Controller
                 }
             }
             $pacient->visit()->delete();
-            $pacient->contact()->delete();
             $pacient->delete();           
             return redirect('/pacient')->with('success','Është fshirë Pacienti');
         }

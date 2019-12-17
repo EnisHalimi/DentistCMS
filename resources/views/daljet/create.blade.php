@@ -19,11 +19,12 @@
                 <div class="form-group">
                   <label class="text-xs"  for="type">Tipi</label>
                   <select class="form-control form-control-user" id="type" name="Tipi" placeholder="Tipi"> 
+                    <option>Zgjidh tipin</option>
                     <option>Faturë</option>
                     <option>Borgj</option>
                   </select>
                 </div>
-                <div class="form-group"   id="dalje-pacient">
+                <div class="form-group"   id="dalje-pacient" >
                     <label class="text-xs" for="pacient">Pacienti</label>
                     <div class="input-group mb-3">
                         <div class="input-group-prepend">
@@ -42,19 +43,18 @@
                           <div class="modal-content">
                             <div class="modal-header">
                               <h5 class="modal-title" id="pacientModalLabel">Zgjedh Pacientin</h5>
-                              <input type="text" class="form-controller float-right" id="searchPacient" placeholder="Kërko" name="searchPacient"/>
                             </div>
-                            <div class="modal-body">
-                              <table class="table table-bordered table-hover">
+                            <div class="modal-body mx-2">
+                              <table class="table table-bordered table-hover"  width="100%" cellspacing="0" id="searchPacient">
                                 <thead class="bg-dark text-light">
                                   <tr>
                                     <th scope="col">Emri</th>
                                     <th scope="col">Mbiemri</th>
-                                    <th scope="col">Numri Personal</th>
+                                    <th scope="col">Nr Personal</th>
                                     <th scope="col">Shto</th>
                                   </tr>
                                 </thead>
-                                <tbody id="pacient-table-body">
+                                <tbody>
                                 </tbody>
                               </table>
                             </div>
@@ -88,7 +88,7 @@
                                     </span>
                                 @endif
           </div>
-                <div class="form-group ">
+                <div class="form-group " id="dalje-value">
                   <label class="text-xs"  for="value">Vlera</label>
                   <input type="text" class="form-control form-control-user" name="Vlera" id="value"  placeholder="Vlera">
                   @if ($errors->has('Vlera'))
@@ -97,7 +97,7 @@
                                     </span>
                                 @endif
           </div>
-          <div class="form-group ">
+          <div class="form-group " id="dalje-deadline"> 
             <label class="text-xs"  for="deadline">Afati</label>
             <input type="date" class="form-control form-control-user" required="" name="Afati" id="deadline" min="{{date('Y-m-d')}}" placeholder="Afati">
             @if ($errors->has('Afati'))

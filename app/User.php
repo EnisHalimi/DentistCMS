@@ -68,4 +68,9 @@ class User extends Authenticatable
         return $settings->app_name;
     }
 
+    public function getCreatedAtAttribute($value)
+    {
+        return date('d/m/Y H:m',strtotime($value));
+    }
+
 }

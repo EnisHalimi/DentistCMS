@@ -14,6 +14,7 @@ use App\Contact;
 use App\Notifications;
 use DataTables;
 use DB;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -36,15 +37,23 @@ class HomeController extends Controller
     public function index()
     {
         $pacients = Pacient::whereDate('created_at','=',date("Y-m-d"))->orderBy('id', 'DESC')->get();
-        $appointements = Appointment::where('date_of_appointment','=',date("Y-m-d"))->orderBy('id', 'DESC')->get();
+        $appointements = Appointment::whereBetween('date_of_appointment',[Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
         $treatment = Treatment::whereDate('created_at','=',date("Y-m-d"))->orderBy('id', 'DESC')->get();
         $visit = Visit::where('date_of_visit','=',date("Y-m-d"))->orderBy('id', 'DESC')->get();
         $reports = Report::whereDate('created_at','LIKE',date("Y-m-d"))->orderBy('id', 'DESC')->get();
+        $monday = Carbon::now()->startOfWeek();
+        $tuesday = $monday->copy()->addDay();
+        $wednesday = $tuesday->copy()->addDay();
+        $thurdsay =  $wednesday->copy()->addDay();
+        $friday =  $thurdsay->copy()->addDay();
+        $saturday =  $friday->copy()->addDay();
+        $days = array($monday,$tuesday,$wednesday,$thurdsay,$friday,$saturday);
         return view('index')->with('pacients', $pacients)
                             ->with('appointements', $appointements)
                             ->with('treatments', $treatment)
                             ->with('reports', $reports)
-                            ->with('visits', $visit);
+                            ->with('visits', $visit)
+                            ->with('days', $days);
     }
     public function autocomplete()
     {

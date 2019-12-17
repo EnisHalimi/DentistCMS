@@ -39,10 +39,9 @@
                       <div class="modal-content">
                         <div class="modal-header">
                           <h5 class="modal-title" id="treatmentModalModalLabel">Zgjedh Trajtimin</h5>
-                          <input type="text" class="form-controller float-right" id="searchTreatment" placeholder="Kërko" name="searchTreatment"/>
                         </div>
                         <div class="modal-body">
-                          <table class="table table-bordered table-hover">
+                          <table class="table table-bordered table-hover" width="100%" cellspacing="0"  id="searchTreatment">
                             <thead class="bg-dark text-light">
                               <tr>
                                 <th scope="col">Pacienti</th>

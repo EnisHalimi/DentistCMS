@@ -36,19 +36,18 @@
                       <div class="modal-content">
                         <div class="modal-header">
                           <h5 class="modal-title" id="pacientModalLabel">Zgjedh Pacientin</h5>
-                          <input type="text" class="form-controller float-right" id="searchPacient" placeholder="Kërko" name="searchPacient"/>
                         </div>
-                        <div class="modal-body">
-                          <table class="table table-bordered table-hover">
+                        <div class="modal-body mx-2">
+                          <table class="table table-bordered table-hover"  width="100%" cellspacing="0" id="searchPacient">
                             <thead class="bg-dark text-light">
                               <tr>
                                 <th scope="col">Emri</th>
                                 <th scope="col">Mbiemri</th>
-                                <th scope="col">Numri Personal</th>
+                                <th scope="col">Nr Personal</th>
                                 <th scope="col">Shto</th>
                               </tr>
                             </thead>
-                            <tbody id="pacient-table-body">
+                            <tbody>
                             </tbody>
                           </table>
                         </div>
@@ -66,7 +65,7 @@
             </div>
               <div class="form-group ">
                       <label class="text-xs"  for="starting_date">Data e fillimit</label>
-              <input id="starting_date" value="{{$treatment->starting_date}}" name="starting_date" value="{{ old('starting_date') }}" required autofocus type="date" class="form-control form-control-user"  placeholder="Data e fillimit">
+              <input id="starting_date" value="{{$treatment->date_starting}}" name="starting_date" required autofocus type="date" class="form-control form-control-user"  placeholder="Data e fillimit">
                   @if ($errors->has('starting_date'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('starting_date') }}</strong>
@@ -109,10 +108,9 @@
                         <div class="modal-content">
                           <div class="modal-header">
                             <h5 class="modal-title" id="serviceModalLabel">Zgjedh Shërbimin</h5>
-                            <input type="text" class="form-controller float-right" id="searchService" placeholder="Kërko" name="searchService"/>
                           </div>
                           <div class="modal-body">
-                            <table class="table table-bordered table-hover">
+                            <table class="table table-bordered table-hover" id="searchService"  width="100%" cellspacing="0" >
                               <thead class="bg-dark text-light">
                                 <tr>
                                   <th scope="col">Shërbimi</th>
@@ -121,7 +119,7 @@
                                   <th scope="col">Shto</th>
                                 </tr>
                               </thead>
-                              <tbody id="service-table-body">
+                              <tbody >
                               </tbody>
                             </table>
                           </div>

@@ -35,20 +35,18 @@
                                   <div class="modal-content">
                                     <div class="modal-header">
                                       <h5 class="modal-title" id="pacientModalLabel">Zgjedh Pacientin</h5>
-                                      <input type="text" class="form-controller float-right" id="searchPacient" placeholder="Kërko" name="searchPacient"/>
-                                      
                                     </div>
-                                    <div class="modal-body">
-                                      <table class="table table-bordered table-hover">
+                                    <div class="modal-body mx-2">
+                                      <table class="table table-bordered table-hover"  width="100%" cellspacing="0" id="searchPacient">
                                         <thead class="bg-dark text-light">
                                           <tr>
                                             <th scope="col">Emri</th>
                                             <th scope="col">Mbiemri</th>
-                                            <th scope="col">Numri Personal</th>
+                                            <th scope="col">Nr Personal</th>
                                             <th scope="col">Shto</th>
                                           </tr>
                                         </thead>
-                                        <tbody id="pacient-table-body">
+                                        <tbody>
                                         </tbody>
                                       </table>
                                     </div>
@@ -83,19 +81,17 @@
                                       <div class="modal-content">
                                         <div class="modal-header">
                                           <h5 class="modal-title" id="userModalLabel">Zgjedh Dentistin</h5>
-                                          <input type="text" placeholder="Kërko" class="form-controller float-right" id="searchUser" name="searchUser"/>
                                         </div>
                                         <div class="modal-body">
-                                          
-                                          <table class="table table-bordered table-hover">
+                                          <table class="table table-bordered table-hover"  width="100%" cellspacing="0" id="searchUser" >
                                             <thead class="bg-dark text-light">
                                             <tr>
-                                            <th>Emri Mbiemri</th>
+                                            <th>Dentisti</th>
                                             <th>E-Mail</th>
                                             <th>Shto</th>
                                             </tr>
                                             </thead>
-                                            <tbody id="user-table-body">
+                                            <tbody>
                                             </tbody>
                                           </table>
                                             
@@ -114,7 +110,7 @@
                         </div>
                 <div class="form-group ">
                         <label class="text-xs"  for="data">Data e Terminit</label>
-                        <input type="date" value="{{$appointment->date_of_appointment}}" class="form-control form-control-user" required="" name="data" id="data" min="{{date('Y-m-d',strtotime('tomorrow'))}}" placeholder="Data e Terminit">
+                        <input type="date" value="{{$appointment->appointment_date}}" class="form-control form-control-user" required="" name="data" id="data" min="{{date('Y-m-d',strtotime('tomorrow'))}}" placeholder="Data e Terminit">
                         @if ($errors->has('data'))
                                           <span class="help-block">
                                               <strong>{{ $errors->first('data') }}</strong>

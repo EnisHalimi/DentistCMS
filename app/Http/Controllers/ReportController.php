@@ -17,11 +17,8 @@ class ReportController extends Controller
 
     function getReportDataTable()
     {
-        $reports = DB::table('reports')
-        ->join('treatments', 'treatments.id', '=', 'reports.treatment_id')
-        ->join('pacients', 'pacients.id', '=', 'reports.pacient_id')
-        ->select('reports.*', 'treatments.starting_date', 'pacients.first_name', 'pacients.last_name', 'pacients.personal_number')
-        ->get();
+        $reports = Report::all();
+      
         $table = DataTables::of($reports)
         ->editColumn('Menaxhimi' ,'<a href="/report/{{$id}}" class="btn btn-circle btn-secondary "><i class="fa fa-eye"></i></a>
         <a href="/report/{{$id}}/edit"  class="btn btn-circle btn-primary "><i class="fa fa-pen"></i></a>
@@ -54,8 +51,8 @@ class ReportController extends Controller
         <input id="id" hidden name="id" value="{{$id}}"/>
       <button type="submit" class="btn btn-circle btn-success "><i class="fa fa-print"></i></button>
       </form>')
-        ->editColumn('pacient_id',' <a class="btn btn-circle btn-secondary btn-sm" href="/pacient/{{$pacient_id}}"><i class="fa fa-user"></i></a> {{$first_name}}  {{$last_name}}  {{$personal_number}}')
-        ->editColumn('starting_date',' <a class="btn btn-circle btn-secondary btn-sm" href="/treatment/{{$treatment_id}}"><i class="fa fa-syringe"></i></a> {{$starting_date}}')
+        ->editColumn('pacient_id',' <a class="btn btn-circle btn-secondary btn-sm" href="/pacient/{{$pacient_id}}"><i class="fa fa-user"></i></a> {{App\Pacient::getPacient($pacient_id)}}')
+        ->editColumn('starting_date',' <a class="btn btn-circle btn-secondary btn-sm" href="/treatment/{{$treatment_id}}"><i class="fa fa-syringe"></i></a> {{App\Treatment::getStartingDate($treatment_id)}}')
         ->rawColumns(['Menaxhimi','pacient_id','starting_date'])
         ->make(true);
         return $table;

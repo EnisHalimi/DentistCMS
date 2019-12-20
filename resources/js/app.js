@@ -441,7 +441,6 @@ require('./components/datatables.min')
     );
 
   }
-
   jQuery();
 
 

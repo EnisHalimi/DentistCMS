@@ -55,7 +55,7 @@ class DaljeController extends Controller
     public function index()
     {
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Unathorized Page');
+            return redirect('/login')->with('error', 'Nuk keni autorizim');
         else
             return view('daljet.index'); 
     }
@@ -68,7 +68,7 @@ class DaljeController extends Controller
     public function create()
     {
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Unathorized Page');
+            return redirect('/login')->with('error', 'Nuk keni autorizim');
         else
             return view('daljet.create'); 
     }
@@ -83,7 +83,7 @@ class DaljeController extends Controller
     {
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Unathorized Page'); 
+            return redirect('/')->with('error','Nuk keni autorizim'); 
         }
         else
         {
@@ -91,7 +91,7 @@ class DaljeController extends Controller
                 'Tipi'=> 'required',
                 'pacient-id' => 'required',
                 'Subjekti' => 'required|string',
-                'Nr_fatures' => 'required|string',
+                'Nr_fatures' => 'required|numeric',
                 'Vlera' => 'required|numeric',
                 'Afati' => 'required|date',
                 'Foto' =>'image|nullable|max:1999',
@@ -134,7 +134,7 @@ class DaljeController extends Controller
     {
         $dalje = Dalje::findOrFail($id);
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Unathorized Page');
+            return redirect('/login')->with('error', 'Nuk keni autorizim');
         else
             return view('daljet.show')->with('dalje',$dalje); 
     }
@@ -149,7 +149,7 @@ class DaljeController extends Controller
     {
         $dalje = Dalje::findOrFail($id);
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Unathorized Page');
+            return redirect('/login')->with('error', 'Nuk keni autorizim');
         else
             return view('daljet.edit')->with('dalje',$dalje); 
     }
@@ -165,7 +165,7 @@ class DaljeController extends Controller
     {
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Unathorized Page'); 
+            return redirect('/')->with('error','Nuk keni autorizim'); 
         }
         else
         {
@@ -173,7 +173,7 @@ class DaljeController extends Controller
                 'Tipi'=> 'required',
                 'pacient-id' => 'required',
                 'Subjekti' => 'required|string',
-                'Nr_fatures' => 'required|string',
+                'Nr_fatures' => 'required|numeric',
                 'Vlera' => 'required|numeric',
                 'Afati' => 'required|date',
                 'Foto' =>'image|nullable|max:1999',
@@ -215,7 +215,7 @@ class DaljeController extends Controller
         $dalje = Dalje::find($id);
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Unathorized Page'); 
+            return redirect('/')->with('error','Nuk keni autorizim'); 
         }
         else
         {

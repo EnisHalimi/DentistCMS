@@ -16,6 +16,11 @@ class Pacient extends Model
         return $this->hasMany('App\Visit');
     }
 
+    public function treatment()
+    {
+        return $this->hasMany('App\Treatment');
+    }
+
     public function appointment()
     {
         return $this->hasMany('App\Appointment');

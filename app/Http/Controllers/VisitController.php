@@ -58,7 +58,7 @@ class VisitController extends Controller
     {
         $visits = Visit::orderBy('date_of_visit', 'desc')->paginate(15);
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Unathorized Page');
+            return redirect('/login')->with('error', 'Nuk keni autorizim');
         else
             return view('visit.visit')->with('visits',$visits);
     }
@@ -73,7 +73,7 @@ class VisitController extends Controller
         $pacient = Pacient::get();
         $user = User::get();
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Unathorized Page');
+            return redirect('/login')->with('error', 'Nuk keni autorizim');
         else
             return view('visit.create')->with('pacients',$pacient)->with('users',$user);
     }
@@ -88,7 +88,7 @@ class VisitController extends Controller
     {
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Unathorized Page'); 
+            return redirect('/')->with('error','Nuk keni autorizim'); 
         }
         else
         {
@@ -97,7 +97,14 @@ class VisitController extends Controller
                 'user-id' => 'required|numeric',
                 'data' => 'required|date',
             ]);
-            
+            $error = \Illuminate\Validation\ValidationException::withMessages([
+                'data' => ['Vizita në këtë datë dhe orë egziston'],
+                'time' => ['Vizita në këtë datë dhe orë egziston'],
+             ]);
+            $visits = Visit::where('date_of_visit','=',$request->input('data'))
+                ->where('time_of_visit','=',$request->input('time'))->get();
+            if(count($visits))
+                throw $error;
             $visit = new Visit;
             $visit->pacient_id = $request->input('pacient-id');
             $visit->user_id = $request->input('user-id');
@@ -118,7 +125,7 @@ class VisitController extends Controller
     {
         $visit = Visit::find($id);
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Unathorized Page');
+            return redirect('/login')->with('error', 'Nuk keni autorizim');
         else
             return view('visit.show')->with('visit', $visit);
     }
@@ -135,7 +142,7 @@ class VisitController extends Controller
         $pacient = Pacient::get();
         $user = User::get();
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Unathorized Page');
+            return redirect('/login')->with('error', 'Nuk keni autorizim');
         else
             return view('visit.edit')->with('visit', $visit)->with('pacients',$pacient)->with('users',$user);
     }
@@ -151,7 +158,7 @@ class VisitController extends Controller
     {
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Unathorized Page'); 
+            return redirect('/')->with('error','Nuk keni autorizim'); 
         }
         else
         {
@@ -160,7 +167,14 @@ class VisitController extends Controller
                 'user-id' => 'required|numeric',
                 'data' => 'required|date',
             ]);
-            
+            $error = \Illuminate\Validation\ValidationException::withMessages([
+                'data' => ['Vizita në këtë datë dhe orë egziston'],
+                'time' => ['Vizita në këtë datë dhe orë egziston'],
+             ]);
+            $visits = Visit::where('date_of_visit','=',$request->input('data'))
+                ->where('time_of_visit','=',$request->input('time'))->get();
+            if(count($visits))
+                throw $error;
             $visit = Visit::find($id);
             $visit->pacient_id = $request->input('pacient-id');
             $visit->user_id = $request->input('user-id');
@@ -182,7 +196,7 @@ class VisitController extends Controller
         $visit = Visit::find($id);
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Unathorized Page'); 
+            return redirect('/')->with('error','Nuk keni autorizim'); 
         }
         else
         {

@@ -78,7 +78,7 @@ class ReportController extends Controller
     public function index()
     {
         if(auth()->guest())
-        return redirect('/login')->with('error', 'Unathorized Page');
+        return redirect('/login')->with('error', 'Nuk keni autorizim');
         else
         return view('report.report');
     }
@@ -91,7 +91,7 @@ class ReportController extends Controller
     public function create()
     {
         if(auth()->guest())
-        return redirect('/login')->with('error', 'Unathorized Page');
+        return redirect('/login')->with('error', 'Nuk keni autorizim');
         else
         return view('report.create');
     }
@@ -106,20 +106,20 @@ class ReportController extends Controller
     {
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Unathorized Page'); 
+            return redirect('/')->with('error','Nuk keni autorizim'); 
         }
         else
         {
             $this->validate($request,[
                 'treatment-id'=> 'required',
                 'pacient-id' => 'required',
-                'description' => 'required|min:10',
+                'Pershkrimi' => 'required|min:5',
             ]);
             
             $report = new Report;
             $report->treatment_id = $request->input('treatment-id');
             $report->pacient_id = $request->input('pacient-id');
-            $report->description = $request->input('description');
+            $report->description = $request->input('Pershkrimi');
             $report->save();
             return redirect('/report')->with('success','U shtua raporti');
         }
@@ -138,7 +138,7 @@ class ReportController extends Controller
         $treatment = Treatment::find($report->treatment_id);
         $services = $treatment->services()->get();
         if(auth()->guest())
-        return redirect('/login')->with('error', 'Unathorized Page');
+        return redirect('/login')->with('error', 'Nuk keni autorizim');
             else
         return view('report.show')->with('report',$report)->with('pacient',$pacient)->with('services',$services);
     }
@@ -153,7 +153,7 @@ class ReportController extends Controller
     {
         $report = Report::find($id);
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Unathorized Page');
+            return redirect('/login')->with('error', 'Nuk keni autorizim');
         else
             return view('report.edit')->with('report',$report);
     }
@@ -169,20 +169,20 @@ class ReportController extends Controller
     {
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Unathorized Page'); 
+            return redirect('/')->with('error','Nuk keni autorizim'); 
         }
         else
         {
             $this->validate($request,[
                 'treatment-id'=> 'required',
                 'pacient-id' => 'required',
-                'description' => 'required|min:10',
+                'Pershkrimi' => 'required|min:5',
             ]);
             
             $report = Report::find($id);
             $report->treatment_id = $request->input('treatment-id');
             $report->pacient_id = $request->input('pacient-id');
-            $report->description = $request->input('description');
+            $report->description = $request->input('Pershkrimi');
             $report->save();
             return redirect('/report')->with('success','U ndryshua raporti');
         }
@@ -199,7 +199,7 @@ class ReportController extends Controller
         $report = Report::find($id);
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Unathorized Page'); 
+            return redirect('/')->with('error','Nuk keni autorizim'); 
         }
         else
         {

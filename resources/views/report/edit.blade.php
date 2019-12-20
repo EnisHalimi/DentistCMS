@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Reports Edit')
+@section('title','Ndrysho Raport')
 @section('report','active')
 @section('content')
 
@@ -24,7 +24,7 @@
                     <div class="input-group-prepend">
                         <button class="btn btn-outline-primary" type="button"  data-toggle="modal" data-target="#treatmentModal"><i class="fa fa-plus"></i> </button>
                     </div>
-                <input  placeholder="Trajtimi"  class="form-control form-control-user  " id="treatment" name="treatment"  value="{{App\Treatment::getTreatment($report->treatment_id)}}"/>
+                <input readonly placeholder="Trajtimi"  class="form-control form-control-user @error('treatment-id') is-invalid @enderror  " id="treatment" name="treatment"    value="{{App\Treatment::getTreatment($report->treatment_id)}}"/>
                 <input  id="treatment-id" value="{{$report->treatment_id}}"  hidden name="treatment-id"/>
                 <input  id="pacient-id" value="{{$report->pacient_id}}"  hidden name="pacient-id"/>
                     <div class="input-group-append">
@@ -61,20 +61,20 @@
                       </div>
                     </div>
                   </div>
-              @if ($errors->has('treatment'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('treatment') }}</strong>
-                                </span>
-                            @endif
+                  @if ($errors->has('treatment-id'))
+                  <span class="help-block">
+                      <strong class="text-danger"><small>{{ $errors->first('treatment-id') }}</small></strong>
+                  </span>
+@endif
             </div>
               <div class="form-group ">
-                        <label class="text-xs"  for="data">Përshkrimi</label>
-              <textarea type="text" required class="form-control form-control-user" required="" name="description" id="description"  placeholder="Përshkrimi">{{$report->description}}</textarea>
-                        @if ($errors->has('description'))
-                                          <span class="help-block">
-                                              <strong>{{ $errors->first('description') }}</strong>
-                                          </span>
-                                      @endif
+                        <label class="text-xs"  for="description">Përshkrimi</label>
+              <textarea type="text" required class="form-control form-control-user @error('Pershkrimi') is-invalid @enderror" required="" name="Pershkrimi" id="description"  placeholder="Përshkrimi">{{$report->description}}</textarea>
+              @if ($errors->has('Pershkrimi'))
+              <span class="help-block">
+                <strong class="text-danger"><small>{{ $errors->first('Pershkrimi') }}</small></strong>
+              </span>
+          @endif
                 </div>
               <div class="form-group">
                 <a class="btn btn-circle btn-secondary" href="{{ url()->previous() }}" ><i class="fa fa-chevron-left"></i></a>

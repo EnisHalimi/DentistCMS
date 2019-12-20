@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Pacient Edit')
+@section('title','Ndrysho Pacient')
 @section('pacient','active')
 @section('content')
 <div class="card o-hidden border-0 shadow-lg my-5">
@@ -19,100 +19,99 @@
                 {{ csrf_field() }}
                 <div class="form-group row">
                     <div class="col-sm-4 mb-3 mb-sm-0">
-                                  <input id="first_name" name="first_name" value="{{$pacient->first_name}}" required type="text" class="form-control form-control-user"  placeholder="Emri">
+                                  <input id="first_name" name="Emri" value="{{$pacient->first_name}}" required type="text" class="form-control form-control-user @error('Emri') is-invalid @enderror"  placeholder="Emri">
                                   
-                                  @if ($errors->has('first_name'))
+                                  @if ($errors->has('Emri'))
                                                   <span class="help-block">
-                                                      <strong>{{ $errors->first('first_name') }}</strong>
+                                                      <strong class="text-danger"><small>{{ $errors->first('Emri') }}</small></strong>
                                                   </span>
                                               @endif
                                 </div>
                                 <div class="col-sm-4 mb-3 mb-sm-0">
-                                        <input id="fathers_name" name="fathers_name" value="{{$pacient->fathers_name}}" required type="text" class="form-control form-control-user" placeholder="Emri Prindit">
-                                        @if ($errors->has('fathers_name'))
-                                                  <span class="help-block">
-                                                      <strong>{{ $errors->first('fathers_name') }}</strong>
-                                                  </span>
-                                              @endif
+                                        <input id="fathers_name" name="Emri_Prindit" value="{{$pacient->fathers_name}}" required type="text" class="form-control form-control-user @error('Emri_Prindit') is-invalid @enderror" placeholder="Emri Prindit">
+                                        @if ($errors->has('Emri_Prindit'))
+                                        <span class="help-block">
+                                            <strong class="text-danger"><small>{{ $errors->first('Emri_Prindit') }}</small></strong>
+                                        </span>
+                                    @endif
                                       </div>
                                 <div class="col-sm-4">
-                                  <input id="last_name" name="last_name" required type="text" value="{{$pacient->last_name}}" class="form-control form-control-user" placeholder="Mbiemri">
-                                  @if ($errors->has('last_name'))
-                                                  <span class="help-block">
-                                                      <strong>{{ $errors->first('last_name') }}</strong>
-                                                  </span>
-                                              @endif
+                                  <input id="last_name" name="Mbiemri" required type="text" value="{{$pacient->last_name}}" class="form-control form-control-user @error('Mbiemri') is-invalid @enderror" placeholder="Mbiemri">
+                                  @if ($errors->has('Mbiemri'))
+                                  <span class="help-block">
+                                      <strong class="text-danger"><small>{{ $errors->first('Mbiemri') }}</small></strong>
+                                  </span>
+                              @endif
                                 </div>
                  </div>
                  <div class="form-group row">
                         <div class="col-sm-4 mb-3 mb-sm-0">
-                          <input id="personal_number" name="personal_number" value="{{$pacient->personal_number}}" required type="text" class="form-control form-control-user"  placeholder="Numri Personal">
-                          
-                          @if ($errors->has('personal_number'))
-                                          <span class="help-block">
-                                              <strong>{{ $errors->first('personal_number') }}</strong>
-                                          </span>
-                                      @endif
+                          <input id="personal_number" name="Numri_Personal" value="{{$pacient->personal_number}}" required type="text" class="form-control form-control-user @error('Numri_Personal') is-invalid @enderror"  placeholder="Numri Personal">
+                          @if ($errors->has('Numri_Personal'))
+                          <span class="help-block">
+                              <strong class="text-danger"><small>{{ $errors->first('Numri_Personal') }}</small></strong>
+                          </span>
+                      @endif
                         </div>
                         <div class="col-sm-4 mb-3 mb-sm-0">
-                                <input id="date_of_birth" name="date_of_birth" required  type="date" value="{{$pacient->birth_day}}" class="form-control form-control-user "96>
-                                @if ($errors->has('date_of_birth'))
-                                          <span class="help-block">
-                                              <strong>{{ $errors->first('date_of_birth') }}</strong>
-                                          </span>
-                                      @endif
+                                <input id="date_of_birth" name="Data_e_lindjes" required  type="date" value="{{$pacient->birth_day}}" class="form-control form-control-user @error('Data_e_lindjes') is-invalid @enderror">
+                                @if ($errors->has('Data_e_lindjes'))
+                                <span class="help-block">
+                                    <strong class="text-danger"><small>{{ $errors->first('Data_e_lindjes') }}</small></strong>
+                                </span>
+                            @endif
                               </div>
                         <div class="col-sm-4">
                                 <div class="custom-control custom-checkbox small">
-                                        <input type="radio"  name="gender" value="M" @if($pacient->gender == 'M') checked @else @endif  class="custom-control-input"  id="gender1">
+                                        <input type="radio"  name="gender" value="M" @if($pacient->gender == 'M') checked @else @endif  class="custom-control-input @error('gender') is-invalid @enderror"  id="gender1">
                                         <label class="custom-control-label" for="gender1">Mashkull</label>
                                 </div>
                                 <div class="custom-control custom-checkbox small">
-                                        <input type="radio"  name="gender" value="F" @if($pacient->gender == 'F') checked @else @endif   class="custom-control-input" id="gender2">
+                                        <input type="radio"  name="gender" value="F" @if($pacient->gender == 'F') checked @else @endif   class="custom-control-input @error('gender') is-invalid @enderror" id="gender2">
                                         <label class="custom-control-label" for="gender2">Femër</label>
                                 </div>
-                          @if ($errors->has('gender'))
-                                          <span class="help-block">
-                                              <strong>{{ $errors->first('gender') }}</strong>
-                                          </span>
-                                      @endif
+                                @if ($errors->has('gender'))
+                                <span class="help-block">
+                                  <strong class="text-danger"><small>{{ $errors->first('gender') }}</small></strong>
+                                </span>
+                            @endif
                         </div>
                 </div>
                 <div class="form-group">
-                        <input  id="address" name="address"  required type="text" value="{{$pacient->address}}" class="form-control form-control-user" placeholder="Adresa">
-                        @if ($errors->has('address'))
-                                          <span class="help-block">
-                                              <strong>{{ $errors->first('address') }}</strong>
-                                          </span>
-                                      @endif
+                        <input  id="address" name="Adresa"  required type="text" value="{{$pacient->address}}" class="form-control form-control-user @error('Adresa') is-invalid @enderror" placeholder="Adresa">
+                        @if ($errors->has('Adresa'))
+                        <span class="help-block">
+                            <strong class="text-danger"><small>{{ $errors->first('Adresa') }}</small></strong>
+                        </span>
+                    @endif
                       </div>
                 <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                          <input id="residence" name="residence" required type="text" value="{{$pacient->residence}}" class="form-control form-control-user"  placeholder="Vendbanimi">
+                          <input id="residence" name="Vendbanimi" required type="text" value="{{$pacient->residence}}" class="form-control form-control-user @error('Vendbanimi') is-invalid @enderror"  placeholder="Vendbanimi">
                           
-                          @if ($errors->has('residence'))
-                                          <span class="help-block">
-                                              <strong>{{ $errors->first('residence') }}</strong>
-                                          </span>
-                                      @endif
+                          @if ($errors->has('Vendbanimi'))
+                          <span class="help-block">
+                            <strong class="text-danger"><small>{{ $errors->first('Vendbanimi') }}</small></strong>
+                          </span>
+                      @endif
                         </div>
                         <div class="col-sm-6">
-                                <input id="city" name="city" required type="text" value="{{$pacient->city}}" class="form-control form-control-user" placeholder="Qyteti">
-                                @if ($errors->has('city'))
-                                                <span class="help-block">
-                                                    <strong>{{ $errors->first('city') }}</strong>
-                                                </span>
-                                            @endif
+                                <input id="city" name="Qyteti" required type="text" value="{{$pacient->city}}" class="form-control form-control-user @error('Qyteti') is-invalid @enderror" placeholder="Qyteti">
+                                @if ($errors->has('Qyteti'))
+                                <span class="help-block">
+                                    <strong class="text-danger"><small>{{ $errors->first('Qyteti') }}</small></strong>
+                                </span>
+                            @endif
                               </div>
                 </div>
                 <div class="form-group row">
                         <div class="col-sm-6 mb-3 mb-sm-0">
-                        <input id="phone" name="phone" required type="text" class="form-control form-control-user" value="{{$pacient->phone}}" placeholder="Numri i telefonit">      
-                            @if ($errors->has('phone'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('phone') }}</strong>
-                                </span>
-                            @endif
+                        <input id="phone" name="Telefoni" required type="text" class="form-control form-control-user @error('Telefoni') is-invalid @enderror" value="{{$pacient->phone}}" placeholder="Numri i telefonit">      
+                        @if ($errors->has('Telefoni'))
+                        <span class="help-block">
+                            <strong class="text-danger"><small>{{ $errors->first('Telefoni') }}</small></strong>
+                        </span>
+                    @endif
                         </div>
                         <div class="col-sm-6">
                             <input id="email" name="email"  type="email"  value="{{$pacient->email}}" class="form-control form-control-user" placeholder="Email">

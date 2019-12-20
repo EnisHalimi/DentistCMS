@@ -15,8 +15,25 @@
     <!-- SB CSS -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-
-      
+  <script>
+  function markAsRead(id) 
+  {
+    $.ajax({
+      type:'POST',
+      url:'/markAsRead',
+      data:{"id":id},
+      success:function(data)
+      {
+        $('#not'+id+' #notifications span').text('U markua si e lexuar');
+        $('#not'+id+' #notifications span').addClass('text-success');
+        $('#not-number').text($('#not-number').text() - 1 );
+        setTimeout(function(){
+          $('#not'+id).remove();
+        }, 1000);
+      }
+    });
+  } 
+  </script>
 </head>
 <body id="page-top">
   <!-- Page Wrapper -->
@@ -155,17 +172,19 @@
                 <i class="fas fa-bell fa-fw"></i>
                 <!-- Counter - Alerts -->
                 @if(App\Notifications::getNotificationsNumber() > 0)
-                <span class="badge badge-danger badge-counter">{{App\Notifications::getNotificationsNumber()}}</span>
+                <span id="not-number" class="badge badge-danger badge-counter">{{App\Notifications::getNotificationsNumber()}}</span>
                 @else 
                 @endif
                 
               </a>
               <!-- Dropdown - Alerts -->
-              <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="alertsDropdown">
+              <div class="dropdown-list dropdown-menu dropdown-menu-right keep-open-on-click shadow animated--grow-in" aria-labelledby="alertsDropdown">
                 <h6 class="dropdown-header">
                   Njoftimet
                 </h6>
+                <ul id="notifications-list" class="list-group">
                 @if(App\Notifications::getNotificationsNumber() === 0)
+                <li class="list-group-item p-0">
                 <a class="dropdown-item d-flex align-items-center" href="/notifications">
                   <div class="mr-3">
                   </div>
@@ -173,31 +192,31 @@
                     <span>Nuk ka njoftime</span>
                   </div>
                 </a>
-
+                </li>
                 @else
+                
                 @foreach(App\Notifications::getNotifications() as $not)
+              <li id="not{{$not->id}}" class="list-group-item p-0">
                 <div class="dropdown-item d-flex align-items-center" >
                   <div class="mr-3">
                     <div class="icon-circle bg-primary">
                       <i class="fas fa-file-alt text-white"></i>
                     </div>
                   </div>
-                  <div>
+                  <div id="notifications">
                     <div class="small text-gray-500">{{$not->created_at}}</div>
                     <span class="font-weight-bold">{{$not->description}}!</span>
                   </div>
                   <div class="float-right">
-                  <form id="notification{{$not->id}}">
-                    <input id="id" name="id" hidden value="{{$not->id}}">
-                      <button type="submit" id="deleteNotification"  class="close" >
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                    </form>
+                      <a class="close" href="#" id="deleteNotification" onclick ="markAsRead({{$not->id}})" >
+                          <span>&times;</span>
+                      </a>
                   </div>
                 </div>
+              </li>
                 @endforeach
                 
-                
+                </ul>
                 @endif
                 <a class="dropdown-item text-center small text-gray-500" href="/notifications">Shiko të gjitha njoftimet</a>
               </div>

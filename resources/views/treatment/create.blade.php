@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Treatment Create')
+@section('title','Shto Trajtim')
 @section('treatment','active')
 @section('content')
 <div class="card o-hidden border-0 shadow-lg my-5">
@@ -21,8 +21,8 @@
                   <div class="input-group-prepend">
                       <button class="btn btn-outline-primary" type="button"  data-toggle="modal" data-target="#pacientModal"><i class="fa fa-plus"></i> </button>
                   </div>
-                  <input  placeholder="Pacienti"  class="form-control form-control-user  " id="pacient" name="pacient"  />
-                  <input  hidden id="pacient-id"  name="pacient-id"/>
+                  <input readonly placeholder="Pacienti"  value="{{ old('pacient') }}" class="form-control form-control-user @error('pacient-id') is-invalid @enderror " id="pacient" name="pacient"  />
+                  <input  hidden id="pacient-id"   value="{{ old('pacient-id') }}" name="pacient-id"/>
                   <div class="input-group-append">
                       <button type="button"  class="btn btn-outline-danger" onclick="document.getElementById('pacient').value=''; document.getElementById('pacient-id').value='';" >
                         <i class="fa fa-trash"></i>
@@ -56,27 +56,27 @@
                     </div>
                   </div>
                 </div>
-            @if ($errors->has('pacient'))
-                              <span class="help-block">
-                                  <strong>{{ $errors->first('pacient') }}</strong>
-                              </span>
-                          @endif
+                @if ($errors->has('pacient-id'))
+                <span class="help-block">
+                    <strong class="text-danger"><small>{{ $errors->first('pacient-id') }}</small> </strong>
+                </span>
+            @endif
           </div>
             <div class="form-group ">
                     <label class="text-xs"  for="starting_date">Data e fillimit</label>
-                <input id="starting_date" name="starting_date" value="{{ old('starting_date') }}" required autofocus type="date" class="form-control form-control-user"  placeholder="Data e fillimit">
-                @if ($errors->has('starting_date'))
+                <input id="starting_date" name="Data_e_fillimit" value="{{ old('Data_e_fillimit') }}" required autofocus type="date" class="form-control form-control-user @error('Data_e_fillimit') is-invalid @enderror "  placeholder="Data e fillimit">
+                @if ($errors->has('Data_e_fillimit'))
                                   <span class="help-block">
-                                      <strong>{{ $errors->first('starting_date') }}</strong>
+                                    <strong class="text-danger"><small>{{ $errors->first('Data_e_fillimit') }}</small></strong>
                                   </span>
                               @endif
             </div>
             <div class="form-group ">
-                      <label class="text-xs"  for="data">Kohezgjatjta</label>
-                      <input type="text" required class="form-control form-control-user" required="" name="duration" id="duration"  placeholder="Kohezgjatja">
-                      @if ($errors->has('duration'))
+                      <label class="text-xs"  for="duration">Kohezgjatjta</label>
+            <input type="text" required class="form-control form-control-user @error('Kohezgjatja') is-invalid @enderror" required="" value="{{old('Kohezgjatja')}}" name="Kohezgjatja" id="duration"  placeholder="Kohezgjatja">
+                      @if ($errors->has('Kohezgjatja'))
                                         <span class="help-block">
-                                            <strong>{{ $errors->first('duration') }}</strong>
+                                          <strong class="text-danger"><small>{{ $errors->first('Kohezgjatja') }}</small></strong>
                                         </span>
                                     @endif
               </div>
@@ -87,8 +87,8 @@
                 <div class="input-group-prepend">
                     <button class="btn btn-outline-primary" type="button"  data-toggle="modal" data-target="#serviceModal"><i class="fa fa-plus"></i> </button>
                   </div>
-                  <input  hidden id="service-list"  name="service-list"/>
-                <select  multiple placeholder="Shërbimet" class="form-control form-control-user" id="services" name="services" >
+                  <input  hidden id="service-list"  name="Sherbimet"/>
+                <select readonly  multiple placeholder="Shërbimet" class="form-control form-control-user @error('Sherbimet') is-invalid @enderror" id="services" name="services" >
                   </select>
                   <div class="input-group-append">
                       <button type="button" class="btn btn-outline-danger" onclick=" document.getElementById('service-list').value='';
@@ -123,9 +123,9 @@
                       </div>
                     </div>
                   </div>
-              @if ($errors->has('services'))
+              @if ($errors->has('Sherbimet'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('services') }}</strong>
+                                  <strong class="text-danger"><small>{{ $errors->first('Sherbimet') }}</small></strong>
                                 </span>
               @endif
              

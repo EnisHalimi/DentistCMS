@@ -55,7 +55,7 @@ class UserController extends Controller
     public function index()
     {
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Unathorized Page');
+            return redirect('/login')->with('error', 'Nuk keni autorizim');
         else
             return view('user.users');
     }
@@ -68,7 +68,7 @@ class UserController extends Controller
     public function create()
     {
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Unathorized Page');
+            return redirect('/login')->with('error', 'Nuk keni autorizim');
         else
             return view('user.create');
     }
@@ -83,21 +83,21 @@ class UserController extends Controller
     {
        if(auth()->guest())
         {
-            return redirect('/')->with('error','Unathorized Page'); 
+            return redirect('/')->with('error','Nuk keni autorizim'); 
         }
         else
         {
             $this->validate($request,[
-                'name'=> 'required|min:6|string|max:255|regex:/^[\w&.\-\s]*$/',
-                'email' => 'required|min:6|string|unique:users',
+                'Emri_dhe_Mbiemri'=> 'required|min:6|string',
+                'email' => 'required|email|unique:users',
                 'password' => 'required|string|min:6|confirmed',
-                'position'=> 'required|min:6|string|max:255|regex:/^[\w&.\-\s]*$/',
+                'Pozita'=> 'required|min:3|alpha',
             ]);
             $user = new User;
-            $user->name = $request->input('name');
+            $user->name = $request->input('Emri_dhe_Mbiemri');
             $user->email = $request->input('email');
             $user->password = Hash::make($request->input('password'));
-            $user->position = $request->input('position');
+            $user->position = $request->input('Pozita');
             $user->save();
             return redirect('/user')->with('success','U shtua Përdoruesi');
         }
@@ -113,7 +113,7 @@ class UserController extends Controller
     {
         $user = User::findOrfail($id);
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Unathorized Page');
+            return redirect('/login')->with('error', 'Nuk keni autorizim');
         else
             return view('user.show')->with('user',$user);
     }
@@ -128,7 +128,7 @@ class UserController extends Controller
     {
         $user = User::findOrfail($id);
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Unathorized Page');
+            return redirect('/login')->with('error', 'Nuk keni autorizim');
         else
             return view('user.edit')->with('user',$user);
     }
@@ -144,23 +144,23 @@ class UserController extends Controller
     {
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Unathorized Page'); 
+            return redirect('/')->with('error','Nuk keni autorizim'); 
         }
         else
         {
             $this->validate($request,[
-                'name'=> 'required|min:6|string|max:255|regex:/^[\w&.\-\s]*$/',
-                'email' => 'required|min:6|string',
+                'Emri_dhe_Mbiemri'=> 'required|min:6|string',
+                'email' => 'required|email',
                 'password' => 'confirmed',
-                'position'=> 'required|min:6|string|max:255|regex:/^[\w&.\-\s]*$/',
+                'Pozita'=> 'required|min:3|alpha',
             ]);
             $user = User::find($id);
             if($request->input('password')>6)
                 $user->password = Hash::make($request->input('password'));
-            $user->name = $request->input('name');
+            $user->name = $request->input('Emri_dhe_Mbiemri');
             if($user->email !== $request->input('email'))
                 $user->email = $request->input('email');
-            $user->position = $request->input('position');
+            $user->position = $request->input('Pozita');
             $user->save();
             return redirect('/user')->with('success','U ndryshua Përdoruesi');
         }
@@ -177,7 +177,7 @@ class UserController extends Controller
         $user = User::find($id);
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Unathorized Page'); 
+            return redirect('/')->with('error','Nuk keni autorizim'); 
         }
         else
         {

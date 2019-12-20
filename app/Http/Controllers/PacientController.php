@@ -65,7 +65,7 @@ class PacientController extends Controller
     public function index()
     {
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Unathorized Page');
+            return redirect('/login')->with('error', 'Nuk keni autorizim');
         else
             return view('pacient.pacient');
     }
@@ -78,7 +78,7 @@ class PacientController extends Controller
     public function create()
     {
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Unathorized Page');
+            return redirect('/login')->with('error', 'Nuk keni autorizim');
         else
             return view('pacient.create');
     }
@@ -93,32 +93,32 @@ class PacientController extends Controller
     {
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Unathorized Page'); 
+            return redirect('/')->with('error','Nuk keni autorizim'); 
         }
         else
         {
             $this->validate($request,[  
-                'first_name'=> 'required|min:3',
-                'fathers_name'=> 'required|min:3',
-                'last_name'=> 'required|min:3',
-                'personal_number' => 'required|digits:10|numeric',
-                'date_of_birth' => 'required|date',
-                'address'=> 'required|min:1',
-                'residence'=> 'required|min:1',
-                'city'=> 'required|min:1',
-                'phone'=> 'required|min:9|numeric',
+                'Emri'=> 'required|alpha|min:3',
+                'Emri_Prindit'=> 'required|alpha|min:3',
+                'Mbiemri'=> 'required|alpha|min:3',
+                'Numri_Personal' => 'required|digits:10|numeric',
+                'Data_e_lindjes' => 'required|date',
+                'Adresa'=> 'required|min:2',
+                'Vendbanimi'=> 'required|min:2',
+                'Qyteti'=> 'required|min:2',
+                'Telefoni'=> 'required|min:9|numeric',
             ]);
             $pacient = new Pacient;
-            $pacient->first_name = $request->input('first_name');
-            $pacient->fathers_name = $request->input('fathers_name');
-            $pacient->last_name = $request->input('last_name');
-            $pacient->personal_number = $request->input('personal_number');
-            $pacient->date_of_birth = $request->input('date_of_birth');
+            $pacient->first_name = $request->input('Emri');
+            $pacient->fathers_name = $request->input('Emri_Prindit');
+            $pacient->last_name = $request->input('Mbiemri');
+            $pacient->personal_number = $request->input('Numri_Personal');
+            $pacient->date_of_birth = $request->input('Data_e_lindjes');
             $pacient->gender = $request->input('gender');
-            $pacient->address = $request->input('address');
-            $pacient->residence = $request->input('residence');
-            $pacient->city = $request->input('city');
-            $pacient->phone = $request->input('phone');
+            $pacient->address = $request->input('Adresa');
+            $pacient->residence = $request->input('Vendbanimi');
+            $pacient->city = $request->input('Qyteti');
+            $pacient->phone = $request->input('Telefoni');
             $pacient->email = $request->input('email');
             $pacient->save();
             return redirect('/pacient')->with('success','U shtua Pacienti');
@@ -139,7 +139,7 @@ class PacientController extends Controller
         $report = Report::where('pacient_id','=',$id)->get();
         $appointment = Appointment::where('pacient_id','=',$id)->get();
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Unathorized Page');
+            return redirect('/login')->with('error', 'Nuk keni autorizim');
         else
             return view('pacient.show')
                     ->with('pacient',$pacient)
@@ -159,7 +159,7 @@ class PacientController extends Controller
     {
         $pacient = Pacient::findOrfail($id);
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Unathorized Page');
+            return redirect('/login')->with('error', 'Nuk keni autorizim');
         else
             return view('pacient.edit')->with('pacient',$pacient);
     }
@@ -175,32 +175,32 @@ class PacientController extends Controller
     {
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Unathorized Page'); 
+            return redirect('/')->with('error','Nuk keni autorizim'); 
         }
         else
         {
             $this->validate($request,[
-                'first_name'=> 'required|min:3',
-                'fathers_name'=> 'required|min:3',
-                'last_name'=> 'required|min:3',
-                'personal_number' => 'required|digits:10|numeric',
-                'date_of_birth' => 'required|date',
-                'address'=> 'required|min:1',
-                'residence'=> 'required|min:1',
-                'city'=> 'required|min:1',
-                'phone'=> 'required|min:9|numeric',
+                'Emri'=> 'required|alpha|min:3',
+                'Emri_Prindit'=> 'required|alpha|min:3',
+                'Mbiemri'=> 'required|alpha|min:3',
+                'Numri_Personal' => 'required|digits:10|numeric',
+                'Data_e_lindjes' => 'required|date',
+                'Adresa'=> 'required|min:2',
+                'Vendbanimi'=> 'required|min:2',
+                'Qyteti'=> 'required|min:2',
+                'Telefoni'=> 'required|min:9|numeric',
             ]);
             $pacient =  Pacient::find($id);
-            $pacient->first_name = $request->input('first_name');
-            $pacient->fathers_name = $request->input('fathers_name');
-            $pacient->last_name = $request->input('last_name');
-            $pacient->personal_number = $request->input('personal_number');
-            $pacient->date_of_birth = $request->input('date_of_birth');
+            $pacient->first_name = $request->input('Emri');
+            $pacient->fathers_name = $request->input('Emri_Prindit');
+            $pacient->last_name = $request->input('Mbiemri');
+            $pacient->personal_number = $request->input('Numri_Personal');
+            $pacient->date_of_birth = $request->input('Data_e_lindjes');
             $pacient->gender = $request->input('gender');
-            $pacient->address = $request->input('address');
-            $pacient->residence = $request->input('residence');
-            $pacient->city = $request->input('city');
-            $pacient->phone = $request->input('phone');
+            $pacient->address = $request->input('Adresa');
+            $pacient->residence = $request->input('Vendbanimi');
+            $pacient->city = $request->input('Qyteti');
+            $pacient->phone = $request->input('Telefoni');
             $pacient->email = $request->input('email');
             $pacient->save();
             return redirect('/pacient')->with('success','U ndryshua Pacienti');
@@ -218,25 +218,23 @@ class PacientController extends Controller
         $pacient = Pacient::find($id);
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Unathorized Page'); 
+            return redirect('/')->with('error','Nuk keni autorizim'); 
         }
         else
         {
             if($request->input('data'))
             {
                 $pacient->appointment()->delete();
-                $visit = $pacient->visit()->get();
-                foreach($visit as $vs)
-                {
-                    $treatment = $vs->treatment()->get();   
+                $pacient->visit()->delete();
+                $treatment = $pacient->treatment()->get();   
                     foreach($treatment as $tr)
                     {
                         $tr->report()->delete();
-                        $tr->delete();
+                        $tr->services()->detach();
+                        $tr->delete();   
                     }
-                }
+
             }
-            $pacient->visit()->delete();
             $pacient->delete();           
             return redirect('/pacient')->with('success','Është fshirë Pacienti');
         }

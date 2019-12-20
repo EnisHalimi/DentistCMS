@@ -49,7 +49,7 @@ class ServicesController extends Controller
     public function index()
     {
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Unathorized Page');
+            return redirect('/login')->with('error', 'Nuk keni autorizim');
         else
             return view('service.service');
     }
@@ -62,7 +62,7 @@ class ServicesController extends Controller
     public function create()
     {
         if(auth()->guest())
-        return redirect('/login')->with('error', 'Unathorized Page');
+        return redirect('/login')->with('error', 'Nuk keni autorizim');
     else
         return view('service.create');
     }
@@ -77,19 +77,19 @@ class ServicesController extends Controller
     {
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Unathorized Page'); 
+            return redirect('/')->with('error','Nuk keni autorizim'); 
         }
         else
         {
             $this->validate($request,[
-                'name'=> 'required|min:6|string',
-                'price' => 'required|numeric',
+                'Sherbimi'=> 'required|min:6|string',
+                'Qmimi' => 'required|numeric',
                 'discount' => 'required|numeric',
             ]);
             
             $service = new Services;
-            $service->name = $request->input('name');
-            $service->price = $request->input('price');
+            $service->name = $request->input('Sherbimi');
+            $service->price = $request->input('Qmimi');
             $service->discount = $request->input('discount');
             $service->save();
             return redirect('/services')->with('success','U shtua shërbimi');
@@ -106,7 +106,7 @@ class ServicesController extends Controller
     {
         $service = Services::find($id);
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Unathorized Page');
+            return redirect('/login')->with('error', 'Nuk keni autorizim');
         else
             return view('service.show')->with('service',$service);
     }
@@ -121,7 +121,7 @@ class ServicesController extends Controller
     {
         $service = Services::find($id);
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Unathorized Page');
+            return redirect('/login')->with('error', 'Nuk keni autorizim');
         else
             return view('service.edit')->with('service',$service);
     }
@@ -137,19 +137,19 @@ class ServicesController extends Controller
     {
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Unathorized Page'); 
+            return redirect('/')->with('error','Nuk keni autorizim'); 
         }
         else
         {
             $this->validate($request,[
-                'name'=> 'required|min:6|string',
-                'price' => 'required|numeric',
+                'Sherbimi'=> 'required|min:6|string',
+                'Qmimi' => 'required|numeric',
                 'discount' => 'required|numeric',
             ]);
             
             $service = Services::find($id);
-            $service->name = $request->input('name');
-            $service->price = $request->input('price');
+            $service->name = $request->input('Sherbimi');
+            $service->price = $request->input('Qmimi');
             $service->discount = $request->input('discount');
             $service->save();
             return redirect('/services')->with('success','U ndryshua shërbimi');
@@ -168,7 +168,7 @@ class ServicesController extends Controller
         $service = Services::find($id);
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Unathorized Page'); 
+            return redirect('/')->with('error','Nuk keni autorizim'); 
         }
         else
         {

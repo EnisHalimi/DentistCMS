@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Appointment View')
+@section('title','Shiko Termin')
 @section('appointment','active')
 @section('content')
 <div class="card o-hidden border-0 shadow-lg my-5">

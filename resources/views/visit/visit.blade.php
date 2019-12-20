@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Visit')
+@section('title','Vizita')
 @section('visit','active')
 @section('content')
   <!-- Begin Page Content -->

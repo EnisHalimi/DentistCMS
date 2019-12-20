@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','User Register')
+@section('title','Shto Perdorues')
 @section('user','active')
 @section('content')
 
@@ -18,41 +18,41 @@
               <form class="user" method="POST" action="{{ route('user.store') }}">
                         {{ csrf_field() }}
                 <div class="form-group ">
-                  <input id="name" name="name" value="{{ old('name') }}" required autofocus type="text" class="form-control form-control-user"  placeholder="Emri dhe Mbiemri">
-                  @if ($errors->has('name'))
+                  <input id="name" name="Emri_dhe_Mbiemri" value="{{ old('Emri_dhe_Mbiemri') }}" required autofocus type="text" class="form-control form-control-user @error('Emri_dhe_Mbiemri') is-invalid @enderror"  placeholder="Emri dhe Mbiemri">
+                  @if ($errors->has('Emri_dhe_Mbiemri'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('name') }}</strong>
+                                        <strong class="text-danger"><small>{{ $errors->first('Emri_dhe_Mbiemri') }}</small></strong>
                                     </span>
                                 @endif
                 </div>
                 <div class="form-group">
-                  <input  id="email" name="email" value="{{ old('email') }}" required type="email" class="form-control form-control-user" placeholder="Email Address">
+                  <input  id="email" name="email" value="{{ old('email') }}" required type="email" class="form-control form-control-user @error('email') is-invalid @enderror" placeholder="Email Address">
                   @if ($errors->has('email'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong class="text-danger"><small>>{{ $errors->first('email') }}</small></strong>
                                     </span>
                                 @endif
                 </div>
                 <div class="form-group">
-                  <input  id="position" name="position" value="{{ old('position') }}" required type="text" class="form-control form-control-user" placeholder="Pozita">
-                  @if ($errors->has('position'))
+                  <input  id="position" name="Pozita" value="{{ old('Pozita') }}" required type="text" class="form-control form-control-user @error('Pozita') is-invalid @enderror" placeholder="Pozita">
+                  @if ($errors->has('Pozita'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('position') }}</strong>
+                                        <strong class="text-danger"><small>{{ $errors->first('Pozita') }}</small></strong>
                                     </span>
                                 @endif
                 </div>
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input id="password" name="password" required type="password" class="form-control form-control-user"  placeholder="Password">
+                    <input id="password" name="password" required type="password" class="form-control form-control-user @error('password') is-invalid @enderror"  placeholder="Password">
                     
                     @if ($errors->has('password'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
+                                        <strong class="text-danger"><small>{{ $errors->first('password') }}</small></strong>
                                     </span>
                                 @endif
                   </div>
                   <div class="col-sm-6">
-                    <input id="password-confirm" name="password_confirmation" required type="password" class="form-control form-control-user" placeholder="Përsërit Password">
+                    <input id="password-confirm" name="password_confirmation" required type="password" class="form-control form-control-user @error('password') is-invalid @enderror" placeholder="Përsërit Password">
                   </div>
                 </div>
                 <div class="form-group">

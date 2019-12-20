@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Treatment View')
+@section('title','Shiko Trajtim')
 @section('treatment','active')
 @section('content')
 

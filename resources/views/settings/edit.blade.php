@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Settings')
+@section('title','Ndrysho Settings')
 @section('dashboard','active')
 @section('content')
 

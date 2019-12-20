@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Pacient View')
+@section('title','Shiko Pacient')
 @section('pacient','active')
 @section('content')
 <div class="card o-hidden border-0 shadow-lg my-5">
@@ -78,17 +78,24 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        A jeni i sigurtë që doni të vazhdoni?
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-circle btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i></button>
-                                        <form class="d-inline" method="POST" action="{{ route('pacient.destroy',$pacient->id)}}" accept-charset="UTF-8">
-                                            {{ csrf_field() }}
-                                            <input name="_method" type="hidden" value="DELETE">
-                                            <button type="submit" class="btn btn-circle btn-danger"><i class="fa fa-trash"></i></button>
-                                        </form>
-                                        
-                                    </div>
+                        
+                                      <form id="form{{$pacient->id}}" class="d-inline" method="POST" action="{{ route('pacient.destroy',$pacient->id)}}" accept-charset="UTF-8">
+                                          {{ csrf_field() }}
+                                          <input name="_method" type="hidden" value="DELETE">
+                                          <div class="custom-control custom-checkbox small">
+                                              <input type="checkbox"  name="data"  class="custom-control-input" id="data">
+                                          <label class="custom-control-label" for="data">Fshini të dhënat e Pacientit?</label>
+                                            </div>
+                                         
+                                  </div>
+                                  <div class="modal-footer">
+                                      <button type="button" class="btn btn-circle btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i></button>
+                                     
+                                         
+                                          <button type="submit" form="form{{$pacient->id}}" class="btn btn-circle btn-danger"><i class="fa fa-trash"></i></button>
+                                      </form>
+                                      
+                                  </div>
                                 </div>
                             </div>
                         </div> 

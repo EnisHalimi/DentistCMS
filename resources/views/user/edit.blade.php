@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','User Edit')
+@section('title','Ndrysho Perdorues')
 @section('user','active')
 @section('content')
 
@@ -19,41 +19,40 @@
                         {{ method_field('PUT') }}
                           {{ csrf_field() }}
                   <div class="form-group ">
-                    <input id="name" name="name" value="{{$user->name }}" required autofocus type="text" class="form-control form-control-user"  placeholder="Emri dhe Mbiemri">
-                    @if ($errors->has('name'))
-                                      <span class="help-block">
-                                          <strong>{{ $errors->first('name') }}</strong>
-                                      </span>
-                                  @endif
+                    <input id="name" name="Emri_dhe_Mbiemri" value="{{$user->name }}" required autofocus type="text" class="form-control form-control-user @error('Emri_dhe_Mbiemri') is-invalid @enderror"  placeholder="Emri dhe Mbiemri">
+                    @if ($errors->has('Emri_dhe_Mbiemri'))
+                    <span class="help-block">
+                        <strong class="text-danger"><small>{{ $errors->first('Emri_dhe_Mbiemri') }}</small></strong>
+                    </span>
+                @endif
                   </div>
                   <div class="form-group">
-                    <input  id="email" name="email" value="{{ $user->email }}" required type="email" class="form-control form-control-user" placeholder="Email Address">
+                    <input  id="email" name="email" value="{{ $user->email }}" required type="email" class="form-control form-control-user @error('email') is-invalid @enderror" placeholder="Email Address">
                     @if ($errors->has('email'))
-                                      <span class="help-block">
-                                          <strong>{{ $errors->first('email') }}</strong>
-                                      </span>
-                                  @endif
+                                    <span class="help-block">
+                                        <strong class="text-danger"><small>>{{ $errors->first('email') }}</small></strong>
+                                    </span>
+                                @endif
                   </div>
                   <div class="form-group">
-                    <input  id="position" name="position" value="{{ $user->position }}" required type="text" class="form-control form-control-user" placeholder="Pozita">
-                    @if ($errors->has('position'))
-                                      <span class="help-block">
-                                          <strong>{{ $errors->first('position') }}</strong>
-                                      </span>
-                                  @endif
+                    <input  id="position" name="Pozita" value="{{ $user->position }}" required type="text" class="form-control form-control-user @error('Pozita') is-invalid @enderror" placeholder="Pozita">
+                    @if ($errors->has('Pozita'))
+                    <span class="help-block">
+                        <strong class="text-danger"><small>{{ $errors->first('Pozita') }}</small></strong>
+                    </span>
+                @endif
                   </div>
                   <div class="form-group row">
                     <div class="col-sm-6 mb-3 mb-sm-0">
-                      <input id="password" name="password"  type="password" class="form-control form-control-user"  placeholder="Lëre të zbrazët nëse nuk e ndryshon">
-                      
+                      <input id="password" name="password"  type="password" class="form-control form-control-user @error('password') is-invalid @enderror"  placeholder="Lëre të zbrazët nëse nuk e ndryshon">
                       @if ($errors->has('password'))
-                                      <span class="help-block">
-                                          <strong>{{ $errors->first('password') }}</strong>
-                                      </span>
-                                  @endif
+                                    <span class="help-block">
+                                        <strong class="text-danger"><small>{{ $errors->first('password') }}</small></strong>
+                                    </span>
+                                @endif
                     </div>
                     <div class="col-sm-6">
-                      <input id="password-confirm" name="password_confirmation"  type="password" class="form-control form-control-user" placeholder="Lëre të zbrazët nëse nuk e ndryshon">
+                      <input id="password-confirm" name="password_confirmation"  type="password" class="form-control form-control-user @error('password') is-invalid @enderror" placeholder="Lëre të zbrazët nëse nuk e ndryshon">
                     </div>
                   </div>
                   <div class="form-group">

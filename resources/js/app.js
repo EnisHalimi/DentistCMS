@@ -3,6 +3,7 @@ require('./bootstrap')
 require('./components/sb-admin-2')
 require('./components/jquery.easing.min')
 require('./components/datatables.min')
+
   function jQuery() {
     $.ajaxSetup({
       headers: {
@@ -10,17 +11,32 @@ require('./components/datatables.min')
       }
     });
 
+    $(document).on('click', '.dropdown-menu', function(e) {
+      if ($(this).hasClass('keep-open-on-click')) { e.stopPropagation(); }
+  });
+
     $(document).ready(function(){
-      if (window.location.href.indexOf("daljet/create") > -1)
-      {
-        $('#dalje-pacient').hide();
-        $('#dalje-subject').hide();
-        $('#dalje-billnr').hide();
-        $('#dalje-photo').hide();
-        $('#dalje-value').hide();
-        $('#dalje-deadline').hide();
-      }
-    
+      if($('#type').val()=="Faturë")
+        {
+          $('#dalje-subject').show();
+          $('#dalje-billnr').show();
+          $('#dalje-photo').show();
+          $('#dalje-pacient').hide();
+          $('#pacient-id').val(0);
+          $('#dalje-value').show();
+          $('#dalje-deadline').show();
+        }
+        if($('#type').val()=="Borgj")
+        {
+          $('#dalje-pacient').show();
+          $('#dalje-value').show();
+          $('#dalje-deadline').show();
+          $('#dalje-subject').hide();
+          $('#subject').val("Ska");
+          $('#dalje-billnr').hide();
+          $('#bill_number').val(0);
+          $('#dalje-photo').hide();
+        }
     });
 
     $('#type').on('load change',function() {
@@ -169,20 +185,6 @@ require('./components/datatables.min')
         }
       );
 
-      $("form[id*='notification']").click(function(e){
-        e.preventDefault();
-        var id = $("input[name=id]").val();
-        $.ajax({
-          type:'POST',
-          url:'/markAsRead',
-          data:{
-            "id":id},
-          success:function(data)
-          {
-            alert(data.success);
-          }
-        });
-        });
 
 
     $('#PacientdataTable').DataTable(
@@ -441,6 +443,7 @@ require('./components/datatables.min')
   }
 
   jQuery();
+
 
   
 

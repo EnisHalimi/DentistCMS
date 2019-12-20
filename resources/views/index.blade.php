@@ -109,8 +109,8 @@
                   </div>
                 </div>
                 <!-- Card Body -->
-                <div class="card-body  py-0">
-                    <table class="table table-bordered table-stripped">
+                <div class="card-body scroll-table  py-0">
+                    <table class="table table-stripped"  width="100%" cellspacing="0">
                         <thead>
                           <th>Ora</th>
                           <th>Hënë</th>
@@ -251,11 +251,11 @@
                   <h6 class="m-0 font-weight-bold text-primary">Pacientët sot</h6>
                 </div>
                 <div class="card-body py-0 scroll">
-                    <table class="table table-stripped">
+                    <table class="table  table-stripped">
                         <thead>
                           <th>Emri</th>
                           <th>Mbiemri</th>
-                          <th>Data e lindjes</th>
+                          <th>Dt lindjes</th>
                           <th>Vendbanimi</th>
                           <th>Detajet</th>
                         </thead>
@@ -303,7 +303,7 @@
                           <tr>
                             <td>{{App\Pacient::getPacientName($report->pacient_id)}}</td>
                             <td>{{App\Treatment::getStartingDate($report->treatment_id)}}</td>
-                            <td>{{date('d/m/Y',strtotime($report->created_at))}}</td>
+                            <td>{{$report->created_at}}</td>
                             <td><a href="/report/{{$report->id}}" class="btn btn-circle btn-secondary btn-sm"><i class="fa fa-eye"></i></a> </td>
     
                           </tr>

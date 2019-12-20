@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Reports Create')
+@section('title','Shto Raport')
 @section('report','active')
 @section('content')
 
@@ -18,14 +18,14 @@
             <form class="user" method="POST" action="{{ route('report.store') }}">
               {{ csrf_field() }}
               <div class="form-group ">
-                <label class="text-xs" for="pacient">Trajtimi</label>
+                <label class="text-xs" for="treatment">Trajtimi</label>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                         <button class="btn btn-outline-primary" type="button"  data-toggle="modal" data-target="#treatmentModal"><i class="fa fa-plus"></i> </button>
                     </div>
-                    <input  placeholder="Trajtimi"  class="form-control form-control-user  " id="treatment" name="treatment"  />
-                    <input  id="treatment-id" hidden  name="treatment-id"/>
-                    <input  id="pacient-id" hidden  name="pacient-id"/>
+                    <input  readonly value="{{old('treatment')}}"  placeholder="Trajtimi"  class="form-control form-control-user  @error('treatment-id') is-invalid @enderror " id="treatment" name="treatment"  />
+                  <input value="{{old('treatment-id')}}" id="treatment-id" hidden  name="treatment-id"/>
+                    <input  value="{{old('pacient-id')}}"  id="pacient-id" hidden  name="pacient-id"/>
                     <div class="input-group-append">
                         <button type="button"  class="btn btn-outline-danger" onclick="document.getElementById('treatment').value=''; document.getElementById('treatment-id').value='';
                         document.getElementById('pacient-id').value='';" >
@@ -60,18 +60,18 @@
                       </div>
                     </div>
                   </div>
-              @if ($errors->has('treatment'))
+              @if ($errors->has('treatment-id'))
                                 <span class="help-block">
-                                    <strong>{{ $errors->first('treatment') }}</strong>
+                                    <strong class="text-danger"><small>{{ $errors->first('treatment-id') }}</small></strong>
                                 </span>
-                            @endif
+              @endif
             </div>
               <div class="form-group ">
-                        <label class="text-xs"  for="data">Përshkrimi</label>
-                        <textarea type="text" required class="form-control form-control-user" required="" name="description" id="description"  placeholder="Përshkrimi"></textarea>
-                        @if ($errors->has('description'))
+                        <label class="text-xs"  for="description">Përshkrimi</label>
+              <textarea type="text"  required class="form-control form-control-user  @error('Pershkrimi') is-invalid  @enderror" required="" name="Pershkrimi" id="description"  placeholder="Përshkrimi">{{old('Pershkrimi')}}</textarea>
+                        @if ($errors->has('Pershkrimi'))
                                           <span class="help-block">
-                                              <strong>{{ $errors->first('description') }}</strong>
+                                            <strong class="text-danger"><small>{{ $errors->first('Pershkrimi') }}</small></strong>
                                           </span>
                                       @endif
                 </div>

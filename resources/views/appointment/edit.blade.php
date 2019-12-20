@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Appointment Edit')
+@section('title','Ndrysho Termin')
 @section('appointment','active')
 @section('content')
     <div class="card o-hidden border-0 shadow-lg my-5">
@@ -23,7 +23,7 @@
                                 <div class="input-group-prepend">
                                     <button class="btn btn-outline-primary" type="button"  data-toggle="modal" data-target="#pacientModal"><i class="fa fa-plus"></i> </button>
                                 </div>
-                            <input  value="{{App\Pacient::getPacient($appointment->pacient_id)}}" placeholder="Pacienti" class="form-control form-control-user" id="pacient" name="pacient"   data-toggle="modal" data-target="#pacientModal" />
+                            <input readonly value="{{App\Pacient::getPacient($appointment->pacient_id)}}" placeholder="Pacienti" class="form-control form-control-user @error('pacient-id') is-invalid @enderror" id="pacient" name="pacient"   data-toggle="modal" data-target="#pacientModal" />
                             <input  hidden id="pacient-id" value="{{$appointment->pacient_id}}"  name="pacient-id"/>
                             <div class="input-group-append">
                                 <button type="button"  class="btn btn-outline-danger" onclick="document.getElementById('pacient').value=''; document.getElementById('pacient-id').value='';" >
@@ -56,11 +56,12 @@
                                   </div>
                                 </div>
                               </div>
-                          @if ($errors->has('pacient'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('pacient') }}</strong>
-                                            </span>
-                                        @endif
+                            </div>
+                              @if ($errors->has('pacient-id'))
+                              <span class="help-block">
+                                  <strong class="text-danger"><small>{{ $errors->first('pacient-id') }}</small> </strong>
+                              </span>
+                          @endif
                         </div>
                         <div class="form-group ">
                                 <label class="text-xs" for="user">Dentisti</label>
@@ -68,7 +69,7 @@
                                     <div class="input-group-prepend">
                                         <button class="btn btn-outline-primary" type="button"  data-toggle="modal" data-target="#userModal"><i class="fa fa-plus"></i> </button>
                                     </div>
-                                <input  value="{{App\User::getUser($appointment->user_id)}}" placeholder="Dentisti" class="form-control form-control-user" id="user" name="user" data-toggle="modal" data-target="#userModal"  />
+                                <input readonly value="{{App\User::getUser($appointment->user_id)}}" placeholder="Dentisti" class="form-control form-control-user @error('user-id') is-invalid @enderror" id="user" name="user" data-toggle="modal" data-target="#userModal"  />
                                 <input  hidden id="user-id"  value="{{$appointment->user_id}}" name="user-id"/>
                                 <div class="input-group-append">
                                     <button type="button"  class="btn btn-outline-danger" onclick="document.getElementById('user').value=''; document.getElementById('user-id').value='';" >
@@ -102,25 +103,25 @@
                                       </div>
                                     </div>
                                   </div> 
-                                @if ($errors->has('user'))
-                                                  <span class="help-block">
-                                                      <strong>{{ $errors->first('user') }}</strong>
-                                                  </span>
-                                              @endif
+                                  @if ($errors->has('user-id'))
+                                  <span class="help-block">
+                                    <strong class="text-danger"><small>{{ $errors->first('user-id') }}</small></strong>
+                                  </span>
+                              @endif
                         </div>
                 <div class="form-group ">
                         <label class="text-xs"  for="data">Data e Terminit</label>
-                        <input type="date" value="{{$appointment->appointment_date}}" class="form-control form-control-user" required="" name="data" id="data" min="{{date('Y-m-d',strtotime('tomorrow'))}}" placeholder="Data e Terminit">
+                        <input type="date" value="{{$appointment->appointment_date}}" class="form-control form-control-user @error('data') is-invalid @enderror" required="" name="data" id="data" min="{{date('Y-m-d',strtotime('tomorrow'))}}" placeholder="Data e Terminit">
                         @if ($errors->has('data'))
                                           <span class="help-block">
-                                              <strong>{{ $errors->first('data') }}</strong>
+                                            <strong class="text-danger"><small>{{ $errors->first('data') }}</small></strong>
                                           </span>
                                       @endif
                 </div>
                 
                 <div class="form-group">
                         <label class="text-xs"  for="time">Ora e Terminit</label>
-                        <select class="form-control form-control-user" id="time" name="time" placeholder="Ora"> 
+                        <select class="form-control form-control-user @error('time') is-invalid @enderror" id="time" name="time" placeholder="Ora"> 
                           <option @if($appointment->time_of_appointment == "08:00") selected @else @endif>08:00</option>
                           <option @if($appointment->time_of_appointment == "08:30") selected @else @endif>08:30</option>
                           <option  @if($appointment->time_of_appointment == "09:00") selected @else @endif>09:00</option>
@@ -146,6 +147,11 @@
                           <option @if($appointment->time_of_appointment == "19:00") selected @else @endif>19:00</option>
                           <option @if($appointment->time_of_appointment == "19:30") selected @else @endif>19:30</option>
                         </select>
+                        @if ($errors->has('time'))
+                        <span class="help-block">
+                          <strong class="text-danger"><small>{{ $errors->first('data') }}</small></strong>
+                        </span>
+                    @endif
                 </div>
                 <div class="form-group">
                     <a class="btn btn-circle btn-secondary" href="{{ url()->previous() }}" ><i class="fa fa-chevron-left"></i></a>

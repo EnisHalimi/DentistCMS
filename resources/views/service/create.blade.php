@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Service Create')
+@section('title','Shto Sherbim')
 @section('service','active')
 @section('content')
 
@@ -19,29 +19,29 @@
                       {{ csrf_field() }}
               <div class="form-group ">
                     <label class="text-xs"  for="name">Shërbimi</label>
-                <input id="name" name="name" value="{{ old('name') }}" required autofocus type="text" class="form-control form-control-user"  placeholder="Shërbimi">
-                @if ($errors->has('name'))
+                <input id="name" name="Sherbimi" value="{{ old('Sherbimi') }}" required autofocus type="text" class="form-control form-control-user @error('Sherbimi') is-invalid @enderror"  placeholder="Shërbimi">
+                @if ($errors->has('Sherbimi'))
                                   <span class="help-block">
-                                      <strong>{{ $errors->first('name') }}</strong>
+                                      <strong class="text-danger"> <small>{{ $errors->first('Sherbimi') }}</small></strong>
                                   </span>
                               @endif
               </div>
               <div class="form-group">
                     <label class="text-xs"  for="price">Qmimi</label>
-                <input  id="price" name="price" step="any"  value="{{ old('price') }}" required type="number" class="form-control form-control-user" placeholder="Qmimi">
-                @if ($errors->has('price'))
+                <input  id="price" name="Qmimi" step="any"  value="{{ old('Qmimi') }}" required type="number" min="1" class="form-control form-control-user @error('Qmimi') is-invalid @enderror" placeholder="Qmimi">
+                @if ($errors->has('Qmimi'))
                                   <span class="help-block">
-                                      <strong>{{ $errors->first('price') }}</strong>
+                                    <strong class="text-danger"> <small>{{ $errors->first('Qmimi') }}</small></strong>
                                   </span>
                               @endif
               </div>
               <div class="form-group">
                     <label class="text-xs"  for="discount">Zbritja</label>
-                <input  id="discount" value="0"  onchange="document.getElementById('discount-text').innerHTML = this.value + ' %';" name="discount" value="{{ old('discount') }}" required type="range" class="form-control form-control-user" min="0" max="100" class="slider"  placeholder="Zbritja">
+                <input  id="discount" value="0"  onchange="document.getElementById('discount-text').innerHTML = this.value + ' %';" name="discount" value="{{ old('discount') }}" required type="range" class="form-control form-control-user @error('discount') is-invalid @enderror" min="0" max="100" class="slider"  placeholder="Zbritja">
                 <span id='discount-text'>0 %</span>
                 @if ($errors->has('discount'))
                                   <span class="help-block">
-                                      <strong>{{ $errors->first('discount') }}</strong>
+                                    <strong class="text-danger"> <small>{{ $errors->first('discount') }}</small></strong>
                                   </span>
                               @endif
               </div>

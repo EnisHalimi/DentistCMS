@@ -11,9 +11,10 @@ class Treatment extends Model
 {
 
     protected $dates = ['created_at', 'starting_date'];
-    public function visit()
+
+    public function pacient()
     {
-        return $this->belongsTo('App\Visit');
+        return $this->belongsTo('App\Pacient');
     }
 
     public function report()

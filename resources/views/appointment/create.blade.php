@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Appointment Register')
+@section('title','Shto Termin')
 @section('appointment','active')
 @section('content')
     <div class="card o-hidden border-0 shadow-lg my-5">
@@ -22,8 +22,8 @@
                         <div class="input-group-prepend">
                             <button class="btn btn-outline-primary" type="button"  data-toggle="modal" data-target="#pacientModal"><i class="fa fa-plus"></i> </button>
                         </div>
-                    <input  placeholder="Pacienti" class="form-control form-control-user" id="pacient" name="pacient"  />
-                    <input  hidden id="pacient-id"  name="pacient-id"/>
+                    <input  placeholder="Pacienti" readonly class="form-control form-control-user @error('pacient-id') is-invalid @enderror" id="pacient" name="pacient"   value="{{ old('pacient') }}" />
+                    <input  hidden id="pacient-id"  name="pacient-id"  value="{{ old('pacient-id') }}"/>
                     <div class="input-group-append">
                         <button type="button"  class="btn btn-outline-danger" onclick="document.getElementById('pacient').value=''; document.getElementById('pacient-id').value='';" >
                           <i class="fa fa-trash"></i>
@@ -58,7 +58,7 @@
                       </div>
                   @if ($errors->has('pacient-id'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('pacient-id') }}</strong>
+                                        <strong class="text-danger"><small>{{ $errors->first('pacient-id') }}</small> </strong>
                                     </span>
                                 @endif
                 </div>
@@ -68,8 +68,8 @@
                             <div class="input-group-prepend">
                                 <button class="btn btn-outline-primary" type="button"  data-toggle="modal" data-target="#userModal"><i class="fa fa-plus"></i> </button>
                             </div>
-                        <input  placeholder="Dentisti" class="form-control form-control-user" id="user" name="user"   />
-                        <input  hidden id="user-id"  name="user-id"/>
+                        <input  placeholder="Dentisti" readonly  value="{{ old('user') }}" class="form-control form-control-user @error('user-id') is-invalid @enderror" id="user" name="user"   />
+                        <input  hidden id="user-id"   value="{{ old('user-id') }}" name="user-id"/>
                         <div class="input-group-append">
                             <button type="button"  class="btn btn-outline-danger" onclick="document.getElementById('user').value=''; document.getElementById('user-id').value='';" >
                               <i class="fa fa-trash"></i>
@@ -104,23 +104,23 @@
                           </div> 
                         @if ($errors->has('user-id'))
                                           <span class="help-block">
-                                              <strong>{{ $errors->first('user-id') }}</strong>
+                                            <strong class="text-danger"><small>{{ $errors->first('user-id') }}</small></strong>
                                           </span>
                                       @endif
                 </div>
                 <div class="form-group ">
                         <label class="text-xs"  for="data">Data e Terminit</label>
-                        <input type="date" class="form-control form-control-user" required="" name="data" id="data" min="{{date('Y-m-d',strtotime('tomorrow'))}}" placeholder="Data e Terminit">
+                        <input type="date"  value="{{ old('data') }}" class="form-control form-control-user @error('data') is-invalid @enderror" required="" name="data" id="data" min="{{date('Y-m-d',strtotime('tomorrow'))}}" placeholder="Data e Terminit">
                         @if ($errors->has('data'))
                                           <span class="help-block">
-                                              <strong>{{ $errors->first('data') }}</strong>
+                                            <strong class="text-danger"><small>{{ $errors->first('data') }}</small></strong>
                                           </span>
                                       @endif
                 </div>
                 
                 <div class="form-group">
                         <label class="text-xs"  for="time">Ora e Terminit</label>
-                        <select class="form-control form-control-user" id="time" name="time" placeholder="Ora"> 
+                        <select class="form-control form-control-user @error('time') is-invalid @enderror" id="time" name="time" placeholder="Ora"> 
                           <option>08:00</option>
                           <option>08:30</option>
                           <option>09:00</option>
@@ -146,6 +146,11 @@
                           <option>19:00</option>
                           <option>19:30</option>
                         </select>
+                        @if ($errors->has('time'))
+                        <span class="help-block">
+                          <strong class="text-danger"><small>{{ $errors->first('data') }}</small></strong>
+                        </span>
+                    @endif
                 </div>
                 <div class="form-group">
                 <a class="btn btn-circle btn-secondary" href="{{ url()->previous() }}" ><i class="fa fa-chevron-left"></i></a>

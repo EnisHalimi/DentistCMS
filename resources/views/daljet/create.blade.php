@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Regjistro Dalje')
+@section('title','Shto Dalje')
 @section('daljet','active')
 @section('content')
     <div class="card o-hidden border-0 shadow-lg my-5">
@@ -19,9 +19,8 @@
                 <div class="form-group">
                   <label class="text-xs"  for="type">Tipi</label>
                   <select class="form-control form-control-user" id="type" name="Tipi" placeholder="Tipi"> 
-                    <option>Zgjidh tipin</option>
-                    <option>Faturë</option>
-                    <option>Borgj</option>
+                    <option @if(old('Tipi') == "Faturë") selected @else @endif>Faturë</option>
+                    <option  @if(old('Tipi') == "Borgj") selected @else @endif>Borgj</option>
                   </select>
                 </div>
                 <div class="form-group"   id="dalje-pacient" >
@@ -30,8 +29,8 @@
                         <div class="input-group-prepend">
                             <button class="btn btn-outline-primary" type="button"  data-toggle="modal" data-target="#pacientModal"><i class="fa fa-plus"></i> </button>
                         </div>
-                    <input  placeholder="Pacienti" class="form-control form-control-user" id="pacient" name="pacient"  />
-                    <input  hidden id="pacient-id"  value="0" name="pacient-id"/>
+                      <input readonly value="{{old('pacient')}}"  placeholder="Pacienti" class="form-control form-control-user @error('pacient-id') is-invalid @enderror" id="pacient" name="pacient"  />
+                    <input  value="{{old('pacient-id')}}" hidden id="pacient-id"  value="0" name="pacient-id"/>
                     <div class="input-group-append">
                         <button type="button"  class="btn btn-outline-danger" onclick="document.getElementById('pacient').value=''; document.getElementById('pacient-id').value='';" >
                           <i class="fa fa-trash"></i>
@@ -64,54 +63,54 @@
                           </div>
                         </div>
                       </div>
-                  @if ($errors->has('pacient-id'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('pacient-id') }}</strong>
-                                    </span>
-                                @endif
+                      @if ($errors->has('pacient-id'))
+                      <span class="help-block">
+                          <strong class="text-danger"><small>{{ $errors->first('pacient-id') }}</small> </strong>
+                      </span>
+                  @endif
                 </div>
                 <div class="form-group" id="dalje-subject">
                         <label class="text-xs"  for="subject">Subjekti</label>
-                        <input type="text" class="form-control form-control-user" name="Subjekti" id="subject"  placeholder="Subjekti">
+                        <input value="{{old('Subjekti')}}" type="text" class="form-control form-control-user @error('Subjekti') is-invalid @enderror" name="Subjekti" id="subject"  placeholder="Subjekti">
                         @if ($errors->has('Subjekti'))
                                           <span class="help-block">
-                                              <strong>{{ $errors->first('Subjekti') }}</strong>
+                                            <strong class="text-danger"><small>{{ $errors->first('Subjekti') }}</small></strong>
                                           </span>
                                       @endif
                 </div>
                 <div class="form-group " id="dalje-billnr">
                   <label class="text-xs"  for="bill_number"  >Nr.Faturës</label>
-                  <input type="text" class="form-control form-control-user" name="Nr_fatures" id="bill_number"  placeholder="Nr.Faturës">
+                  <input value="{{old('Nr_fatures')}}" type="text" class="form-control form-control-user @error('Nr_fatures') is-invalid @enderror" name="Nr_fatures" id="bill_number"  placeholder="Nr.Faturës">
                   @if ($errors->has('Nr_fatures'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('Nr_fatures') }}</strong>
+                                      <strong class="text-danger"><small>{{ $errors->first('Nr_fatures') }}</small></strong>
                                     </span>
                                 @endif
           </div>
                 <div class="form-group " id="dalje-value">
                   <label class="text-xs"  for="value">Vlera</label>
-                  <input type="text" class="form-control form-control-user" name="Vlera" id="value"  placeholder="Vlera">
+                  <input value="{{old('Vlera')}}" type="number "  step="any" min="1" class="form-control form-control-user @error('Vlera') is-invalid @enderror" name="Vlera" id="value"  placeholder="Vlera">
                   @if ($errors->has('Vlera'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('Vlera') }}</strong>
+                                      <strong class="text-danger"><small>{{ $errors->first('Vlera') }}</small></strong>
                                     </span>
                                 @endif
           </div>
           <div class="form-group " id="dalje-deadline"> 
             <label class="text-xs"  for="deadline">Afati</label>
-            <input type="date" class="form-control form-control-user" required="" name="Afati" id="deadline" min="{{date('Y-m-d')}}" placeholder="Afati">
+            <input value="{{old('Afati')}}"  type="date" class="form-control form-control-user @error('Vlera') is-invalid @enderror" required="" name="Afati" id="deadline" min="{{date('Y-m-d')}}" placeholder="Afati">
             @if ($errors->has('Afati'))
                               <span class="help-block">
-                                  <strong>{{ $errors->first('Afati') }}</strong>
+                                <strong class="text-danger"><small>{{ $errors->first('Afati') }}</small></strong>
                               </span>
                           @endif
     </div>
     <div class="form-group " id="dalje-photo">
     <label class="text-xs"  for="photo">Fatura Foto</label>
-  <input id="logo" type="file" class="form-control" name="Foto" id="photo" placeholder="Fotoja e faturës" >
+  <input id="logo" type="file" class="form-control @error('Foto') is-invalid @enderror" name="Foto" id="photo" placeholder="Fotoja e faturës" >
             @if ($errors->has('Foto'))
                               <span class="help-block">
-                                  <strong>{{ $errors->first('Foto') }}</strong>
+                                <strong class="text-danger"><small>{{ $errors->first('Foto') }}</small></strong>
                               </span>
                           @endif
     </div>

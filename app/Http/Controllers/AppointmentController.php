@@ -59,7 +59,7 @@ class AppointmentController extends Controller
     {
         $appointments = Appointment::orderBy('date_of_appointment', 'desc')->paginate(15);
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Unathorized Page');
+            return redirect('/login')->with('error', 'Nuk keni autorizim');
         else
             return view('appointment.appointment')->with('appointments', $appointments);
     }
@@ -74,7 +74,7 @@ class AppointmentController extends Controller
         $pacient = Pacient::orderBy('id', 'desc')->paginate(15);
         $user = User::orderBy('id', 'desc')->paginate(15);
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Unathorized Page');
+            return redirect('/login')->with('error', 'Nuk keni autorizim');
         else
             return view('appointment.create')->with('pacients',$pacient)->with('users',$user);
     }
@@ -89,7 +89,7 @@ class AppointmentController extends Controller
     {
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Unathorized Page'); 
+            return redirect('/')->with('error','Nuk keni autorizim'); 
         }
         else
         {
@@ -98,7 +98,14 @@ class AppointmentController extends Controller
                 'user-id' => 'required|numeric',
                 'data' => 'required|date',
             ]);
-            
+            $error = \Illuminate\Validation\ValidationException::withMessages([
+                'data' => ['Termini në këtë datë dhe orë egziston'],
+                'time' => ['Termini në këtë datë dhe orë egziston'],
+             ]);
+            $appointments = Appointment::where('date_of_appointment','=',$request->input('data'))
+                ->where('time_of_appointment','=',$request->input('time'))->get();
+            if(count($appointments))
+                throw $error;
             $appointment = new Appointment;
             $appointment->pacient_id = $request->input('pacient-id');
             $appointment->user_id = $request->input('user-id');
@@ -126,7 +133,7 @@ class AppointmentController extends Controller
         $appointments = Appointment::find($id);
         
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Unathorized Page');
+            return redirect('/login')->with('error', 'Nuk keni autorizim');
         else
             return view('appointment.show')->with('appointment', $appointments);
     }
@@ -143,7 +150,7 @@ class AppointmentController extends Controller
         $pacient = Pacient::get();
         $user = User::get();
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Unathorized Page');
+            return redirect('/login')->with('error', 'Nuk keni autorizim');
         else
             return view('appointment.edit')->with('appointment', $appointments)->with('pacients',$pacient)->with('users',$user);
     }
@@ -159,7 +166,7 @@ class AppointmentController extends Controller
     {
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Unathorized Page'); 
+            return redirect('/')->with('error','Nuk keni autorizim'); 
         }
         else
         {
@@ -168,6 +175,14 @@ class AppointmentController extends Controller
                 'user-id' => 'required|numeric',
                 'data' => 'required|date',
             ]);
+            $error = \Illuminate\Validation\ValidationException::withMessages([
+                'data' => ['Termini në këtë datë dhe orë egziston'],
+                'time' => ['Termini në këtë datë dhe orë egziston'],
+             ]);
+            $appointments = Appointment::where('date_of_appointment','=',$request->input('data'))
+                ->where('time_of_appointment','=',$request->input('time'))->get();
+            if(count($appointments))
+                throw $error;
             $appointment = Appointment::find($id);
             $pacient = Pacient::find($request->input('pacient-id'));
             $notifications = Notifications::where('description','=',$pacient->first_name.' '.$pacient->last_name.' ka terminin për ditën e nesërme në ora '.$appointment->time_of_appointment.'.')->first();
@@ -179,7 +194,7 @@ class AppointmentController extends Controller
             if(!empty($notifications))
             {
                 $notifications->description = $pacient->first_name.' '.$pacient->last_name.' ka terminin për ditën e nesërme në ora '.$appointment->time_of_appointment.'.';
-                $notifications->date = $appointment->date_of_appointment;
+                $notifications->date =  $request->input('data');
                 $notifications->save();
             }
             return redirect('/appointment')->with('success','U ndryshua termini');
@@ -198,7 +213,7 @@ class AppointmentController extends Controller
         
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Unathorized Page'); 
+            return redirect('/')->with('error','Nuk keni autorizim'); 
         }
         else
         {

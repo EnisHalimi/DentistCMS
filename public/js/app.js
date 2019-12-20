@@ -52418,14 +52418,31 @@ function jQuery() {
       'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
     }
   });
+  $(document).on('click', '.dropdown-menu', function (e) {
+    if ($(this).hasClass('keep-open-on-click')) {
+      e.stopPropagation();
+    }
+  });
   $(document).ready(function () {
-    if (window.location.href.indexOf("daljet/create") > -1) {
+    if ($('#type').val() == "Faturë") {
+      $('#dalje-subject').show();
+      $('#dalje-billnr').show();
+      $('#dalje-photo').show();
       $('#dalje-pacient').hide();
+      $('#pacient-id').val(0);
+      $('#dalje-value').show();
+      $('#dalje-deadline').show();
+    }
+
+    if ($('#type').val() == "Borgj") {
+      $('#dalje-pacient').show();
+      $('#dalje-value').show();
+      $('#dalje-deadline').show();
       $('#dalje-subject').hide();
+      $('#subject').val("Ska");
       $('#dalje-billnr').hide();
+      $('#bill_number').val(0);
       $('#dalje-photo').hide();
-      $('#dalje-value').hide();
-      $('#dalje-deadline').hide();
     }
   });
   $('#type').on('load change', function () {
@@ -52572,20 +52589,6 @@ function jQuery() {
         "previous": "Prapa"
       }
     }
-  });
-  $("form[id*='notification']").click(function (e) {
-    e.preventDefault();
-    var id = $("input[name=id]").val();
-    $.ajax({
-      type: 'POST',
-      url: '/markAsRead',
-      data: {
-        "id": id
-      },
-      success: function success(data) {
-        alert(data.success);
-      }
-    });
   });
   $('#PacientdataTable').DataTable({
     "processing": true,
@@ -61672,18 +61675,37 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;function _typeof
 
 (function ($) {
   "use strict"; // Start of use strict
-  // Toggle the side navigation
+
+  if (!localStorage.View) {
+    localStorage.View = 1;
+  } // Toggle the side navigation
+
 
   $("#sidebarToggle, #sidebarToggleTop").on('click', function (e) {
-    $("body").toggleClass("sidebar-toggled");
-    $(".sidebar").toggleClass("toggled");
+    if (localStorage.View == 1) {
+      localStorage.View = 0;
+      $("body").removeClass("sidebar-toggled");
+      $(".sidebar").removeClass("toggled");
+    } else {
+      $("body").addClass("sidebar-toggled");
+      $(".sidebar").addClass("toggled");
 
-    if ($(".sidebar").hasClass("toggled")) {
-      $('.sidebar .collapse').collapse('hide');
+      if ($(".sidebar").hasClass("toggled")) {
+        $('.sidebar .collapse').collapse('hide');
+        localStorage.View = 1;
+      }
     }
+  });
 
-    ;
-  }); // Close any open menu accordions when window is resized below 768px
+  if (localStorage.View == 1) {
+    $("body").addClass("sidebar-toggled");
+    $(".sidebar").addClass("toggled");
+    $('.sidebar .collapse').collapse('hide');
+  } else {
+    $("body").removeClass("sidebar-toggled");
+    $(".sidebar").removeClass("toggled");
+  } // Close any open menu accordions when window is resized below 768px
+
 
   $(window).resize(function () {
     if ($(window).width() < 768) {

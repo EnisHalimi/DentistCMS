@@ -56,7 +56,7 @@ class TreatmentController extends Controller
     public function index()
     {
         if(auth()->guest())
-        return redirect('/login')->with('error', 'Unathorized Page');
+        return redirect('/login')->with('error', 'Nuk keni autorizim');
         else
         return view('treatment.treatment');
     }
@@ -69,7 +69,7 @@ class TreatmentController extends Controller
     public function create()
     {
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Unathorized Page');
+            return redirect('/login')->with('error', 'Nuk keni autorizim');
         else
             return view('treatment.create');
     }
@@ -84,22 +84,22 @@ class TreatmentController extends Controller
     {
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Unathorized Page'); 
+            return redirect('/')->with('error','Nuk keni autorizim'); 
         }
         else
         {
             $this->validate($request,[
                 'pacient-id'=> 'required|numeric',
-                'starting_date' => 'required|date',
-                'duration' => 'required|min:3',
-                'service-list' => 'required',
+                'Data_e_fillimit' => 'required|date',
+                'Kohezgjatja' => 'required|min:3',
+                'Sherbimet' => 'required',
             ]);
             
             $treatment = new Treatment;
             $treatment->pacient_id = $request->input('pacient-id');
-            $treatment->starting_date = $request->input('starting_date');
-            $treatment->duration = $request->input('duration');
-            $services  = explode(",",$request->input('service-list'));
+            $treatment->starting_date = $request->input('Data_e_fillimit');
+            $treatment->duration = $request->input('Kohezgjatja');
+            $services  = explode(",",$request->input('Sherbimet'));
             $treatment->save();
             foreach($services as $service)
             {
@@ -125,7 +125,7 @@ class TreatmentController extends Controller
         $treatment = Treatment::find($id);
         $services = $treatment->services()->where('treatment_id','=',$id)->get();
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Unathorized Page');
+            return redirect('/login')->with('error', 'Nuk keni autorizim');
         else
             return view('treatment.show')->with('treatment',$treatment)->with('services',$services);
     }
@@ -143,7 +143,7 @@ class TreatmentController extends Controller
         $services = $treatment->services()->where('treatment_id','=',$id)->get();
         
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Unathorized Page');
+            return redirect('/login')->with('error', 'Nuk keni autorizim');
         else
             return view('treatment.edit')->with('treatment',$treatment)->with('services_id',$services_id)->with('services',$services);;
     }
@@ -159,22 +159,22 @@ class TreatmentController extends Controller
     {
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Unathorized Page'); 
+            return redirect('/')->with('error','Nuk keni autorizim'); 
         }
         else
         {
             $this->validate($request,[
                 'pacient-id'=> 'required|numeric',
-                'starting_date' => 'required|date',
-                'duration' => 'required|min:3',
-                'service-list' => 'required',
+                'Data_e_fillimit' => 'required|date',
+                'Kohezgjatja' => 'required|min:3',
+                'Sherbimet' => 'required',
             ]);
             
             $treatment = Treatment::find($id);
             $treatment->pacient_id = $request->input('pacient-id');
-            $treatment->starting_date = $request->input('starting_date');
-            $treatment->duration = $request->input('duration');
-            $services  = explode(",",$request->input('service-list'));
+            $treatment->starting_date = $request->input('Data_e_fillimit');
+            $treatment->duration = $request->input('Kohezgjatja');
+            $services  = explode(",",$request->input('Sherbimet'));
             $treatment->save();
             $treatment->services()->detach();
             foreach($services as $service)
@@ -202,7 +202,7 @@ class TreatmentController extends Controller
         $treatment = Treatment::find($id);
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Unathorized Page'); 
+            return redirect('/')->with('error','Nuk keni autorizim'); 
         }
         else
         {

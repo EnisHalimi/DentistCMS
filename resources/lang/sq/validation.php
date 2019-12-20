@@ -136,6 +136,9 @@ return [
          'user-id' => [
             'required' => 'Ju lutem zgjidhni dentistin.',
         ],
+        'treatment-id' => [
+            'required' => 'Ju lutem zgjidhni trajtimin.',
+        ],
     ],
 
     /*

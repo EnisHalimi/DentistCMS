@@ -13,7 +13,7 @@
           <div class="text-center">
             <h1 class="h4 text-gray-900 mb-4">Ndrysho Trajtim!</h1>
           </div>
-          <form class="user" method="POST" action="{{ route('treatment.update',$treatment->id) }}">
+          <form class="user"  enctype="multipart/form-data" method="POST" action="{{ route('treatment.update',$treatment->id) }}">
                 {{ method_field('PUT') }}
             {{ csrf_field() }}
             <div class="form-group ">
@@ -135,7 +135,17 @@
                     </span>
   @endif
                
-              </div>   <div class="form-group">
+              </div>  
+              <div class="form-group">
+                <label class="text-xs"  for="photo">Grafia</label>
+              <input id="logo" type="file" class="form-control @error('Foto') is-invalid @enderror" name="Foto" id="photo" placeholder="Fotoja e faturës" >
+                        @if ($errors->has('Foto'))
+                                          <span class="help-block">
+                                            <strong class="text-danger"><small>{{ $errors->first('Foto') }}</small></strong>
+                                          </span>
+                                      @endif
+                </div>
+                 <div class="form-group">
                 <a class="btn btn-circle btn-secondary" href="{{ url()->previous() }}" ><i class="fa fa-chevron-left"></i></a>
                   <button type="submit"  class="btn btn-circle btn-primary float-right"><i class="fa fa-pen"></i></button>
                 </div>

@@ -30,6 +30,10 @@
                                 <th>Kohëzgjatja:</th>
                                 <td scope="row">{{$treatment->duration}} </td>
                         </tr>
+                        <tr>
+                            <th>Foto:</th>
+                            <td scope="row"><img src="{{asset('img/grafite/'.$treatment->file.'')}}" class="img-fluid" /></td></td>
+                        </tr>
                         @foreach($services as $service)
                         <tr>
                                 <th>Shërbimi:</th>

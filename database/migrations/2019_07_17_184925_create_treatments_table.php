@@ -18,6 +18,7 @@ class CreateTreatmentsTable extends Migration
             $table->integer('pacient_id')->unsigned();
             $table->date('starting_date');
             $table->string('duration')->nullable(true);
+            $table->string('file')->nullable(true);
             $table->foreign('pacient_id')->references('id')->on('pacients');
             $table->timestamps();
         });

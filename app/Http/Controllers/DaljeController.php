@@ -102,9 +102,9 @@ class DaljeController extends Controller
                 $fileNamewithExt = $request->file('Foto')->getClientOriginalName();
                 $fileName = pathInfo($fileNamewithExt, PATHINFO_FILENAME);
                 $extension = $request->file('Foto')->getClientOriginalExtension();
-                $date = date('d-m-Y');
+                $date = date('d-m-Y H:m:s');
                 $fileNametoStore = $request->input('Tipi').'-'.$date.'.'.$extension;
-                $request->file('Foto')->move(public_path('/img/faturat'), $fileNametoStore);
+                $request->file('Foto')->move(public_path('../../img/faturat'), $fileNametoStore);
             }
             else
             {
@@ -184,9 +184,9 @@ class DaljeController extends Controller
                 $fileNamewithExt = $request->file('Foto')->getClientOriginalName();
                 $fileName = pathInfo($fileNamewithExt, PATHINFO_FILENAME);
                 $extension = $request->file('Foto')->getClientOriginalExtension();
-                $date = date('d-m-Y');
+                $date = date('d-m-Y H:m:s');
                 $fileNametoStore = $request->input('Tipi').'-'.$date.'.'.$extension;
-                $request->file('Foto')->move(public_path('/img/faturat'), $fileNametoStore);
+                $request->file('Foto')->move(public_path('../../img/faturat'), $fileNametoStore);
             }
             else
             {

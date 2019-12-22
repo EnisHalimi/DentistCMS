@@ -9,6 +9,7 @@ use App\Treatment;
 use App\Services;
 use DataTables;
 
+
 class TreatmentController extends Controller
 {
 
@@ -93,12 +94,28 @@ class TreatmentController extends Controller
                 'Data_e_fillimit' => 'required|date',
                 'Kohezgjatja' => 'required|min:3',
                 'Sherbimet' => 'required',
+                'Foto' =>'image|nullable|max:1999',
             ]);
-            
             $treatment = new Treatment;
+            if($request->hasFile('Foto'))
+            {
+                $fileNamewithExt = $request->file('Foto')->getClientOriginalName();
+                $fileName = pathInfo($fileNamewithExt, PATHINFO_FILENAME);
+                $extension = $request->file('Foto')->getClientOriginalExtension();
+                $date = date('d-m-Y H:m:s');
+                $fileNametoStore = 'Grafia-'.$date.'.'.$extension;
+                $request->file('Foto')->move(public_path('../../img/grafite'), $fileNametoStore);
+            }
+            else
+            {
+                $fileNametoStore = 'no-image';
+            }
+            
+         
             $treatment->pacient_id = $request->input('pacient-id');
             $treatment->starting_date = $request->input('Data_e_fillimit');
             $treatment->duration = $request->input('Kohezgjatja');
+            $treatment->file = $fileNametoStore;
             $services  = explode(",",$request->input('Sherbimet'));
             $treatment->save();
             foreach($services as $service)
@@ -168,9 +185,19 @@ class TreatmentController extends Controller
                 'Data_e_fillimit' => 'required|date',
                 'Kohezgjatja' => 'required|min:3',
                 'Sherbimet' => 'required',
+                'Foto' =>'image|nullable|max:1999',
             ]);
-            
             $treatment = Treatment::find($id);
+            if($request->hasFile('Foto'))
+            {
+                $fileNamewithExt = $request->file('Foto')->getClientOriginalName();
+                $fileName = pathInfo($fileNamewithExt, PATHINFO_FILENAME);
+                $extension = $request->file('Foto')->getClientOriginalExtension();
+                $date = date('d-m-Y H:m:s');
+                $fileNametoStore = 'Grafia-'.$date.'.'.$extension;
+                $request->file('Foto')->move(public_path('../../img/grafite'), $fileNametoStore);
+                $treatment->file = $fileNametoStore;
+            }
             $treatment->pacient_id = $request->input('pacient-id');
             $treatment->starting_date = $request->input('Data_e_fillimit');
             $treatment->duration = $request->input('Kohezgjatja');
@@ -207,6 +234,7 @@ class TreatmentController extends Controller
         else
         {
             $treatment->services()->detach();
+            $treatment->report()->delete();
             $treatment->delete();           
             return redirect('/treatment')->with('success','Është fshirë Trajtimi');
         }

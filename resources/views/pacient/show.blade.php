@@ -116,7 +116,7 @@
                             <th>Dentisti</th>
                             <th>Data</th>
                             <th>Ora</th>
-                            <th>Menaxhimi</th>
+                            <th>Shiko</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -145,7 +145,7 @@
                 <th>Dentisti</th>
                 <th>Data</th>
                 <th>Ora</th>
-                <th>Menaxhimi</th>
+                <th>Shiko</th>
               </tr>
             </thead>
             <tbody>
@@ -174,7 +174,7 @@
                 <th>Pacienti</th>
                 <th>Data e fillimit</th>
                 <th>Kohëzgjatja</th>
-                <th>Menaxhimi</th>
+                <th>Shiko</th>
               </tr>
             </thead>
             <tbody>
@@ -202,7 +202,7 @@
                 <th>Pacienti</th>
                 <th>Trajtimi</th>
                 <th>Data</th>
-                <th>Menaxhimi</th>
+                <th>Shiko</th>
               </tr>
             </thead>
             <tbody>
@@ -221,6 +221,35 @@
               @endif
             </tbody>
           </table>
+          <hr class="mb-5">
+          <table class="table table-bordered"  width="100%" cellspacing="0">
+                  <h3>Borgjet</h3> <hr>
+                      <thead class="bg-dark text-light">
+                        <tr>
+                          <th>Pacienti</th>
+                          <th>Data</th>
+                          <th>Vlera</th>
+                          <th>Afati</th>
+                          <th>Shiko</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @if(count($daljet)>0)  
+                        @foreach($daljet as $dalje)
+                          <tr>
+                          <td>{{App\Pacient::getPacient($dalje->pacient_id)}}</td>
+                          <td>{{$dalje->created_at}}</td>
+                          <td>{{$dalje->value}} €</td>
+                          <td>{{$dalje->deadline}}</td>
+                          <td><a class="btn btn-circle btn-secondary btn-sm" href="/daljet/{{$dalje->id}}"><i class="fa fa-eye"></i></a></td>
+                          </tr>
+                        @endforeach
+                        @else
+                        <tr>
+                            <td colspan="5">Nuk ka të dhëna</td> </tr>
+                        @endif
+                      </tbody>
+                    </table>
 
        
     </div>

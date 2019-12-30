@@ -9,6 +9,7 @@ use App\Treatment;
 use App\Appointment;
 use App\Visit;
 use App\Report;
+use App\Dalje;
 use DB;
 
 class PacientController extends Controller
@@ -137,6 +138,7 @@ class PacientController extends Controller
         $treatment = Treatment::where('pacient_id','=',$id)->get();
         $visit = Visit::where('pacient_id','=',$id)->get();
         $report = Report::where('pacient_id','=',$id)->get();
+        $dalje = Dalje::where('pacient_id','=',$id)->get();
         $appointment = Appointment::where('pacient_id','=',$id)->get();
         if(auth()->guest())
             return redirect('/login')->with('error', 'Nuk keni autorizim');
@@ -146,6 +148,7 @@ class PacientController extends Controller
                     ->with('treatments',$treatment)
                     ->with('visits',$visit)
                     ->with('reports',$report)
+                    ->with('daljet',$dalje)
                     ->with('appointments',$appointment);
     }
 

@@ -114,6 +114,7 @@ class AppointmentController extends Controller
             $appointment->save();
             $pacient = Pacient::find($request->input('pacient-id'));
             $notifications = new Notifications;
+            $notifications->type = 'termin-'.$appointment->id;
             $notifications->description = $pacient->first_name.' '.$pacient->last_name.' ka terminin për ditën e nesërme në ora '.$appointment->time_of_appointment.'.';
             $notifications->date = $request->input('data');
             $notifications->opened = false;
@@ -184,8 +185,8 @@ class AppointmentController extends Controller
             if(count($appointments))
                 throw $error;
             $appointment = Appointment::find($id);
-            $pacient = Pacient::find($request->input('pacient-id'));
-            $notifications = Notifications::where('description','=',$pacient->first_name.' '.$pacient->last_name.' ka terminin për ditën e nesërme në ora '.$appointment->time_of_appointment.'.')->first();
+            $pacient = Pacient::find($appointment->pacient_id);
+            $notifications = Notifications::where('type','=','termin-'.$appointment->id)->first();
             $appointment->pacient_id = $request->input('pacient-id');
             $appointment->user_id = $request->input('user-id');
             $appointment->date_of_appointment = $request->input('data');
@@ -218,8 +219,11 @@ class AppointmentController extends Controller
         else
         {
             $pacient = Pacient::find($appointment->pacient_id);
-            $notifications = Notifications::where('description','=',$pacient->first_name.' '.$pacient->last_name.' ka terminin për ditën e nesërme në ora '.$appointment->time_of_appointment.'.');
-            $notifications->delete();
+            $notifications = Notifications::where('type','=','termin-'.$appointment->id)->first();
+            if(!empty($notifications))
+            {
+                $notifications->delete();
+            }
             $appointment->delete();           
             return redirect('/appointment')->with('success','Është fshirë Termini');
         }

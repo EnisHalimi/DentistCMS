@@ -17,6 +17,7 @@ class CreateNotificationsTable extends Migration
             $table->increments('id');
             $table->text('description');
             $table->date('date');
+            $table->string('type');
             $table->boolean('opened');
             $table->timestamps();
         });

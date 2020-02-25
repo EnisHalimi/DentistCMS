@@ -119,7 +119,7 @@ class HomeController extends Controller
             $fileName = pathInfo($fileNamewithExt, PATHINFO_FILENAME);
             $extension = $request->file('logo')->getClientOriginalExtension();
             $fileNametoStore = $settings->app_name.'.'.$extension;
-            $request->file('logo')->move(public_path('../../img'), $fileNametoStore);
+            $request->file('logo')->move(public_path('img'), $fileNametoStore);
             $add = DB::table('settings')->where('id', $settings->id)
             ->update(['app_name' =>  $request->input('app_name'), 'logo' => $fileNametoStore, 'theme' => $theme]);
         }

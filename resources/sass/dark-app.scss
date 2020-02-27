@@ -1,12 +1,10 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 
+@import "variables-dark";
+@import "~bootstrap/scss/bootstrap";
+@import "bootswatch";
 // Variables
-@import 'variables';
-
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
-
 
 // Import Custom SB Admin 2 Mixins and Components
 @import "mixins.scss";
@@ -23,6 +21,8 @@
 @import "error.scss";
 @import "footer.scss";
 @import "datatables.css";
+
+
 
 @import '~@fullcalendar/core/main.css';
 @import '~@fullcalendar/daygrid/main.css';

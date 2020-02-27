@@ -12,7 +12,7 @@
         <div class="col-lg-7">
           <div class="p-5">
             <div class="text-center">
-              <h1 class="h4 text-gray-900 mb-4">Ndrysho Shërbim!</h1>
+              <h1 class="h4 @if(App\User::getAppTheme() == true) text-gray-100 @else text-gray-900 @endif mb-4">Ndrysho Shërbim!</h1>
             </div>
             <form class="user" method="POST" action="{{ route('services.update',$service->id) }}">
                 {{ method_field('PUT') }}

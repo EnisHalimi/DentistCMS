@@ -4,10 +4,11 @@
 @section('content')
         <!-- Begin Page Content -->
         <div class="container-fluid">
+          
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Kryefaqja</h1>
+            <h1 class="h3 mb-0 @if(App\User::getAppTheme() == true) text-gray-100 @else text-gray-800 @endif">Kryefaqja</h1>
             <a href="/appointment/create" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-calendar fa-sm text-white-50"></i> Krijo Termin</a>
           </div>
 
@@ -21,7 +22,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Terminet sot</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{App\Appointment::getAppointmentNumberToday(date('Y-m-d'))}}</div>
+                      <div class="h5 mb-0 font-weight-bold @if(App\User::getAppTheme() == true) text-gray-100 @else text-gray-800 @endif">{{App\Appointment::getAppointmentNumberToday(date('Y-m-d'))}}</div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-calendar fa-2x text-gray-300"></i>
@@ -38,7 +39,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Faturat sot</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{count($reports)}}</div>
+                      <div class="h5 mb-0 font-weight-bold @if(App\User::getAppTheme() == true) text-gray-100 @else text-gray-800 @endif">{{count($reports)}}</div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-scroll fa-2x text-gray-300"></i>
@@ -57,7 +58,7 @@
                       <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Vizitat sot</div>
                       <div class="row no-gutters align-items-center">
                         <div class="col-auto">
-                          <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{count($visits)}}</div>
+                          <div class="h5 mb-0 mr-3 font-weight-bold @if(App\User::getAppTheme() == true) text-gray-100 @else text-gray-800 @endif">{{count($visits)}}</div>
                         </div>
                       </div>
                     </div>
@@ -76,7 +77,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Trajtimet sot</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{count($treatments)}}</div>
+                      <div class="h5 mb-0 font-weight-bold @if(App\User::getAppTheme() == true) text-gray-100 @else text-gray-800 @endif">{{count($treatments)}}</div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-syringe fa-2x text-gray-300"></i>
@@ -96,142 +97,20 @@
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                  <h6 class="m-0 font-weight-bold text-primary">Terminet javore</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Kalendari Termineve</h6>
                   <div class="dropdown no-arrow">
                     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                       <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                       <div class="dropdown-header">Më shumë:</div>
-                      <a class="dropdown-item" href="/appointment">Shiko të gjithë terminet</a>
                       <a class="dropdown-item" href="/appointment/create">Krijo termin të re</a>
                     </div>
                   </div>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body scroll-table  py-0">
-                    <table class="table table-stripped"  width="100%" cellspacing="0">
-                        <thead>
-                          <th>Ora</th>
-                          <th>Hënë</th>
-                          <th>Marte</th>
-                          <th>Mërkure</th>
-                          <th>Enjte</th>
-                          <th>Premte</th>
-                          <th>Shtune</th>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>08:00 / 08:30</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("08:00", $days[0])}} / {{App\Appointment::getAppointmentByTimeAndDate("08:30", $days[0])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("08:00", $days[1])}} / {{App\Appointment::getAppointmentByTimeAndDate("08:30", $days[1])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("08:00", $days[2])}} / {{App\Appointment::getAppointmentByTimeAndDate("08:30", $days[2])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("08:00", $days[3])}} / {{App\Appointment::getAppointmentByTimeAndDate("08:30", $days[3])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("08:00", $days[4])}} / {{App\Appointment::getAppointmentByTimeAndDate("08:30", $days[4])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("08:00", $days[5])}} / {{App\Appointment::getAppointmentByTimeAndDate("08:30", $days[5])}}</td>
-                          </tr> 
-                          <tr>
-                            <td>09:00 / 09:30</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("09:00", $days[0])}} / {{App\Appointment::getAppointmentByTimeAndDate("09:30", $days[0])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("09:00", $days[1])}} / {{App\Appointment::getAppointmentByTimeAndDate("09:30", $days[1])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("09:00", $days[2])}} / {{App\Appointment::getAppointmentByTimeAndDate("09:30", $days[2])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("09:00", $days[3])}} / {{App\Appointment::getAppointmentByTimeAndDate("09:30", $days[3])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("09:00", $days[4])}} / {{App\Appointment::getAppointmentByTimeAndDate("09:30", $days[4])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("09:00", $days[5])}} / {{App\Appointment::getAppointmentByTimeAndDate("09:30", $days[5])}}</td>
-                          </tr>
-                          <tr>
-                            <td>10:00 / 10:30</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("10:00", $days[0])}} / {{App\Appointment::getAppointmentByTimeAndDate("10:30",$days[0])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("10:00", $days[1])}} / {{App\Appointment::getAppointmentByTimeAndDate("10:30",$days[1])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("10:00", $days[2])}} / {{App\Appointment::getAppointmentByTimeAndDate("10:30",$days[2])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("10:00", $days[3])}} / {{App\Appointment::getAppointmentByTimeAndDate("10:30",$days[3])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("10:00", $days[4])}} / {{App\Appointment::getAppointmentByTimeAndDate("10:30",$days[4])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("10:00", $days[5])}} / {{App\Appointment::getAppointmentByTimeAndDate("10:30",$days[5])}}</td>
-                          </tr>
-                          <tr>
-                            <td>11:00 / 11:30</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("11:00", $days[0])}} / {{App\Appointment::getAppointmentByTimeAndDate("11:30",$days[0])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("11:00", $days[1])}} / {{App\Appointment::getAppointmentByTimeAndDate("11:30",$days[1])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("11:00", $days[2])}} / {{App\Appointment::getAppointmentByTimeAndDate("11:30",$days[2])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("11:00", $days[3])}} / {{App\Appointment::getAppointmentByTimeAndDate("11:30",$days[3])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("11:00", $days[4])}} / {{App\Appointment::getAppointmentByTimeAndDate("11:30",$days[4])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("11:00", $days[5])}} / {{App\Appointment::getAppointmentByTimeAndDate("11:30",$days[5])}}</td>
-                          </tr>
-                          <tr>
-                            <td>12:00 / 12:30</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("12:00", $days[0])}} / {{App\Appointment::getAppointmentByTimeAndDate("12:30",$days[0])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("12:00", $days[1])}} / {{App\Appointment::getAppointmentByTimeAndDate("12:30",$days[1])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("12:00", $days[2])}} / {{App\Appointment::getAppointmentByTimeAndDate("12:30",$days[2])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("12:00", $days[3])}} / {{App\Appointment::getAppointmentByTimeAndDate("12:30",$days[3])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("12:00", $days[4])}} / {{App\Appointment::getAppointmentByTimeAndDate("12:30",$days[4])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("12:00", $days[5])}} / {{App\Appointment::getAppointmentByTimeAndDate("12:30",$days[5])}}</td>
-                          </tr>
-                          <tr>
-                            <td>13:00 / 13:30</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("13:00", $days[0])}} / {{App\Appointment::getAppointmentByTimeAndDate("13:30",$days[0])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("13:00", $days[1])}} / {{App\Appointment::getAppointmentByTimeAndDate("13:30",$days[1])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("13:00", $days[2])}} / {{App\Appointment::getAppointmentByTimeAndDate("13:30",$days[2])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("13:00", $days[3])}} / {{App\Appointment::getAppointmentByTimeAndDate("13:30",$days[3])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("13:00", $days[4])}} / {{App\Appointment::getAppointmentByTimeAndDate("13:30",$days[4])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("13:00", $days[5])}} / {{App\Appointment::getAppointmentByTimeAndDate("13:30",$days[5])}}</td>
-                          </tr>
-                          <tr>
-                            <td>14:00 / 14:30</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("14:00", $days[0])}} / {{App\Appointment::getAppointmentByTimeAndDate("14:30",$days[0])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("14:00", $days[1])}} / {{App\Appointment::getAppointmentByTimeAndDate("14:30",$days[1])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("14:00", $days[2])}} / {{App\Appointment::getAppointmentByTimeAndDate("14:30",$days[2])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("14:00", $days[3])}} / {{App\Appointment::getAppointmentByTimeAndDate("14:30",$days[3])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("14:00", $days[4])}} / {{App\Appointment::getAppointmentByTimeAndDate("14:30",$days[4])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("14:00", $days[5])}} / {{App\Appointment::getAppointmentByTimeAndDate("14:30",$days[5])}}</td>
-                          </tr>
-                          <tr>
-                            <td>15:00 / 15:30</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("15:00", $days[0])}} / {{App\Appointment::getAppointmentByTimeAndDate("15:30",$days[0])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("15:00", $days[1])}} / {{App\Appointment::getAppointmentByTimeAndDate("15:30",$days[1])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("15:00", $days[2])}} / {{App\Appointment::getAppointmentByTimeAndDate("15:30",$days[2])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("15:00", $days[3])}} / {{App\Appointment::getAppointmentByTimeAndDate("15:30",$days[3])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("15:00", $days[4])}} / {{App\Appointment::getAppointmentByTimeAndDate("15:30",$days[4])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("15:00", $days[5])}} / {{App\Appointment::getAppointmentByTimeAndDate("15:30",$days[5])}}</td>
-                          </tr>
-                          <tr>
-                            <td>16:00 / 16:30</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("16:00", $days[0])}} / {{App\Appointment::getAppointmentByTimeAndDate("16:30",$days[0])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("16:00", $days[1])}} / {{App\Appointment::getAppointmentByTimeAndDate("16:30",$days[1])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("16:00", $days[2])}} / {{App\Appointment::getAppointmentByTimeAndDate("16:30",$days[2])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("16:00", $days[3])}} / {{App\Appointment::getAppointmentByTimeAndDate("16:30",$days[3])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("16:00", $days[4])}} / {{App\Appointment::getAppointmentByTimeAndDate("16:30",$days[4])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("16:00", $days[5])}} / {{App\Appointment::getAppointmentByTimeAndDate("16:30",$days[5])}}</td>
-
-                          </tr>
-                          <tr>
-                            <td>17:00 / 17:30</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("17:00", $days[0])}} / {{App\Appointment::getAppointmentByTimeAndDate("17:30",$days[0])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("17:00", $days[1])}} / {{App\Appointment::getAppointmentByTimeAndDate("17:30",$days[1])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("17:00", $days[2])}} / {{App\Appointment::getAppointmentByTimeAndDate("17:30",$days[2])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("17:00", $days[3])}} / {{App\Appointment::getAppointmentByTimeAndDate("17:30",$days[3])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("17:00", $days[4])}} / {{App\Appointment::getAppointmentByTimeAndDate("17:30",$days[4])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("17:00", $days[5])}} / {{App\Appointment::getAppointmentByTimeAndDate("17:30",$days[5])}}</td>
-                          </tr>
-                          <tr>
-                            <td>18:00 / 18:30</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("18:00", $days[0])}} / {{App\Appointment::getAppointmentByTimeAndDate("18:30",$days[0])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("18:00", $days[1])}} / {{App\Appointment::getAppointmentByTimeAndDate("18:30",$days[1])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("18:00", $days[2])}} / {{App\Appointment::getAppointmentByTimeAndDate("18:30",$days[2])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("18:00", $days[3])}} / {{App\Appointment::getAppointmentByTimeAndDate("18:30",$days[3])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("18:00", $days[4])}} / {{App\Appointment::getAppointmentByTimeAndDate("18:30",$days[4])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("18:00", $days[5])}} / {{App\Appointment::getAppointmentByTimeAndDate("18:30",$days[5])}}</td>
-                          </tr>
-                          <tr>
-                            <td>19:00 / 19:30</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("19:00", $days[0])}} / {{App\Appointment::getAppointmentByTimeAndDate("19:30",$days[0])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("19:00", $days[1])}} / {{App\Appointment::getAppointmentByTimeAndDate("19:30",$days[1])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("19:00", $days[2])}} / {{App\Appointment::getAppointmentByTimeAndDate("19:30",$days[2])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("19:00", $days[3])}} / {{App\Appointment::getAppointmentByTimeAndDate("19:30",$days[3])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("19:00", $days[4])}} / {{App\Appointment::getAppointmentByTimeAndDate("19:30",$days[4])}}</td>
-                            <td>{{App\Appointment::getAppointmentByTimeAndDate("19:00", $days[5])}} / {{App\Appointment::getAppointmentByTimeAndDate("19:30",$days[5])}}</td>
-                          </tr>
-                        </tbody>
-                      </table>
+                    <div class="my-2" id='calendar'></div>
                 </div>
               </div>
             </div>

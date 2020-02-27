@@ -50,6 +50,12 @@ class User extends Authenticatable
         return $user->name;
     }
 
+    public static function getUserColor($id)
+    {
+        $user = User::find($id);
+        return $user->color;
+    }
+
     public static function getLogo()
     {
         $settings = DB::table('settings')->first();
@@ -67,6 +73,14 @@ class User extends Authenticatable
         return 'DentistCMS';
         return $settings->app_name;
     }
+
+    public static function getAppTheme()
+    {
+        $settings = DB::table('settings')->first();
+        return $settings->theme;
+    }
+
+
 
     public function getCreatedAtAttribute($value)
     {

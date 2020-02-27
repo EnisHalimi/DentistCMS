@@ -3,6 +3,41 @@ require('./bootstrap')
 require('./components/sb-admin-2')
 require('./components/jquery.easing.min')
 require('./components/datatables.min')
+import { Calendar } from '@fullcalendar/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
+import sqLocale from '@fullcalendar/core/locales/sq';
+document.addEventListener('DOMContentLoaded', function() {
+  var calendarEl = document.getElementById('calendar');
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  var yyyy = today.getFullYear();
+  var calendar = new Calendar(calendarEl, {
+    plugins: [ dayGridPlugin ],
+    locale: sqLocale,
+    header: {
+      left: 'prev,next,today',
+      center: 'title',
+      right: 'dayGridMonth,dayGridWeek,dayGridDay'
+    },
+    buttonText: {
+      today:    'Sot',
+      month:    'Muaji',
+      week:     'Java',
+      day:      'Dita',
+      list:     'Lista'
+    }, 
+    themeSystem: 'jquery-ui',
+    eventTextColor: 'white',
+    defaultDate: yyyy+'-'+mm+'-'+dd,
+    navLinks: true,
+    eventLimit: true, 
+    events: '/getAppointments'
+
+  });
+
+  calendar.render();
+});
 
   function jQuery() {
     $.ajaxSetup({
@@ -226,6 +261,7 @@ require('./components/datatables.min')
           {"data":"email"},
           {"data":"password"},
           {"data":"position"},
+          {"data":"color"},
           {"data": "Menaxhimi", "bSearchable": false }
         ],
         "language": {
@@ -391,8 +427,8 @@ require('./components/datatables.min')
         "serverSide": true,
         "ajax":"/notificationsDatatable",
         "columns": [
-          {"data":"description"},
-          {"data":"created_at"},
+          {"data":"description",'bSortable': false},
+          {"data":"created_at", 'bSortable': false},
         ],
         "language": {
           "lengthMenu": "Shfaq _MENU_ për faqe",

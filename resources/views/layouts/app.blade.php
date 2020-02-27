@@ -11,7 +11,11 @@
     <title>@yield('title') - {{App\User::getAppName()}}</title>
 
     <!-- Styles -->
+    @if(App\User::getAppTheme() == false)
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    @else
+    <link href="{{ asset('css/dark-app.css') }}" rel="stylesheet">
+    @endif
     <!-- SB CSS -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
@@ -63,12 +67,20 @@
       <!-- Divider -->
       <hr class="sidebar-divider">
 
+      <li class="nav-item  @yield('calendar')">
+        <a class="nav-link" href="/calendar">
+          <i class="fas fa-fw fa-calendar-alt"></i>
+          <span>Kalendari</span></a>
+      </li>
+      
       <!-- Nav Item - Charts -->
       <li class="nav-item  @yield('appointment')">
         <a class="nav-link" href="/appointment">
           <i class="fas fa-fw fa-calendar"></i>
           <span>Terminet</span></a>
       </li>
+
+    
 
       <li class="nav-item  @yield('pacient')">
         <a class="nav-link" href="/pacient">
@@ -118,10 +130,10 @@
     <div id="content-wrapper" class="d-flex flex-column">
 
       <!-- Main Content -->
-      <div id="content">
+      <div id="content" class="@if(App\User::getAppTheme() == true) bg-secondary @else bg-white @endif ">
 
         <!-- Topbar -->
-        <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+        <nav class="navbar navbar-expand navbar-light @if(App\User::getAppTheme() == true) bg-dark @else bg-white @endif topbar mb-4 static-top shadow">
 
               <!-- Sidebar Toggle (Topbar) -->
           <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
@@ -317,7 +329,7 @@
       <!-- End of Main Content -->
 
       <!-- Footer -->
-      <footer class="sticky-footer bg-white">
+      <footer class="sticky-footer @if(App\User::getAppTheme() == true) bg-dark @else bg-white @endif ">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
             <span>Copyright &copy; Kreative Programming Team 2019</span>

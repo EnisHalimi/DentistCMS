@@ -13,7 +13,7 @@ class UserController extends Controller
 
     function getUserDataTable()
     {
-        $users = User::select('name','email','position','id');
+        $users = User::select('name','email','position','id','color');
         $table = DataTables::of($users)
         ->addColumn('password', '*********')
         ->editColumn('Menaxhimi' ,'<a href="/user/{{$id}}" class="btn btn-circle  btn-secondary"><i class="fa fa-eye"></i></a>
@@ -43,7 +43,8 @@ class UserController extends Controller
                 </div>
             </div>
         </div> ')
-        ->rawColumns(['Menaxhimi','password'])
+        ->editColumn('color', '<div class="py-3 px-4" style="background-color: {{$color}};"></div>')
+        ->rawColumns(['Menaxhimi','password','color'])
         ->make(true);
         return $table;
     }

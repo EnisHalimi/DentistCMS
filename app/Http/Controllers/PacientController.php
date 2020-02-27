@@ -54,6 +54,7 @@ class PacientController extends Controller
                 </div>
             </div>
         </div> ')
+    
         ->rawColumns(['Menaxhimi'])
         ->make(true);
         return $table;

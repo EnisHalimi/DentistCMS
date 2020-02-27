@@ -15,6 +15,7 @@ use App\Notifications;
 use DataTables;
 use DB;
 use Carbon\Carbon;
+use Redirect,Response;
 
 class HomeController extends Controller
 {
@@ -69,6 +70,13 @@ class HomeController extends Controller
     {
         $notifications = Notifications::orderBy('created_at', 'DESC');
         return view('notifications')->with('notifications', $notifications);
+                            
+    }
+
+    public function calendar()
+    {
+        $users = User::where('position','=','Stomatolog')->orWhere('position','=','Administrator')->get();
+        return view('calendar')->with('users',$users);
                             
     }
 
@@ -136,7 +144,7 @@ class HomeController extends Controller
 
     public function getNotificationsDataTable()
     {
-        $notifications = Notifications::get();
+        $notifications = Notifications::orderBy('created_at','desc');
         $table = DataTables::of($notifications)
         ->editColumn ('description','@if($opened) {{$description}} @else <p style="color:black"><b>{{$description}}</b></p> @endif')
         ->editColumn ('created_at','@if($opened) {{$created_at}} @else  <p style="color:black"><b>{{$created_at}}</b></p> @endif')
@@ -156,5 +164,25 @@ class HomeController extends Controller
             return response()->json(['success'=>'U markua si e lexuar.']);
         }
     }
+
+    public function getAppointments(Request $request)
+    {
+        $appointments = Appointment::whereBetween('date_of_appointment',[$request->start,$request->end])->get();
+        foreach($appointments as $appointment)
+        {
+            $pacient = Pacient::getPacientName($appointment->pacient_id);
+            $color = User::getUserColor($appointment->user_id);
+            $data[] = array(
+                'title' => $appointment->time_of_appointment.' - '.$pacient,
+                'start' => $appointment->appointment_date,
+                'end' => $appointment->appointment_date,
+                'backgroundColor' => $color,
+                'borderColor' =>  $color
+            );
+        }
+        return Response::json($data);
+    }
+
+    
     
 }

@@ -9,7 +9,7 @@
         <!-- Page Heading -->
         <div class="row">
           <div class="col-sm-6">
-            <h1 class="h3 mb-4 text-gray-800">Njoftimet</h1>
+            <h1 class="h3 mb-4 @if(App\User::getAppTheme() == true) text-gray-100 @else text-gray-800 @endif">Njoftimet</h1>
           </div>
         </div>
         

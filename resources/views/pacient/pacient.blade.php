@@ -8,7 +8,7 @@
   <!-- Page Heading -->
   <div class="row">
     <div class="col-sm-6">
-      <h1 class="h3 mb-4 text-gray-800">Pacientët</h1>
+      <h1 class="h3 mb-4 @if(App\User::getAppTheme() == true) text-gray-100 @else text-gray-800 @endif">Pacientët</h1>
     </div>
     <div class="col-sm-6 ">
         <a href="/pacient/create" class="btn btn-circle btn-success float-right"><i class="fa fa-plus"></i></a>

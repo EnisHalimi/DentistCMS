@@ -37,6 +37,13 @@ class HomeController extends Controller
 
     public function index()
     {
+        $settings = DB::table('settings')->first();
+        if(empty($settings))
+        {
+            DB::table('settings')->insert(
+                ['app_name' => 'DentistCMS', 'logo' => 'http://maestroselectronics.com/wp-content/uploads/2017/12/No_Image_Available.jpg', 'theme' => false]
+            );
+        }
         $pacients = Pacient::whereDate('created_at','=',date("Y-m-d"))->orderBy('id', 'DESC')->get();
         $appointements = Appointment::whereBetween('date_of_appointment',[Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
         $treatment = Treatment::whereDate('created_at','=',date("Y-m-d"))->orderBy('id', 'DESC')->get();
@@ -54,7 +61,7 @@ class HomeController extends Controller
                             ->with('treatments', $treatment)
                             ->with('reports', $reports)
                             ->with('visits', $visit)
-                            ->with('days', $days);
+                            ->with('days',$days);
     }
     public function autocomplete()
     {
@@ -75,7 +82,7 @@ class HomeController extends Controller
 
     public function calendar()
     {
-        $users = User::where('position','=','Stomatolog')->orWhere('position','=','Administrator')->get();
+        $users = User::where('role_id','=',0)->orWhere('role_id','=',1)->get();
         return view('calendar')->with('users',$users);
                             
     }
@@ -168,6 +175,7 @@ class HomeController extends Controller
     public function getAppointments(Request $request)
     {
         $appointments = Appointment::whereBetween('date_of_appointment',[$request->start,$request->end])->get();
+        $data[] = [];
         foreach($appointments as $appointment)
         {
             $pacient = Pacient::getPacientName($appointment->pacient_id);

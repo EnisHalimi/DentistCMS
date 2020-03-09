@@ -57,7 +57,7 @@ class TreatmentController extends Controller
     public function index()
     {
         if(auth()->guest())
-        return redirect('/login')->with('error', 'Nuk keni autorizim');
+        return redirect('/login')->with('error', __('messages.noauthorization'));
         else
         return view('treatment.treatment');
     }
@@ -70,7 +70,7 @@ class TreatmentController extends Controller
     public function create()
     {
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Nuk keni autorizim');
+            return redirect('/login')->with('error', __('messages.noauthorization'));
         else
             return view('treatment.create');
     }
@@ -85,7 +85,7 @@ class TreatmentController extends Controller
     {
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Nuk keni autorizim'); 
+            return redirect('/')->with('error',__('messages.noauthorization')); 
         }
         else
         {
@@ -142,7 +142,7 @@ class TreatmentController extends Controller
         $treatment = Treatment::find($id);
         $services = $treatment->services()->where('treatment_id','=',$id)->get();
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Nuk keni autorizim');
+            return redirect('/login')->with('error', __('messages.noauthorization'));
         else
             return view('treatment.show')->with('treatment',$treatment)->with('services',$services);
     }
@@ -160,7 +160,7 @@ class TreatmentController extends Controller
         $services = $treatment->services()->where('treatment_id','=',$id)->get();
         
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Nuk keni autorizim');
+            return redirect('/login')->with('error', __('messages.noauthorization'));
         else
             return view('treatment.edit')->with('treatment',$treatment)->with('services_id',$services_id)->with('services',$services);;
     }
@@ -176,7 +176,7 @@ class TreatmentController extends Controller
     {
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Nuk keni autorizim'); 
+            return redirect('/')->with('error',__('messages.noauthorization')); 
         }
         else
         {
@@ -229,7 +229,7 @@ class TreatmentController extends Controller
         $treatment = Treatment::find($id);
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Nuk keni autorizim'); 
+            return redirect('/')->with('error',__('messages.noauthorization')); 
         }
         else
         {

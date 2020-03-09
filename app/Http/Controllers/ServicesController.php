@@ -49,7 +49,7 @@ class ServicesController extends Controller
     public function index()
     {
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Nuk keni autorizim');
+            return redirect('/login')->with('error', __('messages.noauthorization'));
         else
             return view('service.service');
     }
@@ -62,7 +62,7 @@ class ServicesController extends Controller
     public function create()
     {
         if(auth()->guest())
-        return redirect('/login')->with('error', 'Nuk keni autorizim');
+        return redirect('/login')->with('error', __('messages.noauthorization'));
     else
         return view('service.create');
     }
@@ -77,7 +77,7 @@ class ServicesController extends Controller
     {
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Nuk keni autorizim'); 
+            return redirect('/')->with('error',__('messages.noauthorization')); 
         }
         else
         {
@@ -106,7 +106,7 @@ class ServicesController extends Controller
     {
         $service = Services::find($id);
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Nuk keni autorizim');
+            return redirect('/login')->with('error', __('messages.noauthorization'));
         else
             return view('service.show')->with('service',$service);
     }
@@ -121,7 +121,7 @@ class ServicesController extends Controller
     {
         $service = Services::find($id);
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Nuk keni autorizim');
+            return redirect('/login')->with('error', __('messages.noauthorization'));
         else
             return view('service.edit')->with('service',$service);
     }
@@ -137,7 +137,7 @@ class ServicesController extends Controller
     {
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Nuk keni autorizim'); 
+            return redirect('/')->with('error',__('messages.noauthorization')); 
         }
         else
         {
@@ -168,7 +168,7 @@ class ServicesController extends Controller
         $service = Services::find($id);
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Nuk keni autorizim'); 
+            return redirect('/')->with('error',__('messages.noauthorization')); 
         }
         else
         {

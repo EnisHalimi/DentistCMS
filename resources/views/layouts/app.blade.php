@@ -64,14 +64,15 @@
           <span>Kryefaqja</span></a>
       </li>
 
-      <!-- Divider -->
-      <hr class="sidebar-divider">
-
       <li class="nav-item  @yield('calendar')">
         <a class="nav-link" href="/calendar">
           <i class="fas fa-fw fa-calendar-alt"></i>
           <span>Kalendari</span></a>
       </li>
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+     
       
       <!-- Nav Item - Charts -->
       <li class="nav-item  @yield('appointment')">
@@ -110,16 +111,25 @@
           <i class="fas fa-fw fa-list"></i>
           <span>Sherbimet</span></a>
       </li>
-      <li class="nav-item  @yield('user')">
-        <a class="nav-link" href="/user">
-          <i class="fas fa-fw fa-user-md"></i>
-          <span>Perdoruesit</span></a>
+      <li class="nav-item  @yield('debt')">
+        <a class="nav-link" href="/debt">
+          <i class="fas fa-fw fa-money-bill"></i>
+          <span>Borgjet</span></a>
       </li>
-      <li class="nav-item  @yield('daljet')">
-        <a class="nav-link" href="/daljet">
-          <i class="fas fa-fw fa-sign-out-alt"></i>
-          <span>Daljet</span></a>
+      <li class="nav-item  @yield('settings')">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+          <i class="fas fa- fw fa-cog"></i>
+          <span>Aranzhimi</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="/user">Përdoruesit</a>
+            <a class="collapse-item" href="/role">Rolet</a>
+          </div>
+        </div>
       </li>
+    
+      
       <div class="text-center d-none d-md-inline">
           <button class="rounded-circle border-0" id="sidebarToggle"></button>
         </div>
@@ -351,10 +361,7 @@
 
  
     
-    
   
     <!-- Scripts -->
-    <!-- SB Scripts -->
-   
     <script src="{{ asset('js/app.js')}}"></script>
 </html>

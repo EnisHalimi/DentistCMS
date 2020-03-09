@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use App\User;
+use App\Role;
 use DataTables;
 
 class UserController extends Controller
@@ -13,9 +14,10 @@ class UserController extends Controller
 
     function getUserDataTable()
     {
-        $users = User::select('name','email','position','id','color');
+        $users = User::select('name','email','role_id','id','color');
         $table = DataTables::of($users)
         ->addColumn('password', '*********')
+        ->addColumn('role', '{{App\Role::getRole($role_id)}}')
         ->editColumn('Menaxhimi' ,'<a href="/user/{{$id}}" class="btn btn-circle  btn-secondary"><i class="fa fa-eye"></i></a>
         <a href="/user/{{$id}}/edit"  class="btn btn-circle  btn-primary"><i class="fa fa-pen"></i></a>
         <button class="btn btn-circle  btn-danger" data-toggle="modal" data-target="#fshijModal{{$id}}"><i class="fa fa-trash"></i></button>
@@ -43,8 +45,8 @@ class UserController extends Controller
                 </div>
             </div>
         </div> ')
-        ->editColumn('color', '<div class="py-3 px-4" style="background-color: {{$color}};"></div>')
-        ->rawColumns(['Menaxhimi','password','color'])
+        ->editColumn('color', '<div class="py-2 px-4" style="background-color: {{$color}};"></div>')
+        ->rawColumns(['Menaxhimi','password','color','role'])
         ->make(true);
         return $table;
     }
@@ -55,10 +57,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        if(auth()->guest())
-            return redirect('/login')->with('error', 'Nuk keni autorizim');
-        else
+        if(auth()->user()->hasPermission('view-user'))
             return view('user.users');
+        else
+            return redirect('/')->with('error', __('messages.noauthorization'));
+         
     }
 
     /**
@@ -68,10 +71,12 @@ class UserController extends Controller
      */
     public function create()
     {
-        if(auth()->guest())
-            return redirect('/login')->with('error', 'Nuk keni autorizim');
+        $role = Role::all();
+        if(auth()->user()->hasPermission('create-user'))
+            return view('user.create')->with('roles',$role);
         else
-            return view('user.create');
+            return redirect('/')->with('error', __('messages.noauthorization'));
+            
     }
 
     /**
@@ -82,25 +87,27 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-       if(auth()->guest())
-        {
-            return redirect('/')->with('error','Nuk keni autorizim'); 
-        }
-        else
+        if(auth()->user()->hasPermission('create-user'))
         {
             $this->validate($request,[
                 'Emri_dhe_Mbiemri'=> 'required|min:6|string',
                 'email' => 'required|email|unique:users',
                 'password' => 'required|string|min:6|confirmed',
-                'Pozita'=> 'required|min:3|alpha',
+                'role'=> 'required',
+                'color'=> 'required',
             ]);
             $user = new User;
             $user->name = $request->input('Emri_dhe_Mbiemri');
             $user->email = $request->input('email');
             $user->password = Hash::make($request->input('password'));
-            $user->position = $request->input('Pozita');
+            $user->role_id = $request->input('role');
+            $user->color = $request->input('color');
             $user->save();
-            return redirect('/user')->with('success','U shtua Përdoruesi');
+            return redirect('/user')->with('success',__('messages.user-add'));
+        }
+        else
+        {
+            return redirect('/')->with('error',__('messages.noauthorization')); 
         }
     }
 
@@ -112,11 +119,13 @@ class UserController extends Controller
      */
     public function show($id)
     {
+        
         $user = User::findOrfail($id);
-        if(auth()->guest())
-            return redirect('/login')->with('error', 'Nuk keni autorizim');
-        else
+        if(auth()->user()->hasPermission('view-user'))
             return view('user.show')->with('user',$user);
+        else
+            return redirect('/')->with('error', __('messages.noauthorization'));
+            
     }
 
     /**
@@ -125,13 +134,15 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id) 
     {
+        $role = Role::all();
         $user = User::findOrfail($id);
-        if(auth()->guest())
-            return redirect('/login')->with('error', 'Nuk keni autorizim');
+        if(auth()->user()->hasPermission('edit-user'))
+            return view('user.edit')->with('user',$user)->with('roles',$role);
         else
-            return view('user.edit')->with('user',$user);
+            return redirect('/')->with('error', __('messages.noauthorization'));
+            
     }
 
     /**
@@ -143,17 +154,14 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if(auth()->guest())
-        {
-            return redirect('/')->with('error','Nuk keni autorizim'); 
-        }
-        else
+        if(auth()->user()->hasPermission('edit-user'))
         {
             $this->validate($request,[
                 'Emri_dhe_Mbiemri'=> 'required|min:6|string',
                 'email' => 'required|email',
                 'password' => 'confirmed',
-                'Pozita'=> 'required|min:3|alpha',
+                'role'=> 'required',
+                'color'=> 'required',
             ]);
             $user = User::find($id);
             if($request->input('password')>6)
@@ -161,9 +169,14 @@ class UserController extends Controller
             $user->name = $request->input('Emri_dhe_Mbiemri');
             if($user->email !== $request->input('email'))
                 $user->email = $request->input('email');
-            $user->position = $request->input('Pozita');
+            $user->role_id = $request->input('role');
+            $user->color = $request->input('color');
             $user->save();
-            return redirect('/user')->with('success','U ndryshua Përdoruesi');
+            return redirect('/user')->with('success',__('messages.user-edit'));
+        }
+        else
+        {
+            return redirect('/')->with('error',__('messages.noauthorization')); 
         }
     }
 
@@ -176,14 +189,16 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
-        if(auth()->guest())
+        if(auth()->user()->hasPermission('delete-user'))
         {
-            return redirect('/')->with('error','Nuk keni autorizim'); 
+            $user->appointment()->delete();
+            $user->visit()->delete();
+            $user->delete();           
+            return redirect('/user')->with('success',__('messages.user-delete'));
         }
         else
         {
-            $user->delete();           
-            return redirect('/user')->with('success','Është fshirë Përdoruesi');
+            return redirect('/')->with('error',__('messages.noauthorization')); 
         }
     }
 }

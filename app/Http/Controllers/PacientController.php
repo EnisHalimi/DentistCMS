@@ -9,7 +9,7 @@ use App\Treatment;
 use App\Appointment;
 use App\Visit;
 use App\Report;
-use App\Dalje;
+use App\Debt;
 use DB;
 
 class PacientController extends Controller
@@ -59,43 +59,30 @@ class PacientController extends Controller
         ->make(true);
         return $table;
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
-        if(auth()->guest())
-            return redirect('/login')->with('error', 'Nuk keni autorizim');
-        else
+        if(auth()->user()->hasPermission('view-pacient'))
             return view('pacient.pacient');
+        else
+            return redirect('/')->with('error', __('messages.noauthorization'));
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        if(auth()->guest())
-            return redirect('/login')->with('error', 'Nuk keni autorizim');
+        if(!auth()->user()->hasPermission('create-pacient'))
+            return redirect('/')->with('error', __('messages.noauthorization'));
         else
             return view('pacient.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
-        if(auth()->guest())
+        if(!auth()->user()->hasPermission('create-pacient'))
         {
-            return redirect('/')->with('error','Nuk keni autorizim'); 
+            return redirect('/')->with('error',__('messages.noauthorization')); 
         }
         else
         {
@@ -123,33 +110,27 @@ class PacientController extends Controller
             $pacient->phone = $request->input('Telefoni');
             $pacient->email = $request->input('email');
             $pacient->save();
-            return redirect('/pacient')->with('success','U shtua Pacienti');
+            return redirect('/pacient')->with('success',__('messages.patient-add'));
         }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $pacient = Pacient::findOrfail($id);
         $treatment = Treatment::where('pacient_id','=',$id)->get();
         $visit = Visit::where('pacient_id','=',$id)->get();
         $report = Report::where('pacient_id','=',$id)->get();
-        $dalje = Dalje::where('pacient_id','=',$id)->get();
+        $debt = Debt::where('pacient_id','=',$id)->get();
         $appointment = Appointment::where('pacient_id','=',$id)->get();
-        if(auth()->guest())
-            return redirect('/login')->with('error', 'Nuk keni autorizim');
+        if(!auth()->user()->hasPermission('view-pacient'))
+            return redirect('/')->with('error', __('messages.noauthorization'));
         else
             return view('pacient.show')
                     ->with('pacient',$pacient)
                     ->with('treatments',$treatment)
                     ->with('visits',$visit)
                     ->with('reports',$report)
-                    ->with('daljet',$dalje)
+                    ->with('debt',$debt)
                     ->with('appointments',$appointment);
     }
 
@@ -162,8 +143,8 @@ class PacientController extends Controller
     public function edit($id)
     {
         $pacient = Pacient::findOrfail($id);
-        if(auth()->guest())
-            return redirect('/login')->with('error', 'Nuk keni autorizim');
+        if(!auth()->user()->hasPermission('edit-pacient'))
+            return redirect('/')->with('error', __('messages.noauthorization'));
         else
             return view('pacient.edit')->with('pacient',$pacient);
     }
@@ -177,9 +158,9 @@ class PacientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if(auth()->guest())
+        if(!auth()->user()->hasPermission('edit-pacient'))
         {
-            return redirect('/')->with('error','Nuk keni autorizim'); 
+            return redirect('/')->with('error',__('messages.noauthorization')); 
         }
         else
         {
@@ -207,7 +188,7 @@ class PacientController extends Controller
             $pacient->phone = $request->input('Telefoni');
             $pacient->email = $request->input('email');
             $pacient->save();
-            return redirect('/pacient')->with('success','U ndryshua Pacienti');
+            return redirect('/pacient')->with('success',__('messages.patient-edit'));
         }
     }
 
@@ -220,27 +201,24 @@ class PacientController extends Controller
     public function destroy($id,Request $request)
     {
         $pacient = Pacient::find($id);
-        if(auth()->guest())
+        if(!auth()->user()->hasPermission('delete-pacient'))
         {
-            return redirect('/')->with('error','Nuk keni autorizim'); 
+            return redirect('/')->with('error',__('messages.noauthorization')); 
         }
         else
         {
-            if($request->input('data'))
+            $pacient->appointment()->delete();
+            $pacient->visit()->delete();
+            $treatment = $pacient->treatment()->get();   
+            foreach($treatment as $tr)
             {
-                $pacient->appointment()->delete();
-                $pacient->visit()->delete();
-                $treatment = $pacient->treatment()->get();   
-                    foreach($treatment as $tr)
-                    {
-                        $tr->report()->delete();
-                        $tr->services()->detach();
-                        $tr->delete();   
-                    }
-
+                $tr->report()->delete();
+                $tr->services()->detach();
+                $tr->delete();   
             }
+            $pacient->report()->delete();
             $pacient->delete();           
-            return redirect('/pacient')->with('success','Është fshirë Pacienti');
+            return redirect('/pacient')->with('success',__('messages.patient-delete'));
         }
     }
 }

@@ -6,6 +6,8 @@ require('./components/datatables.min')
 import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import sqLocale from '@fullcalendar/core/locales/sq';
+if(window.location.href.indexOf("calendar") > -1 || window.location.pathname == '/' ) {
+  
 document.addEventListener('DOMContentLoaded', function() {
   var calendarEl = document.getElementById('calendar');
   var today = new Date();
@@ -35,78 +37,25 @@ document.addEventListener('DOMContentLoaded', function() {
     events: '/getAppointments'
 
   });
-
   calendar.render();
 });
+  console.log('executed');
+}
 
-  function jQuery() {
-    $.ajaxSetup({
-      headers: {
-        'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-      }
-    });
+function jQuery() 
+{
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
 
     $(document).on('click', '.dropdown-menu', function(e) {
       if ($(this).hasClass('keep-open-on-click')) { e.stopPropagation(); }
   });
 
-    $(document).ready(function(){
-      if($('#type').val()=="Faturë")
-        {
-          $('#dalje-subject').show();
-          $('#dalje-billnr').show();
-          $('#dalje-photo').show();
-          $('#dalje-pacient').hide();
-          $('#pacient-id').val(0);
-          $('#dalje-value').show();
-          $('#dalje-deadline').show();
-        }
-        if($('#type').val()=="Borgj")
-        {
-          $('#dalje-pacient').show();
-          $('#dalje-value').show();
-          $('#dalje-deadline').show();
-          $('#dalje-subject').hide();
-          $('#subject').val("Ska");
-          $('#dalje-billnr').hide();
-          $('#bill_number').val(0);
-          $('#dalje-photo').hide();
-        }
-    });
-
-    $('#type').on('load change',function() {
-        if($(this).val()=="Faturë")
-        {
-          $('#dalje-subject').show();
-          $('#dalje-billnr').show();
-          $('#dalje-photo').show();
-          $('#dalje-pacient').hide();
-          $('#pacient-id').val(0);
-          $('#dalje-value').show();
-          $('#dalje-deadline').show();
-        }
-        else if($(this).val()=="Borgj")
-        {
-          $('#dalje-pacient').show();
-          $('#dalje-value').show();
-          $('#dalje-deadline').show();
-          $('#dalje-subject').hide();
-          $('#subject').val("Ska");
-          $('#dalje-billnr').hide();
-          $('#bill_number').val(0);
-          $('#dalje-photo').hide();
-        }
-        else
-        {
-          $('#dalje-pacient').hide();
-          $('#dalje-subject').hide();
-          $('#dalje-billnr').hide();
-          $('#dalje-photo').hide();
-          $('#dalje-value').hide();
-          $('#dalje-deadline').hide();
-        }
-
-    });
+  
+  $(document).ready(function(){
 
     $('#searchPacient').DataTable(
       {
@@ -260,7 +209,7 @@ document.addEventListener('DOMContentLoaded', function() {
           {"data":"name"},
           {"data":"email"},
           {"data":"password"},
-          {"data":"position"},
+          {"data":"role"},
           {"data":"color"},
           {"data": "Menaxhimi", "bSearchable": false }
         ],
@@ -447,14 +396,13 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     );
 
-    $('#DaljetdataTable').DataTable(
+    $('#DebtdataTable').DataTable(
       {
         "processing": true,
         "serverSide": true,
-        "ajax":"/daljeDatatable",
+        "ajax":"/debtDatatable",
         "columns": [
-          {"data":"subject"},
-          {"data":"bill_number"},
+          {"data":"pacient"},
           {"data":"deadline"},
           {"data":"value"},
           {"data": "Menaxhimi", "bSearchable": false }
@@ -476,9 +424,36 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     );
 
-  }
-  jQuery();
+    $('#RoledataTable').DataTable(
+      {
+        "processing": true,
+        "serverSide": true,
+        "ajax":"/roleDatatable",
+        "columns": [
+          {"data":"name"},
+          {"data":"number"},
+          {"data":"access"},
+          {"data": "Menaxhimi", "bSearchable": false }
+        ],
+        "language": {
+          "lengthMenu": "Shfaq _MENU_ për faqe",
+          "zeroRecords": "Nuk u gjet asnjë e dhënë",
+          "info": "Duke shfaqur faqen _PAGE_ nga _PAGES_",
+          "infoEmpty": "Nuk ka të dhëna",
+          "infoFiltered": "(Të filtruar nga _MAX_ total)",
+          "processing":     "Duke procesuar...",
+          "search":         "Kërko:",
+          "paginate": {
+            "first":      "Fillimi",
+            "last":       "Fundi",
+            "next":       "Para",
+            "previous":   "Prapa"}
+          }
+      });
 
+  });
+}
+  jQuery();
 
   
 

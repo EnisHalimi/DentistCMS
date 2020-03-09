@@ -78,7 +78,7 @@ class ReportController extends Controller
     public function index()
     {
         if(auth()->guest())
-        return redirect('/login')->with('error', 'Nuk keni autorizim');
+        return redirect('/login')->with('error', __('messages.noauthorization'));
         else
         return view('report.report');
     }
@@ -91,7 +91,7 @@ class ReportController extends Controller
     public function create()
     {
         if(auth()->guest())
-        return redirect('/login')->with('error', 'Nuk keni autorizim');
+        return redirect('/login')->with('error', __('messages.noauthorization'));
         else
         return view('report.create');
     }
@@ -106,7 +106,7 @@ class ReportController extends Controller
     {
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Nuk keni autorizim'); 
+            return redirect('/')->with('error',__('messages.noauthorization')); 
         }
         else
         {
@@ -138,7 +138,7 @@ class ReportController extends Controller
         $treatment = Treatment::find($report->treatment_id);
         $services = $treatment->services()->get();
         if(auth()->guest())
-        return redirect('/login')->with('error', 'Nuk keni autorizim');
+        return redirect('/login')->with('error', __('messages.noauthorization'));
             else
         return view('report.show')->with('report',$report)->with('pacient',$pacient)->with('services',$services);
     }
@@ -153,7 +153,7 @@ class ReportController extends Controller
     {
         $report = Report::find($id);
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Nuk keni autorizim');
+            return redirect('/login')->with('error', __('messages.noauthorization'));
         else
             return view('report.edit')->with('report',$report);
     }
@@ -169,7 +169,7 @@ class ReportController extends Controller
     {
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Nuk keni autorizim'); 
+            return redirect('/')->with('error',__('messages.noauthorization')); 
         }
         else
         {
@@ -199,7 +199,7 @@ class ReportController extends Controller
         $report = Report::find($id);
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Nuk keni autorizim'); 
+            return redirect('/')->with('error',__('messages.noauthorization')); 
         }
         else
         {

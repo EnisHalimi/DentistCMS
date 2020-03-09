@@ -234,14 +234,14 @@
                         </tr>
                       </thead>
                       <tbody>
-                        @if(count($daljet)>0)  
-                        @foreach($daljet as $dalje)
+                        @if(count($debt)>0)  
+                        @foreach($debt as $db)
                           <tr>
-                          <td>{{App\Pacient::getPacient($dalje->pacient_id)}}</td>
-                          <td>{{$dalje->created_at}}</td>
-                          <td>{{$dalje->value}} €</td>
-                          <td>{{$dalje->deadline}}</td>
-                          <td><a class="btn btn-circle btn-secondary btn-sm" href="/daljet/{{$dalje->id}}"><i class="fa fa-eye"></i></a></td>
+                          <td>{{App\Pacient::getPacient($db->pacient_id)}}</td>
+                          <td>{{$db->created_at}}</td>
+                          <td>{{$db->value}} €</td>
+                          <td>{{$db->deadline}}</td>
+                          <td><a class="btn btn-circle btn-secondary btn-sm" href="/debt/{{$db->id}}"><i class="fa fa-eye"></i></a></td>
                           </tr>
                         @endforeach
                         @else

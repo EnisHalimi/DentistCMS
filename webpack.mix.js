@@ -17,6 +17,7 @@ resolve: {
 }
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
-    .sass('resources/sass/dark-app.scss', 'public/css');
+    .sass('resources/sass/dark-app.scss', 'public/css')
+    .sourceMaps();
 
     

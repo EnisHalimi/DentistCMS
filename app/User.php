@@ -5,11 +5,11 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use DB;
+use App\Role;
 
 class User extends Authenticatable
 {
     use Notifiable;
-
     /**
      * The attributes that are mass assignable.
      *
@@ -39,9 +39,9 @@ class User extends Authenticatable
     }
 
 
-    public function report()
+    public function role()
     {
-        return $this->hasMany('App\Report');
+        return $this->belongsTo('App\Role');
     }
 
     public static function getUser($id)
@@ -70,21 +70,43 @@ class User extends Authenticatable
     {
         $settings = DB::table('settings')->first();
         if(empty($settings))
-        return 'DentistCMS';
+            return 'DentistCMS';
         return $settings->app_name;
     }
 
     public static function getAppTheme()
     {
         $settings = DB::table('settings')->first();
-        return $settings->theme;
+        if(empty($settings))
+        {
+            return false;
+        }
+        else
+            return $settings->theme;
     }
-
-
 
     public function getCreatedAtAttribute($value)
     {
         return date('d/m/Y H:m',strtotime($value));
     }
+
+    public function hasPermission($perm) 
+    {
+        $role = Role::find($this->role_id);
+        foreach ($role->permissions as $permission) {
+            if($permission->slug == $perm)
+                return true;
+        }
+        return false;
+    }
+
+    public static function getRolesCount($id)
+    {
+        $role = User::where('role_id','=',$id)->count();
+        return $role;
+    }
+
+
+
 
 }

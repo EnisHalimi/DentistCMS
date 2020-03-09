@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title','Shiko Perdorues')
-@section('user','active')
+@section('settings','active')
 @section('content')
 <div class="card o-hidden border-0 shadow-lg my-5">
         <div class="card-body p-0">
@@ -27,7 +27,11 @@
                            
                             <tr>
                                 <th>Pozita:</th>
-                                <td scope="row">{{$user->position}}</td>
+                                <td scope="row">{{App\Role::getRole($user->role_id)}}</td>
+                            </tr>
+                            <tr>
+                                <th>Ngjyra:</th>
+                                <td scope="row"><div class="p-2 w-50" style="background-color: {{$user->color}};"></div></td>
                             </tr>
                             <tr>
                                     <th>Data e regjistrimit:</th>

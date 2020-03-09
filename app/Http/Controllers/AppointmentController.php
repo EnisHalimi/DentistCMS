@@ -59,7 +59,7 @@ class AppointmentController extends Controller
     {
         $appointments = Appointment::orderBy('date_of_appointment', 'desc')->paginate(15);
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Nuk keni autorizim');
+            return redirect('/login')->with('error', __('messages.noauthorization'));
         else
             return view('appointment.appointment')->with('appointments', $appointments);
     }
@@ -74,7 +74,7 @@ class AppointmentController extends Controller
         $pacient = Pacient::orderBy('id', 'desc')->paginate(15);
         $user = User::orderBy('id', 'desc')->paginate(15);
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Nuk keni autorizim');
+            return redirect('/login')->with('error', __('messages.noauthorization'));
         else
             return view('appointment.create')->with('pacients',$pacient)->with('users',$user);
     }
@@ -89,7 +89,7 @@ class AppointmentController extends Controller
     {
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Nuk keni autorizim'); 
+            return redirect('/')->with('error',__('messages.noauthorization')); 
         }
         else
         {
@@ -134,7 +134,7 @@ class AppointmentController extends Controller
         $appointments = Appointment::find($id);
         
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Nuk keni autorizim');
+            return redirect('/login')->with('error', __('messages.noauthorization'));
         else
             return view('appointment.show')->with('appointment', $appointments);
     }
@@ -151,7 +151,7 @@ class AppointmentController extends Controller
         $pacient = Pacient::get();
         $user = User::get();
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Nuk keni autorizim');
+            return redirect('/login')->with('error', __('messages.noauthorization'));
         else
             return view('appointment.edit')->with('appointment', $appointments)->with('pacients',$pacient)->with('users',$user);
     }
@@ -167,7 +167,7 @@ class AppointmentController extends Controller
     {
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Nuk keni autorizim'); 
+            return redirect('/')->with('error',__('messages.noauthorization')); 
         }
         else
         {
@@ -196,6 +196,7 @@ class AppointmentController extends Controller
             {
                 $notifications->description = $pacient->first_name.' '.$pacient->last_name.' ka terminin për ditën e nesërme në ora '.$appointment->time_of_appointment.'.';
                 $notifications->date =  $request->input('data');
+                $notifications->opened = false;
                 $notifications->save();
             }
             return redirect('/appointment')->with('success','U ndryshua termini');
@@ -214,7 +215,7 @@ class AppointmentController extends Controller
         
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Nuk keni autorizim'); 
+            return redirect('/')->with('error',__('messages.noauthorization')); 
         }
         else
         {

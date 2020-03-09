@@ -148,7 +148,7 @@
                         </select>
                         @if ($errors->has('time'))
                         <span class="help-block">
-                          <strong class="text-danger"><small>{{ $errors->first('data') }}</small></strong>
+                          <strong class="text-danger"><small>{{ $errors->first('time') }}</small></strong>
                         </span>
                     @endif
                 </div>

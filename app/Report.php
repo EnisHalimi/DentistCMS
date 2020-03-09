@@ -15,6 +15,11 @@ class Report extends Model
         return $this->belongsTo('App\Treatment');
     }
 
+    public function pacient()
+    {
+        return $this->belongsTo('App\Pacient');
+    }
+    
     public static function getTotal($id)
     {
         $report = Report::find($id);

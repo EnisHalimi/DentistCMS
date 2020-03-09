@@ -58,7 +58,7 @@ class VisitController extends Controller
     {
         $visits = Visit::orderBy('date_of_visit', 'desc')->paginate(15);
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Nuk keni autorizim');
+            return redirect('/login')->with('error', __('messages.noauthorization'));
         else
             return view('visit.visit')->with('visits',$visits);
     }
@@ -73,7 +73,7 @@ class VisitController extends Controller
         $pacient = Pacient::get();
         $user = User::get();
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Nuk keni autorizim');
+            return redirect('/login')->with('error', __('messages.noauthorization'));
         else
             return view('visit.create')->with('pacients',$pacient)->with('users',$user);
     }
@@ -88,7 +88,7 @@ class VisitController extends Controller
     {
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Nuk keni autorizim'); 
+            return redirect('/')->with('error',__('messages.noauthorization')); 
         }
         else
         {
@@ -125,7 +125,7 @@ class VisitController extends Controller
     {
         $visit = Visit::find($id);
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Nuk keni autorizim');
+            return redirect('/login')->with('error', __('messages.noauthorization'));
         else
             return view('visit.show')->with('visit', $visit);
     }
@@ -142,7 +142,7 @@ class VisitController extends Controller
         $pacient = Pacient::get();
         $user = User::get();
         if(auth()->guest())
-            return redirect('/login')->with('error', 'Nuk keni autorizim');
+            return redirect('/login')->with('error', __('messages.noauthorization'));
         else
             return view('visit.edit')->with('visit', $visit)->with('pacients',$pacient)->with('users',$user);
     }
@@ -158,7 +158,7 @@ class VisitController extends Controller
     {
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Nuk keni autorizim'); 
+            return redirect('/')->with('error',__('messages.noauthorization')); 
         }
         else
         {
@@ -196,7 +196,7 @@ class VisitController extends Controller
         $visit = Visit::find($id);
         if(auth()->guest())
         {
-            return redirect('/')->with('error','Nuk keni autorizim'); 
+            return redirect('/')->with('error',__('messages.noauthorization')); 
         }
         else
         {

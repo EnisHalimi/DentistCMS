@@ -14,7 +14,7 @@ class CreateServicesTreatmentTable extends Migration
     public function up()
     {
         Schema::create('services_treatment', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->integer('treatment_id')->unsigned();
             $table->foreign('treatment_id')->references('id')->on('treatments');
             $table->integer('services_id')->unsigned();

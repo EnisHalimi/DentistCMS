@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('title','Perdoruesit')
-@section('user','active')
+@section('settings','active')
 @section('content')
         <!-- Begin Page Content -->
         <div class="container-fluid mt-4">

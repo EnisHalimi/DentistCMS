@@ -18,7 +18,7 @@
               <div class="col-lg-6">
                 <div class="p-5">
                   <div class="text-center">
-                    <h1 class="h4 @if(App\User::getAppTheme() == true) text-gray-100 @else text-gray-900 @endif:getAppTheme() == true) text-gray-100 @else text-gray-900 @endif:getAppTheme() == true) text-gray-100 @else text-gray-900 @endif:getAppTheme() == true) text-gray-100 @else text-gray-900 @endif:getAppTheme() == true) text-gray-100 @else text-gray-900 @endif:getAppTheme() == true) text-gray-100 @else text-gray-900 @endif mb-4">Mirësevini në Metropolis</h1>
+                    <h1 class="h4 @if(App\User::getAppTheme() == true) text-gray-100 @else text-gray-900 @endif mb-4">Mirësevini në {{App\User::getAppName()}}</h1>
                   </div>
                   <form class="user" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}

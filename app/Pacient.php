@@ -26,6 +26,11 @@ class Pacient extends Model
         return $this->hasMany('App\Appointment');
     }
 
+    public function report()
+    {
+        return $this->hasMany('App\Report');
+    }
+
     public static function getPacient($id)
     {
         $pacient = Pacient::find($id);

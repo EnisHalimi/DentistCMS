@@ -111,10 +111,17 @@
           <i class="fas fa-fw fa-list"></i>
           <span>Sherbimet</span></a>
       </li>
-      <li class="nav-item  @yield('debt')">
-        <a class="nav-link" href="/debt">
-          <i class="fas fa-fw fa-money-bill"></i>
-          <span>Borgjet</span></a>
+      <li class="nav-item  @yield('debt') @yield('bill')">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          <i class="fas fa- fw fa-money-bill"></i>
+          <span>Shpenzimet</span>
+        </a>
+        <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <a class="collapse-item" href="/bill">Faturat</a>
+            <a class="collapse-item" href="/debt">Borgjet</a>
+          </div>
+        </div>
       </li>
       <li class="nav-item  @yield('settings')">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">

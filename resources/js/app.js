@@ -451,6 +451,35 @@ function jQuery()
           }
       });
 
+      $('#BilldataTable').DataTable(
+        {
+          "processing": true,
+          "serverSide": true,
+          "ajax":"/billDatatable",
+          "columns": [
+            {"data":"subject"},
+            {"data":"bill_nr"},
+            {"data":"deadline"},
+            {"data":"value"},
+            {"data": "Menaxhimi", "bSearchable": false }
+          ],
+          "language": {
+            "lengthMenu": "Shfaq _MENU_ për faqe",
+            "zeroRecords": "Nuk u gjet asnjë e dhënë",
+            "info": "Duke shfaqur faqen _PAGE_ nga _PAGES_",
+            "infoEmpty": "Nuk ka të dhëna",
+            "infoFiltered": "(Të filtruar nga _MAX_ total)",
+            "processing":     "Duke procesuar...",
+            "search":         "Kërko:",
+            "paginate": {
+              "first":      "Fillimi",
+              "last":       "Fundi",
+              "next":       "Para",
+              "previous":   "Prapa"}
+            }
+        }
+      );
+
   });
 }
   jQuery();

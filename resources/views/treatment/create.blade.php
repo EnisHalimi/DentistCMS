@@ -133,7 +133,7 @@
 
             <div class="form-group">
               <label class="text-xs"  for="photo">Grafia</label>
-            <input id="logo" type="file" class="form-control @error('Foto') is-invalid @enderror" name="Foto" id="photo" placeholder="Fotoja e faturës" >
+            <input id="logo" type="file" class="form-control @error('Foto') is-invalid @enderror" name="Foto" id="photo" placeholder="Fotoja e grafisë" >
                       @if ($errors->has('Foto'))
                                         <span class="help-block">
                                           <strong class="text-danger"><small>{{ $errors->first('Foto') }}</small></strong>

@@ -45,7 +45,7 @@ class DebtController extends Controller
     </div> ')
         ->editColumn('value','{{$value}} €')
         ->editColumn('pacient','<a class="btn btn-circle btn-secondary btn-sm" href="/pacient/{{$pacient_id}}"><i class="fa fa-user"></i></a>  {{App\Pacient::getPacientName($pacient_id)}}')
-        ->rawColumns(['Menaxhimi','pacient','bill_number'])
+        ->rawColumns(['Menaxhimi','pacient' ])
         ->make(true);
         return $table;
     }

@@ -104,7 +104,7 @@ class TreatmentController extends Controller
                 $extension = $request->file('Foto')->getClientOriginalExtension();
                 $date = date('d-m-Y H:m:s');
                 $fileNametoStore = 'Grafia-'.$date.'.'.$extension;
-                $request->file('Foto')->move(public_path('../../img/grafite'), $fileNametoStore);
+                $request->file('Foto')->move(public_path('img/grafite'), $fileNametoStore);
             }
             else
             {
@@ -195,7 +195,7 @@ class TreatmentController extends Controller
                 $extension = $request->file('Foto')->getClientOriginalExtension();
                 $date = date('d-m-Y H:m:s');
                 $fileNametoStore = 'Grafia-'.$date.'.'.$extension;
-                $request->file('Foto')->move(public_path('../../img/grafite'), $fileNametoStore);
+                $request->file('Foto')->move(public_path('img/grafite'), $fileNametoStore);
                 $treatment->file = $fileNametoStore;
             }
             $treatment->pacient_id = $request->input('pacient-id');

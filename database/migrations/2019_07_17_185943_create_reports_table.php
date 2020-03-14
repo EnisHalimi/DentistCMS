@@ -18,6 +18,9 @@ class CreateReportsTable extends Migration
             $table->integer('treatment_id')->unsigned();
             $table->integer('pacient_id')->unsigned();
             $table->text('description');
+            $table->text('complaint');
+            $table->text('evaluation');
+            $table->text('diagnosis');
             $table->foreign('pacient_id')->references('id')->on('pacients');
             $table->foreign('treatment_id')->references('id')->on('treatments');
             $table->timestamps();

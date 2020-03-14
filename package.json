@@ -11,15 +11,15 @@
     },
     "devDependencies": {
         "axios": "^0.19",
-        "bootstrap": "^4.1.0",
-        "cross-env": "^5.2.1",
+        "bootstrap": "^4.0.0",
+        "cross-env": "^7.0",
         "jquery": "^3.2",
-        "laravel-mix": "^4.0.7",
+        "laravel-mix": "^5.0.1",
         "lodash": "^4.17.13",
         "popper.js": "^1.12",
         "resolve-url-loader": "^2.3.1",
-        "sass": "^1.15.2",
-        "sass-loader": "^7.1.0",
+        "sass": "^1.20.1",
+        "sass-loader": "^8.0.0",
         "vue": "^2.5.17",
         "vue-template-compiler": "^2.6.10"
     },
@@ -27,7 +27,6 @@
         "@fullcalendar/core": "^4.4.0",
         "@fullcalendar/daygrid": "^4.4.0",
         "datatables.net": "^1.10.20",
-        "jquery-ui": "^1.12.1",
-        "mdbootstrap": "^4.10.0"
+        "jquery-ui": "^1.12.1"
     }
 }

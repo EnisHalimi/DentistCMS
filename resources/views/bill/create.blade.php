@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Shto Fature')
+@section('title','Shto Shpenzim')
 @section('bill','active')
 @section('content')
     <div class="card o-hidden border-0 shadow-lg my-5">
@@ -12,7 +12,7 @@
           <div class="col-lg-7">
             <div class="p-5">
               <div class="text-center">
-                <h1 class="h4 @if(App\User::getAppTheme() == true) text-gray-100 @else text-gray-900 @endif mb-4">Shto Fature!</h1>
+                <h1 class="h4 @if(App\User::getAppTheme() == true) text-gray-100 @else text-gray-900 @endif mb-4">Shto Shpenzim!</h1>
               </div>
               <form class="user" method="POST" enctype="multipart/form-data" action="{{ route('bill.store') }}">
                 {{ csrf_field() }}

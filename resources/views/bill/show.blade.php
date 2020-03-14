@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Shiko Fature')
+@section('title','Shiko Shpenzim')
 @section('bill','active')
 @section('content')
 <div class="card o-hidden border-0 shadow-lg my-5">
@@ -12,7 +12,7 @@
         <div class="col-lg-7">
             <div class="p-5">
                 <div class="text-center">
-                    <h1 class="h4 @if(App\User::getAppTheme() == true) text-gray-100 @else text-gray-900 @endif mb-4">Të dhënat e faturës</h1>
+                    <h1 class="h4 @if(App\User::getAppTheme() == true) text-gray-100 @else text-gray-900 @endif mb-4">Të dhënat e shpenzimit</h1>
                 </div>
                 <table class="table table-striped ">
                         <tbody>
@@ -46,7 +46,7 @@
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h5 class="modal-title" id="fshijModalLabel{{$bill->id}}">Fshij Faturen</h5>
+                                        <h5 class="modal-title" id="fshijModalLabel{{$bill->id}}">Fshij Shpenzimin</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                         </button>

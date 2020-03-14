@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','Ndrysho Fature')
+@section('title','Ndrysho Shpenzim')
 @section('bill','active')
 @section('content')
     <div class="card o-hidden border-0 shadow-lg my-5">
@@ -12,7 +12,7 @@
           <div class="col-lg-7">
             <div class="p-5">
               <div class="text-center">
-                <h1 class="h4 @if(App\User::getAppTheme() == true) text-gray-100 @else text-gray-900 @endif mb-4">Ndrysho Fature!</h1>
+                <h1 class="h4 @if(App\User::getAppTheme() == true) text-gray-100 @else text-gray-900 @endif mb-4">Ndrysho Shpenzim!</h1>
               </div>
               <form class="user" method="POST" enctype="multipart/form-data" action="{{ route('bill.update',$bill->id) }}">
                 {{ method_field('PUT') }}

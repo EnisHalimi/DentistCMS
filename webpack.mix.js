@@ -10,14 +10,7 @@ const mix = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
-resolve: {
-    modules: [
-        path.resolve('./node_modules')
-    ]
-}
 mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/app.scss', 'public/css')
     .sass('resources/sass/dark-app.scss', 'public/css')
     .sourceMaps();
-
-    

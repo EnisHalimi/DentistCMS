@@ -32,7 +32,7 @@ return [
     'debt-add' => 'Është shtuar borgji',
     'debt-edit' => 'Është ndryshuar borgji',
     'debt-delete' => 'Është fshirë borgji',
-    'bill-add' => 'Është shtuar fatura',
-    'bill-edit' => 'Është ndryshuar fatura',
-    'bill-delete' => 'Është fshirë fatura',
+    'bill-add' => 'Është shtuar shpenzimi',
+    'bill-edit' => 'Është ndryshuar shpenzimi',
+    'bill-delete' => 'Është fshirë shpenzimi',
 ];

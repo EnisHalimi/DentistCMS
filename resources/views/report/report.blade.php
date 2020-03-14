@@ -27,7 +27,7 @@
             <thead>
               <tr>
                 <th>Pacienti</th>
-                <th>Trajtimi</th>
+                <th>Mjeku</th>
                 <th>Data</th>
                 <th>Menaxhimi</th>
               </tr>

@@ -145,7 +145,7 @@
       </div>
     </div>
     <div class="form-group ">
-      <label class="text-xs font-weight-bold"  >Fatura</label> 
+      <label class="text-xs font-weight-bold"  >Shpenzimet</label> 
       <div class="row">
       <div class="col-sm-3"><label class="text-xs "  for="view-bill">Shiko</label>
         <input   type="checkbox" name="permission[]" value="37" id="view-bill"></div>

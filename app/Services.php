@@ -8,7 +8,7 @@ class Services extends Model
 {
     public function treatments()
     {
-        return $this->belongsToMany('App\Treatment');
+        return $this->belongsToMany('App\Treatment','services_treatment');
     }
 
     public function getCreatedAtAttribute($value)

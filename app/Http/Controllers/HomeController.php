@@ -49,19 +49,11 @@ class HomeController extends Controller
         $treatment = Treatment::whereDate('created_at','=',date("Y-m-d"))->orderBy('id', 'DESC')->get();
         $visit = Visit::where('date_of_visit','=',date("Y-m-d"))->orderBy('id', 'DESC')->get();
         $reports = Report::whereDate('created_at','LIKE',date("Y-m-d"))->orderBy('id', 'DESC')->get();
-        $monday = Carbon::now()->startOfWeek();
-        $tuesday = $monday->copy()->addDay();
-        $wednesday = $tuesday->copy()->addDay();
-        $thurdsay =  $wednesday->copy()->addDay();
-        $friday =  $thurdsay->copy()->addDay();
-        $saturday =  $friday->copy()->addDay();
-        $days = array($monday,$tuesday,$wednesday,$thurdsay,$friday,$saturday);
         return view('index')->with('pacients', $pacients)
                             ->with('appointements', $appointements)
                             ->with('treatments', $treatment)
                             ->with('reports', $reports)
-                            ->with('visits', $visit)
-                            ->with('days',$days);
+                            ->with('visits', $visit);
     }
     public function autocomplete()
     {

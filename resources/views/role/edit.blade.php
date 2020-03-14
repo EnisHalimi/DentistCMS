@@ -146,7 +146,7 @@
       </div>
     </div>
     <div class="form-group ">
-      <label class="text-xs font-weight-bold"  >Fatura</label> 
+      <label class="text-xs font-weight-bold"  >Shpenzimet</label> 
       <div class="row">
       <div class="col-sm-3"><label class="text-xs "  for="view-bill">Shiko</label>
         <input   type="checkbox" name="permission[]" value="37" @if(App\Role::hasPermission($role->id, 'view-bill')) checked @else @endif id="view-bill"></div>

@@ -46,6 +46,6 @@ Route::get('/serviceDatatable', 'ServicesController@getServiceDataTable');
 Route::get('/debtDatatable', 'DebtController@getDebtDataTable');
 Route::get('/roleDatatable', 'RoleController@getRoleDataTable');
 Route::get('/billDatatable', 'BillController@getBillDataTable');
-Route::get('pdf', 'ReportController@pdf');
+Route::get('raporti', 'ReportController@raporti');
 Route::post('/markAsRead', 'HomeController@markAsRead');
 Route::get('/getAppointments', 'HomeController@getAppointments' );

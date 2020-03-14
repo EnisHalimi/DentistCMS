@@ -17,14 +17,10 @@ class Treatment extends Model
         return $this->belongsTo('App\Pacient');
     }
 
-    public function report()
-    {
-        return $this->hasOne('App\Report');
-    }
 
     public function services()
     {
-        return $this->belongsToMany('App\Services');
+        return $this->belongsToMany('App\Services','services_treatment');
     }
 
     public static function getTreatment($id)

@@ -84,7 +84,7 @@
                                     Fshij @if(App\Role::hasPermission($role->id, 'delete-debt')) <i class="fa fa-check-square"></i> @else <i class="fa fa-square"></i> @endif</td>
                             </tr>
                             <tr>
-                                <th>Fatura:</th>
+                                <th>Shpenzimet:</th>
                                 <td scope="row"> Shiko @if(App\Role::hasPermission($role->id, 'view-bill')) <i class="fa fa-check-square"></i> @else <i class="fa fa-square"></i> @endif| 
                                     Krjio @if(App\Role::hasPermission($role->id, 'create-bill')) <i class="fa fa-check-square"></i> @else <i class="fa fa-square"></i> @endif | 
                                     Ndrysho @if(App\Role::hasPermission($role->id, 'edit-bill')) <i class="fa fa-check-square"></i> @else <i class="fa fa-square"></i> @endif | 

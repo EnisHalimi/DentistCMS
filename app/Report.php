@@ -10,9 +10,10 @@ use Carbon\Carbon;
 
 class Report extends Model
 {
-    public function treatment()
+
+    public function user()
     {
-        return $this->belongsTo('App\Treatment');
+        return $this->belongsTo('App\User');
     }
 
     public function pacient()
@@ -20,19 +21,6 @@ class Report extends Model
         return $this->belongsTo('App\Pacient');
     }
     
-    public static function getTotal($id)
-    {
-        $report = Report::find($id);
-        $pacient = Pacient::find($report->pacient_id);
-        $treatment = Treatment::find($report->treatment_id);
-        $services = $treatment->services()->get();
-        $price = 0;
-        foreach($services as $service)
-        {
-            $price = $price + ($service->price - ($service->price * ($service->discount /100)));
-        }
-        return $price;
-    }
 
     public function getCreatedAtAttribute($value)
     {

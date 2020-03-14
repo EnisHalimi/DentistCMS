@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Report;
 use App\Pacient;
 use App\Treatment;
+use App\User;
 use PDF;
 use DB;
 use DataTables;
@@ -18,7 +19,6 @@ class ReportController extends Controller
     function getReportDataTable()
     {
         $reports = Report::all();
-      
         $table = DataTables::of($reports)
         ->editColumn('Menaxhimi' ,'<a href="/report/{{$id}}" class="btn btn-circle btn-secondary "><i class="fa fa-eye"></i></a>
         <a href="/report/{{$id}}/edit"  class="btn btn-circle btn-primary "><i class="fa fa-pen"></i></a>
@@ -47,28 +47,29 @@ class ReportController extends Controller
                 </div>
             </div>
         </div> 
-        <form method="GET" action="{{ url(\'pdf\') }}" class="d-inline form-inline">
+        <form method="GET" action="{{ url(\'raporti\') }}" class="d-inline form-inline">
         <input id="id" hidden name="id" value="{{$id}}"/>
       <button type="submit" class="btn btn-circle btn-success "><i class="fa fa-print"></i></button>
       </form>')
         ->editColumn('pacient_id',' <a class="btn btn-circle btn-secondary btn-sm" href="/pacient/{{$pacient_id}}"><i class="fa fa-user"></i></a> {{App\Pacient::getPacient($pacient_id)}}')
-        ->editColumn('starting_date',' <a class="btn btn-circle btn-secondary btn-sm" href="/treatment/{{$treatment_id}}"><i class="fa fa-syringe"></i></a> {{App\Treatment::getStartingDate($treatment_id)}}')
-        ->rawColumns(['Menaxhimi','pacient_id','starting_date'])
+        ->editColumn('user_id',' <a class="btn btn-circle btn-secondary btn-sm" href="/user/{{$user_id}}"><i class="fa fa-user-md"></i></a> {{App\User::getUser($user_id)}}')
+        ->rawColumns(['Menaxhimi','pacient_id','user_id'])
         ->make(true);
         return $table;
     }
 
-    public function pdf(Request $request)
+    public function raporti(Request $request)
     {
         $report = Report::find($request->input('id'));
         $pacient = Pacient::find($report->pacient_id);
-        $treatment = Treatment::find($report->treatment_id);
-        $services = $treatment->services()->get();
+        $user = User::find($report->user_id);
+        $treatments = Treatment::where('pacient_id','=', $pacient->id)->get();
+        $data['treatments'] = $treatments;
         $data['pacient'] = $pacient;
         $data['report'] = $report;
-        $data['services'] = $services;
-        $pdf = PDF::loadView('report.download', $data);
-        return $pdf->stream('Fatura-'.$report->id.'.pdf');
+        $data['user'] = $user;
+        $pdf = PDF::loadView('report.raport', $data);
+        return $pdf->stream('Raporti-'.$report->id.'.pdf');
        }
     /**
      * Display a listing of the resource.
@@ -77,10 +78,10 @@ class ReportController extends Controller
      */
     public function index()
     {
-        if(auth()->guest())
-        return redirect('/login')->with('error', __('messages.noauthorization'));
+        if(!auth()->user()->hasPermission('view-report'))
+            return redirect('/')->with('error', __('messages.noauthorization'));
         else
-        return view('report.report');
+            return view('report.report');
     }
 
     /**
@@ -90,10 +91,10 @@ class ReportController extends Controller
      */
     public function create()
     {
-        if(auth()->guest())
-        return redirect('/login')->with('error', __('messages.noauthorization'));
+        if(!auth()->user()->hasPermission('create-report'))
+            return redirect('/')->with('error', __('messages.noauthorization'));
         else
-        return view('report.create');
+            return view('report.create');
     }
 
     /**
@@ -104,24 +105,30 @@ class ReportController extends Controller
      */
     public function store(Request $request)
     {
-        if(auth()->guest())
+        if(!auth()->user()->hasPermission('create-report'))
         {
             return redirect('/')->with('error',__('messages.noauthorization')); 
         }
         else
         {
             $this->validate($request,[
-                'treatment-id'=> 'required',
+                'user-id'=> 'required',
                 'pacient-id' => 'required',
-                'Pershkrimi' => 'required|min:5',
+                'complaint' => 'required|min:3',
+                'evaluation' => 'required|min:3',
+                'diagnosis' => 'required|min:3',
+                'recommendation' => 'required|min:3',
             ]);
             
             $report = new Report;
-            $report->treatment_id = $request->input('treatment-id');
+            $report->user_id = $request->input('user-id');
+            $report->complaint = $request->input('complaint');
+            $report->evaluation = $request->input('evaluation');
+            $report->diagnosis = $request->input('diagnosis');
+            $report->recommendation = $request->input('recommendation');
             $report->pacient_id = $request->input('pacient-id');
-            $report->description = $request->input('Pershkrimi');
             $report->save();
-            return redirect('/report')->with('success','U shtua raporti');
+            return redirect('/report')->with('success',__('messages.report-add'));
         }
     }
 
@@ -135,12 +142,12 @@ class ReportController extends Controller
     {
         $report = Report::find($id);
         $pacient = Pacient::find($report->pacient_id);
-        $treatment = Treatment::find($report->treatment_id);
-        $services = $treatment->services()->get();
-        if(auth()->guest())
-        return redirect('/login')->with('error', __('messages.noauthorization'));
+        $user = User::find($report->user_id);
+        $treatments = Treatment::where('pacient_id','=', $pacient->id)->get();
+        if(!auth()->user()->hasPermission('view-report'))
+        return redirect('/')->with('error', __('messages.noauthorization'));
             else
-        return view('report.show')->with('report',$report)->with('pacient',$pacient)->with('services',$services);
+        return view('report.show')->with('report',$report)->with('pacient',$pacient)->with('treatments',$treatments)->with('user',$user);
     }
 
     /**
@@ -152,7 +159,7 @@ class ReportController extends Controller
     public function edit($id)
     {
         $report = Report::find($id);
-        if(auth()->guest())
+        if(!auth()->user()->hasPermission('edit-report'))
             return redirect('/login')->with('error', __('messages.noauthorization'));
         else
             return view('report.edit')->with('report',$report);
@@ -167,24 +174,29 @@ class ReportController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if(auth()->guest())
+        if(!auth()->user()->hasPermission('edit-report'))
         {
             return redirect('/')->with('error',__('messages.noauthorization')); 
         }
         else
         {
             $this->validate($request,[
-                'treatment-id'=> 'required',
+                'user-id'=> 'required',
                 'pacient-id' => 'required',
-                'Pershkrimi' => 'required|min:5',
+                'complaint' => 'required|min:3',
+                'evaluation' => 'required|min:3',
+                'diagnosis' => 'required|min:3',
+                'recommendation' => 'required|min:3',
             ]);
-            
             $report = Report::find($id);
-            $report->treatment_id = $request->input('treatment-id');
+            $report->user_id = $request->input('user-id');
+            $report->complaint = $request->input('complaint');
+            $report->evaluation = $request->input('evaluation');
+            $report->diagnosis = $request->input('diagnosis');
+            $report->recommendation = $request->input('recommendation');
             $report->pacient_id = $request->input('pacient-id');
-            $report->description = $request->input('Pershkrimi');
             $report->save();
-            return redirect('/report')->with('success','U ndryshua raporti');
+            return redirect('/report')->with('success',__('messages.report-edit'));
         }
     }
 
@@ -197,14 +209,14 @@ class ReportController extends Controller
     public function destroy($id)
     {
         $report = Report::find($id);
-        if(auth()->guest())
+        if(!auth()->user()->hasPermission('delete-report'))
         {
             return redirect('/')->with('error',__('messages.noauthorization')); 
         }
         else
         {
             $report->delete();           
-            return redirect('/report')->with('success','Është fshirë Raporti');
-        }
+            return redirect('/report')->with('success',__('message.report-delete'));
+        }   
     }
 }

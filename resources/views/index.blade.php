@@ -182,7 +182,7 @@
                             @foreach($reports as $report)
                           <tr>
                             <td>{{App\Pacient::getPacientName($report->pacient_id)}}</td>
-                            <td>{{App\Treatment::getStartingDate($report->treatment_id)}}</td>
+                            <td>{{App\User::getUser($report->user_id)}}</td>
                             <td>{{$report->created_at}}</td>
                             <td><a href="/report/{{$report->id}}" class="btn btn-circle btn-secondary btn-sm"><i class="fa fa-eye"></i></a> </td>
     

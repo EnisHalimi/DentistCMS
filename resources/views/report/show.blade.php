@@ -8,7 +8,7 @@
         <!-- Page Heading -->
         <div class="row">
           <div class="col-sm-6">
-            <h1 class="h3 mb-4 @if(App\User::getAppTheme() == true) text-gray-100 @else text-gray-800 @endif">Fatura</h1>
+            <h1 class="h3 mb-4 @if(App\User::getAppTheme() == true) text-gray-100 @else text-gray-800 @endif">Raporti</h1>
           </div>
           <div class="col-sm-6 d-flex justify-content-end ">
                 <a class="btn mr-1 btn-circle btn-secondary" href="{{ url()->previous() }}" ><i class="fa fa-chevron-left"></i></a>
@@ -38,7 +38,7 @@
                         </div>
                     </div>
                 </div> 
-                <form method="GET" action="{{ url('pdf') }}" class="d-inline form-inline">
+                <form method="GET" action="{{ url('raporti') }}" class="d-inline form-inline">
                 <input id="id" hidden name="id" value="{{$report->id}}"/>
               <button type="submit" class="btn btn-circle btn-success "><i class="fa fa-print"></i></button>
               </form>
@@ -47,103 +47,271 @@
         
         
         <!-- DataTales Example -->
-        <div class="card shadow mb-4 p-3">
-            <table cellspacing="0" border="0">
-                <colgroup width="55"></colgroup>
-                <colgroup width="669"></colgroup>
-                <colgroup width="373"></colgroup>
-                <colgroup width="349"></colgroup>
+        <div class="card shadow mb-4 p-5">
+            <table width="100%" cellpadding="4" cellspacing="0">
+            
                 <tr>
-                    <td height="39" align="left" valign=bottom><font color="#000000"><br></font></td>
-                    <td align="left" valign=bottom><font face="Times New Roman" size=4> Ordinanca  stomatologjike</font></td>
-                    <td align="left" valign=bottom><b><font face="Times New Roman" size=6><br></font></b></td>
-                    <td align="left" valign=bottom><font face="Times New Roman" size=5><br></font></td>
+                    <td width="40" align="left" valign=bottom><font color="#000000"><br></font></td>
+                    <td colspan="4" width="596" valign="top" style="background: transparent" style="border: none; padding: 0cm; text-align: center"><p lang="en" class="western" align="center" style="margin-top: 0.21cm; font-style: normal; page-break-inside: avoid; text-decoration: none; page-break-after: avoid">
+                        <font color="#365f91"><font face="Cambria, serif"><font size="6" style="font-size: 28pt"><b><span style="text-decoration: none">METROPOLIS</span></b></font></font></font></p>
+                    </td>
                 </tr>
                 <tr>
-                    <td height="39" align="left" valign=bottom><b><font face="Times New Roman" size=6><br></font></b></td>
-                    <td align="left" valign=bottom><b><font face="Times New Roman" size=6>  &quot; M E T R O P O L I S &quot;</font></b></td>
-                    <td align="left" valign=bottom><font face="Arial"><br></font></td>
-                    <td align="left" valign=bottom><font face="Arial"><br></font></td>
+                    <td width="40" align="left" valign=bottom><font color="#000000"><br></font></td>
+                    <td colspan="4" width="596" valign="top" style="background: transparent" style="border: none; padding: 0cm; text-align: center"><p lang="en" class="western" align="center" style="margin-top: 0.21cm; font-style: normal; text-decoration: none">
+                        <font color="#365f91"><font face="Cambria, serif"><font size="4" style="font-size: 14pt"><b><span style="text-decoration: none">Ordinanca
+                        Stomatologjike</span></b></font></font></font></p>
+                    </td>
                 </tr>
                 <tr>
-                    <td height="26" align="left" valign=bottom><font face="Arial"><br></font></td>
-                    <td align="left" valign=bottom><font face="Times New Roman" size=4><br></font></td>
-                    <td align="left" valign=bottom><font face="Arial"><br></font></td>
-                    <td align="left" valign=bottom><font face="Arial"><br></font></td>
+                    <td width="40" align="left" valign=bottom><font color="#000000"><br></font></td>
+                    <td colspan="4" width="596" valign="top" style="background: transparent" style="border: none; padding: 0cm; text-align: center"><p lang="en" class="western" align="center" style="margin-top: 0.21cm; font-style: normal; text-decoration: none">
+                        <font color="#365f91"><font face="Cambria, serif"><font size="4" style="font-size: 14pt"><b><span style="text-decoration: none">Prizren
+                                                                                  </span></b></font></font></font>
+                        </p>
+                    </td>
                 </tr>
                 <tr>
-                    <td height="26" align="left" valign=bottom><font face="Times New Roman" size=4><br></font></td>
-                    <td align="left" valign=bottom><font face="Arial" size=4 color="#222222">Prizren, Sh.i Lidhjes,8</font></td>
-                    <td colspan=2 align="center" valign=bottom><b><font face="Times New Roman" size=4>Shfrytëzuesi i shërbimeve</font></b></td>
-                    </tr>
+                    <td width="40" align="left" valign=bottom><font color="#000000"><br></font></td>
+                    <td colspan="4" width="596" valign="top" style="background: transparent" style="border: none; padding: 0cm"><p lang="en" class="western" align="left" style="text-decoration: none">
+                        <br/>
+            
+                        </p>
+                    </td>
+                </tr>
+                <tr valign="top">
+                    <td width="40" align="left" valign=bottom><font color="#000000"><br></font></td>
+                    <td colspan="2" width="308" style="background: transparent" style="border: none; padding: 0cm"><p lang="en-US" class="western" align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
+                        <font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none"><font face="Calibri, sans-serif"><font size="2" style="font-size: 10pt"><span lang="en"><b>Ordinanca
+                        Stomatologjike </b></span></font></font></span></font></font>
+                        </p>
+                    </td>
+                    <td colspan="2" width="280" style="background: transparent" style="border: none; padding: 0cm; text-align: right"><p lang="en-US" class="western" align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
+                        <font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none"><font face="Calibri, sans-serif"><font size="2" style="font-size: 10pt"><span lang="en"><b>Nr.fiskal:
+                        600287496</b></span></font></font></span></font></font></p>
+                    </td>
+                </tr>
+                <tr valign="top">
+                    <td width="40" align="left" valign=bottom><font color="#000000"><br></font></td>
+                    <td colspan="2" width="308" style="background: transparent" style="border: none; padding: 0cm"><p lang="en-US" class="western" align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
+                        <font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none"><font face="Calibri, sans-serif"><font size="2" style="font-size: 10pt"><span lang="en"><b>	</b></span></font></font><font face="Calibri, sans-serif"><font size="2" style="font-size: 10pt"><span lang="en"><b>Metropolis
+                            </b></span></font></font></span></font></font></p>
+                    </td>
+                    <td colspan="2" width="280" style="background: transparent" style="border: none; padding: 0cm; text-align: right"><p lang="en-US" class="western" align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
+                        <font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none"><font face="Calibri, sans-serif"><font size="2" style="font-size: 10pt"><span lang="en"><b>Mob:
+                         +3849727700</b></span></font></font></span></font></font></p>
+                    </td>
+                </tr>
+                <tr valign="top">
+                    <td width="40" align="left" valign=bottom><font color="#000000"><br></font></td>
+                    <td colspan="2" width="308" style="background: transparent" style="border: none; padding: 0cm"><p lang="en-US" class="western" align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
+                        <font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none"><font face="Calibri, sans-serif"><font size="2" style="font-size: 10pt"><span lang="en"><b>Prizren
+                        – Republika e Kosovës</b></span></font></font></span></font></font></p>
+                    </td>
+                    <td colspan="2" width="280" style="background: transparent" style="border: none; padding: 0cm; text-align: right"><p lang="en-US" class="western" align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
+                        <font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none"><font face="Calibri, sans-serif"><font size="2" style="font-size: 10pt"><span lang="en"><b>E-mail:
+                        </b></span></font></font><font color="#000080"><span lang="zxx"><u><a href="mailto:metropolis@gmail.com"><font face="Calibri, sans-serif"><font size="2" style="font-size: 10pt"><span lang="en"><b>metropolis@gmail.com</b></span></font></font></a></u></span></font></span></font></font></p>
+                    </td>
+                </tr>
                 <tr>
-                    <td height="26" align="left" valign=bottom><font face="Times New Roman" size=4><br></font></td>
-                    <td align="left" valign=bottom><font face="Arial" size=4>Nr. regj: 810982464</font></td>
-                    <td colspan=2 rowspan=2 align="center" valign=bottom><font face="Times New Roman"><u>{{$pacient->first_name}} {{$pacient->fathers_name}} {{$pacient->last_name}}</ul></font></td>
-                    </tr>
-                <tr>	
-                    <td height="18" align="left" valign=bottom><font face="Arial"><br></font></td>
-                    <td align="left" valign=bottom><font face="Arial"><br></font></td>
-                    </tr>
+                    <td width="40" align="left" valign=bottom><font color="#000000"><br></font></td>
+                    <td colspan="4" width="596" valign="top" style="background: transparent" style="border: none; padding: 0cm"><p lang="en" class="western" align="left" style="text-decoration: none">
+                        <br/>
+            
+                        </p>
+                    </td>
+                </tr>
                 <tr>
-                    <td height="26" align="left" valign=bottom><font face="Arial"><br></font></td>
-                <td align="left" valign=bottom><font face="Times New Roman" size=4>Fatura nr. <u>{{$report->id}}</ul></font></td>
-                    <td colspan=2 align="center" valign=bottom><font face="Times New Roman"><u>{{$pacient->personal_number}} {{$pacient->residence}} {{$pacient->city}}</ul></font></td>
-                    </tr>
+                    <td width="40" align="left" valign=bottom><font color="#000000"><br></font></td>
+                    <td colspan="4" width="596" valign="top" style="background: transparent" style="border: none; padding: 0cm; text-align: center"><p lang="en-US" class="western" align="center" style="font-style: normal; font-weight: normal; text-decoration: none">
+                        <font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none"><font face="Calibri, sans-serif"><font size="2" style="font-size: 11pt"><span lang="en"><b>RAPORT
+                        STOMATOLOGJIK                 </b></span></font></font><font face="Calibri, sans-serif"><font size="2" style="font-size: 10pt"><span lang="en"><b>
+                                                                     </b></span></font></font></span></font></font>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="40" align="left" valign=bottom><font color="#000000"><br></font></td>
+                    <td colspan="4" width="596" valign="top" style="background: transparent" style="border: none; padding: 0cm"><p lang="en" class="western" align="left" style="text-decoration: none">
+                        <br/>
+            
+                        </p>
+                    </td>
+                </tr>
+                <tr valign="top">
+                    <td width="40" align="left" valign=bottom><font color="#000000"><br></font></td>
+                    <td width="164" style="background: transparent" style="border: none; padding: 0cm"><p lang="en-US" class="western" align="left" style="font-style: normal; font-weight: normal; text-decoration: none">
+                        <font face="Calibri, sans-serif"><font size="2" style="font-size: 11pt"><span lang="en"><b>Pacienti:</b></span></font></font></p>
+                    </td>
+                    <td width="136" style="background: transparent" style="border: none; padding: 0cm"><p lang="en-US" class="western" align="left" style="font-style: normal; font-weight: normal; text-decoration: none">
+                        <font face="Liberation Serif, serif"><font size="3" style="font-size: 10pt"><span style="text-decoration: none">{{$pacient->first_name}} {{$pacient->fathers_name}} {{$pacient->last_name}} </span></font></font></p>
+                    </td>
+                    <td width="136" style="background: transparent" style="border: none; padding: 0cm; text-align: right"><p lang="en-US" class="western" align="left" style="font-style: normal; font-weight: normal; text-decoration: none">
+                        <font face="Calibri, sans-serif"><font size="2" style="font-size: 11pt"><span lang="en"><b>Nr personal:</b></span></font></font></p>
+                    </td>
+                    <td width="136" style="background: transparent" style="border: none; padding: 0cm; text-align: right"><p lang="en-US" class="western" align="left" style="font-style: normal; font-weight: normal; text-decoration: none">
+                        <font face="Liberation Serif, serif"><font size="3" style="font-size: 10pt"><span style="text-decoration: none">{{$pacient->personal_number}}  </span></font></font></p>
+                    </td>
+                </tr>
+                <tr valign="top">
+                    <td width="40" align="left" valign=bottom><font color="#000000"><br></font></td>
+                    <td width="164" style="background: transparent" style="border: none; padding: 0cm"><p lang="en" class="western" align="left" style="font-style: normal; text-decoration: none">
+                        <font face="Calibri, sans-serif"><font size="2" style="font-size: 11pt"><span lang="en"><b>Data e lindjes:</b></span></font></font></p>
+                    </td>
+                    <td width="136" style="background: transparent" style="border: none; padding: 0cm"><p lang="en-US" class="western" align="left" style="font-style: normal; font-weight: normal; text-decoration: none">
+                        <font face="Liberation Serif, serif"><font size="3" style="font-size: 10pt"><span style="text-decoration: none">{{$pacient->date_of_birth}}</span></font></font></p>
+                    </td>
+                    <td width="136" style="background: transparent" style="border: none; padding: 0cm ; text-align: right"><p lang="en" class="western" align="left" style="font-style: normal; text-decoration: none">
+                        <font face="Calibri, sans-serif"><font size="2" style="font-size: 11pt"><span lang="en"><b>Adresa:</b></span></font></font></p>
+                    </td>
+                    <td width="136" style="background: transparent" style="border: none; padding: 0cm; text-align: right"><p lang="en-US" class="western" align="left" style="font-style: normal; font-weight: normal; text-decoration: none">
+                        <font face="Liberation Serif, serif"><font size="3" style="font-size: 10pt"><span style="text-decoration: none">{{$pacient->address}}</span></font></font></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="40" align="left" valign=bottom><font color="#000000"><br></font></td>
+                    <td colspan="4" width="596" valign="top" style="background: transparent" style="border: none; padding: 0cm"><p lang="en" class="western" align="left" style="text-decoration: none">
+                        <br/>
+            
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="40" align="left" valign=bottom><font color="#000000"><br></font></td>
+                    <td colspan="4" width="596" valign="top" style="background: transparent" style="border: none; padding: 0cm"><p lang="en-US" class="western" align="left" style="font-style: normal; font-weight: normal; text-decoration: none">
+                        <font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none"><font face="Calibri, sans-serif"><span lang="en"><b>Ankesa
+                        e pacientit</b></span></font><font face="Calibri, sans-serif"><font size="2" style="font-size: 11pt"><span lang="en"><b>:
+                        </b></span></font></font></span></font></font>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="40" align="left" valign=bottom><font color="#000000"><br></font></td>
+                    <td colspan="4" width="596" valign="top" style="background: transparent" style="border: none; padding: 0cm"><p lang="en" class="western" align="left" style="font-style: normal; font-weight: normal; text-decoration: none">
+                        <font face="Calibri, sans-serif"><font size="2" style="font-size: 11pt"><span style="text-decoration: none">{{$report->complaint}}</span></font></font></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="40" align="left" valign=bottom><font color="#000000"><br></font></td>
+                    <td colspan="4" width="596" valign="top" style="background: transparent" style="border: none; padding: 0cm"><p lang="en" class="western" align="left" style="text-decoration: none">
+                        <br/>
+            
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="40" align="left" valign=bottom><font color="#000000"><br></font></td>
+                    <td colspan="4" width="596" valign="top" style="background: transparent" style="border: none; padding: 0cm"><p lang="en" class="western" align="left" style="font-style: normal; text-decoration: none">
+                        <font face="Calibri, sans-serif"><font size="3" style="font-size: 12pt"><b><span style="text-decoration: none">Vlerësimi
+                        i mjekut: </span></b></font></font>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="40" align="left" valign=bottom><font color="#000000"><br></font></td>
+                    <td colspan="4" width="596" valign="top" style="background: transparent" style="border: none; padding: 0cm"><p lang="en-US" class="western" align="left" style="font-style: normal; font-weight: normal; text-decoration: none">
+                        <font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none">{{$report->evaluation}}</span></font></font></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="40" align="left" valign=bottom><font color="#000000"><br></font></td>
+                    <td colspan="4" width="596" valign="top" style="background: transparent" style="border: none; padding: 0cm"><p lang="en" class="western" align="left" style="text-decoration: none">
+                        <br/>
+            
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="40" align="left" valign=bottom><font color="#000000"><br></font></td>
+                    <td colspan="4" width="596" valign="top" style="background: transparent" style="border: none; padding: 0cm"><p lang="en-US" class="western" align="left" style="font-style: normal; font-weight: normal; text-decoration: none">
+                        <font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none"><font face="Calibri, sans-serif"><span lang="en"><b>Diagnoza:
+                        </b></span></font><font face="Calibri, sans-serif"><font size="2" style="font-size: 10pt"><span lang="en"><b>
+                        </b></span></font></font></span></font></font>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="40" align="left" valign=bottom><font color="#000000"><br></font></td>
+                    <td colspan="4" width="596" valign="top" style="background: transparent" style="border: none; padding: 0cm"><p lang="en-US" class="western" align="left" style="font-style: normal; font-weight: normal; text-decoration: none">
+                        <font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none">{{$report->diagnosis}}</span></font></font></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="40" align="left" valign=bottom><font color="#000000"><br></font></td>
+                    <td colspan="4" width="596" valign="top" style="background: transparent" style="border: none; padding: 0cm"><p lang="en" class="western" align="left" style="text-decoration: none">
+                        <br/>
+            
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="40" align="left" valign=bottom><font color="#000000"><br></font></td>
+                    <td colspan="4" width="596" valign="top" style="background: transparent" style="border: none; padding: 0cm"><p lang="en-US" class="western" align="left" style="font-style: normal; font-weight: normal; text-decoration: none">
+                        <font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none"><font face="Calibri, sans-serif"><span lang="en"><b>Trajtimi:
+                        </b></span></font><font face="Calibri, sans-serif"><font size="2" style="font-size: 10pt"><span lang="en"><b>
+                        </b></span></font></font></span></font></font>
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="40" align="left" valign=bottom><font color="#000000"><br></font></td>
+                    <td colspan="4" width="596" valign="top" style="background: transparent" style="border: none; padding: 0cm"><p lang="en-US" class="western" align="left">
+                        @foreach($treatments as $treatment)
+                                @foreach($treatment->services as $service)
+                                    <font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none">{{$service->name}} me datë {{$treatment->starting_date}}</span></font></font></p>
+                                    <br>
+                                @endforeach
+                        @endforeach
+                    </td>
+                </tr>
+                <tr>
+                    <td width="40" align="left" valign=bottom><font color="#000000"><br></font></td>
+                    <td colspan="4" width="596" valign="top" style="background: transparent" style="border: none; padding: 0cm"><p lang="en" class="western" align="left" style="text-decoration: none">
+                        <br/>
+            
+                        </p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="40" align="left" valign=bottom><font color="#000000"><br></font></td>
+                    <td colspan="4" width="596" valign="top" style="background: transparent" style="border: none; padding: 0cm"><p lang="en-US" class="western" align="left" style="font-style: normal; font-weight: normal; text-decoration: none">
+                        <font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none"><font face="Calibri, sans-serif"><span lang="en"><b>Rekomandimi</b></span></font><font face="Calibri, sans-serif"><font size="2" style="font-size: 11pt"><span lang="en"><b>:</b></span></font></font></span></font></font></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="40" align="left" valign=bottom><font color="#000000"><br></font></td>
+                    <td colspan="4" width="596" valign="top" style="background: transparent" style="border: none; padding: 0cm"><p lang="en-US" class="western" align="left" style="font-style: normal; font-weight: normal; text-decoration: none">
+                        <font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none">{{$report->recommendation}}</span></font></font></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="40" align="left" valign=bottom><font color="#000000"><br></font></td>
+                    <td colspan="4" width="596" valign="top" style="background: transparent" style="border: none; padding: 0cm"><p lang="en" class="western" align="left" style="text-decoration: none">
+                        <br/>
+            
+                        </p>
+                    </td>
+                </tr>
+                <tr valign="top">
+                    <td width="40" align="left" valign=bottom><font color="#000000"><br></font></td>
+                    <td width="164" style="background: transparent" style="border: none; padding: 0cm"><p lang="en-US" class="western" align="left" style="font-style: normal; font-weight: normal; text-decoration: none">
+                        <font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none"><font face="Calibri, sans-serif"><font size="2" style="font-size: 11pt"><span lang="en"><b>Data
+                        e vizitës:</b></span></font></font></span></font></font></p>
+                    </td>
+                    <td width="136" style="background: transparent" style="border: none; padding: 0cm"><p lang="en-US" class="western" align="left" style="font-style: normal; font-weight: normal; text-decoration: none">
+                        <font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none">{{$report->created	}}</span></font></font></p>
+                    </td>
+                    <td width="136" style="background: transparent" style="border: none; padding: 0cm; text-align: right"><p lang="en-US" class="western" align="left" style="font-style: normal; font-weight: normal; text-decoration: none">
+                        <font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none"><font face="Calibri, sans-serif"><font size="2" style="font-size: 11pt"><span lang="en"><b>Mjeku:</b></span></font></font></span></font></font></p>
+                    </td>
+                    <td width="136" style="background: transparent" style="border: none; padding: 0cm; text-align: right"><p lang="en-US" class="western" align="left" style="font-style: normal; font-weight: normal; text-decoration: none">
+                        <font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none">{{$user->name}} <br>_____________</span></font></font></p>
+                    </td>
+                </tr>
                 <tr>
                     <td height="18" align="left" valign=bottom><font face="Times New Roman"><br></font></td>
                     <td align="left" valign=bottom><font face="Times New Roman"><br></font></td>
                     <td align="left" valign=bottom><font face="Times New Roman"><br></font></td>
-                    <td align="left" valign=bottom><font face="Times New Roman"><br></font></td>
-                </tr>
-                <tr>
-                    <td height="26" align="left" valign=bottom><font face="Times New Roman"><br></font></td>
-                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><font face="Times New Roman" size=4>Përshkrimi i punës së kryer</font></td>
-                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><font face="Times New Roman" size=4>Dhëmb</font></td>
-                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="center" valign=middle><font face="Times New Roman" size=4>Çmimi</font></td>
-                </tr>
-                @foreach($services as $service)
-                <tr>
-                    <td height="26" align="left" valign=bottom><font face="Times New Roman" size=4><br></font></td>
-                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle> <font face="Times New Roman" size=4><br>{{$service->name}}</font></td>
-                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman" size=4><br></font></td>
-                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000; border-left: 1px solid #000000; border-right: 1px solid #000000" align="left" valign=middle><font face="Times New Roman" size=4><br>{{$service->price - ($service->price * ($service->discount /100))}} €</font></td>
-                </tr>
-                @endforeach
-                <tr>
-                    <td style="border-right: 1px solid #000000" height="26" align="left" valign=bottom><font face="Times New Roman" size=4><br></font></td>
-                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="center" valign=middle><font face="Times New Roman" size=4>V  L  E  R  A</font></td>
-                    <td style="border-top: 1px solid #000000; border-bottom: 1px solid #000000" align="left" valign=middle><font face="Times New Roman" size=4><br></font></td>
-                    <td style="border-top: 2px solid #000000; border-bottom: 2px solid #000000; border-left: 2px solid #000000; border-right: 2px solid #000000" align="left" valign=middle><font face="Times New Roman" size=4><br>{{App\Report::getTotal($report->id)}} €</font></td>
-                </tr>  
-                <tr>
-                    <td height="18" align="left" valign=bottom><font face="Times New Roman"><br></font></td>
-                    <td align="left" valign=bottom><font face="Times New Roman"><br></font></td>
-                    <td align="left" valign=bottom><font face="Times New Roman"><br></font></td>
-                    <td align="left" valign=bottom><font color="#000000"><br></font></td>
-                </tr>
-                <tr>
-                    <td height="23" align="left" valign=bottom><font face="Times New Roman"><br></font></td>
-                    <td align="left" valign=bottom><b><font face="Times New Roman" size=4>P r i z r e n</font></b></td>
-                    <td align="left" valign=bottom><font color="#000000"><br></font></td>
-                    <td colspan=2 align="center" valign=bottom><b><font face="Times New Roman" size=4>Personi i përgjegjës</font></b></td>
-                </tr>
-                <tr>
-                    <td height="23" align="left" valign=bottom><font face="Times New Roman"><br></font></td>
-                    <td align="left" valign=bottom><b><font face="Times New Roman" size=4><br></font></b></td>
-                    <td align="left" valign=bottom><b><font face="Times New Roman" size=4><br></font></b></td>
-                    <td align="left" valign=bottom><b><font face="Times New Roman" size=4><br></font></b></td>
-                </tr>
-                <tr>
-                    <td height="23" align="left" valign=bottom><font face="Times New Roman"><br></font></td>
-                    <td align="left" valign=bottom><b><font face="Times New Roman" size=4>Ditë {{$report->created	}} g.</font></b></td>
-                    <td align="left" valign=bottom><font color="#000000"><br></font></td>
-                    <td colspan=2 align="center" valign=bottom><b><font face="Times New Roman" size=4>___________________</font></b></td>
-                </tr>
-                <tr>
-                    <td height="18" align="left" valign=bottom><font face="Times New Roman"><br></font></td>
-                    <td align="left" valign=bottom><font face="Times New Roman"><br></font></td>
-                    <td align="left" valign=bottom><font face="Times New Roman"><br></font></td>
                     <td align="left" valign=bottom><font color="#000000"><br></font></td>
                 </tr>
                 <tr>
@@ -152,6 +320,7 @@
                     <td align="left" valign=bottom><font face="Times New Roman"><br></font></td>
                     <td align="left" valign=bottom><font color="#000000"><br></font></td>
                 </tr>
+                
             </table>
 </div>
 </div>

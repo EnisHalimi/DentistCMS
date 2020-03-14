@@ -18,39 +18,37 @@
             <form class="user" method="POST" action="{{ route('report.store') }}">
               {{ csrf_field() }}
               <div class="form-group ">
-                <label class="text-xs" for="treatment">Trajtimi</label>
+                <label class="text-xs" for="pacient">Pacienti</label>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
-                        <button class="btn btn-outline-primary" type="button"  data-toggle="modal" data-target="#treatmentModal"><i class="fa fa-plus"></i> </button>
+                        <button class="btn btn-outline-primary" type="button"  data-toggle="modal" data-target="#pacientModal"><i class="fa fa-plus"></i> </button>
                     </div>
-                    <input  readonly value="{{old('treatment')}}"  placeholder="Trajtimi"  class="form-control form-control-user  @error('treatment-id') is-invalid @enderror " id="treatment" name="treatment"  />
-                  <input value="{{old('treatment-id')}}" id="treatment-id" hidden  name="treatment-id"/>
-                    <input  value="{{old('pacient-id')}}"  id="pacient-id" hidden  name="pacient-id"/>
+                    <input readonly placeholder="Pacienti"  value="{{ old('pacient') }}" class="form-control form-control-user @error('pacient-id') is-invalid @enderror " id="pacient" name="pacient"  />
+                    <input  hidden id="pacient-id"   value="{{ old('pacient-id') }}" name="pacient-id"/>
                     <div class="input-group-append">
-                        <button type="button"  class="btn btn-outline-danger" onclick="document.getElementById('treatment').value=''; document.getElementById('treatment-id').value='';
-                        document.getElementById('pacient-id').value='';" >
+                        <button type="button"  class="btn btn-outline-danger" onclick="document.getElementById('pacient').value=''; document.getElementById('pacient-id').value='';" >
                           <i class="fa fa-trash"></i>
                         </button>
                       </div>
                 </div>
                 
-                <div class="modal fade" id="treatmentModal" tabindex="-1" role="dialog" aria-labelledby="treatmentModalModalLabel" aria-hidden="true">
+                <div class="modal fade" id="pacientModal" tabindex="-1" role="dialog" aria-labelledby="pacientModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <h5 class="modal-title" id="treatmentModalModalLabel">Zgjedh Trajtimin</h5>
+                          <h5 class="modal-title" id="pacientModalLabel">Zgjedh Pacientin</h5>
                         </div>
-                        <div class="modal-body">
-                          <table class="table table-bordered table-hover" width="100%" cellspacing="0"  id="searchTreatment">
+                        <div class="modal-body mx-2">
+                          <table class="table table-bordered table-hover"  width="100%" cellspacing="0" id="searchPacient">
                             <thead class="bg-dark text-light">
                               <tr>
-                                <th scope="col">Pacienti</th>
-                                <th scope="col">Data</th>
-                                <th scope="col">Kohezgjatja</th>
+                                <th scope="col">Emri</th>
+                                <th scope="col">Mbiemri</th>
+                                <th scope="col">Nr Personal</th>
                                 <th scope="col">Shto</th>
                               </tr>
                             </thead>
-                            <tbody id="treatment-table-body">
+                            <tbody>
                             </tbody>
                           </table>
                         </div>
@@ -60,21 +58,95 @@
                       </div>
                     </div>
                   </div>
-              @if ($errors->has('treatment-id'))
-                                <span class="help-block">
-                                    <strong class="text-danger"><small>{{ $errors->first('treatment-id') }}</small></strong>
-                                </span>
+                  @if ($errors->has('pacient-id'))
+                  <span class="help-block">
+                      <strong class="text-danger"><small>{{ $errors->first('pacient-id') }}</small> </strong>
+                  </span>
               @endif
             </div>
-              <div class="form-group ">
-                        <label class="text-xs"  for="description">Përshkrimi</label>
-              <textarea type="text"  required class="form-control form-control-user  @error('Pershkrimi') is-invalid  @enderror" required="" name="Pershkrimi" id="description"  placeholder="Përshkrimi">{{old('Pershkrimi')}}</textarea>
-                        @if ($errors->has('Pershkrimi'))
-                                          <span class="help-block">
-                                            <strong class="text-danger"><small>{{ $errors->first('Pershkrimi') }}</small></strong>
-                                          </span>
-                                      @endif
+            <div class="form-group ">
+              <label class="text-xs" for="user">Dentisti</label>
+              <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                      <button class="btn btn-outline-primary" type="button"  data-toggle="modal" data-target="#userModal"><i class="fa fa-plus"></i> </button>
+                  </div>
+              <input  placeholder="Dentisti" readonly  value="{{ old('user') }}" class="form-control form-control-user @error('user-id') is-invalid @enderror" id="user" name="user"   />
+              <input  hidden id="user-id"   value="{{ old('user-id') }}" name="user-id"/>
+              <div class="input-group-append">
+                  <button type="button"  class="btn btn-outline-danger" onclick="document.getElementById('user').value=''; document.getElementById('user-id').value='';" >
+                    <i class="fa fa-trash"></i>
+                  </button>
                 </div>
+          </div>
+              <div class="modal fade" id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="userModalLabel">Zgjedh Dentistin</h5>
+                      </div>
+                      <div class="modal-body">
+                        <table class="table table-bordered table-hover"  width="100%" cellspacing="0" id="searchUser" >
+                          <thead class="bg-dark text-light">
+                          <tr>
+                          <th>Dentisti</th>
+                          <th>E-Mail</th>
+                          <th>Shto</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                          </tbody>
+                        </table>
+                          
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Mbylle</button>
+                      </div>
+                    </div>
+                  </div>
+                </div> 
+              @if ($errors->has('user-id'))
+                                <span class="help-block">
+                                  <strong class="text-danger"><small>{{ $errors->first('user-id') }}</small></strong>
+                                </span>
+                            @endif
+      </div>
+        
+                <div class="form-group ">
+                  <label class="text-xs"  for="complaint">Ankesa</label>
+        <textarea type="text"  required class="form-control form-control-user  @error('complaint') is-invalid  @enderror" required="" name="complaint" id="complaint"  placeholder="Ankesa">{{old('complaint')}}</textarea>
+                  @if ($errors->has('complaint'))
+                                    <span class="help-block">
+                                      <strong class="text-danger"><small>{{ $errors->first('complaint') }}</small></strong>
+                                    </span>
+                                @endif
+          </div>
+          <div class="form-group ">
+            <label class="text-xs"  for="evaluation">Vlerësimi i mjekut</label>
+  <textarea type="text"  required class="form-control form-control-user  @error('evaluation') is-invalid  @enderror" required="" name="evaluation" id="evaluation"  placeholder="Vlerësimi i mjekut">{{old('evaluation')}}</textarea>
+            @if ($errors->has('evaluation'))
+                              <span class="help-block">
+                                <strong class="text-danger"><small>{{ $errors->first('evaluation') }}</small></strong>
+                              </span>
+                          @endif
+    </div>
+    <div class="form-group ">
+      <label class="text-xs"  for="diagnosis">Diagnoza</label>
+<textarea type="text"  required class="form-control form-control-user  @error('diagnosis') is-invalid  @enderror" required="" name="diagnosis" id="diagnosis"  placeholder="Diagnoza">{{old('diagnosis')}}</textarea>
+      @if ($errors->has('diagnosis'))
+                        <span class="help-block">
+                          <strong class="text-danger"><small>{{ $errors->first('diagnosis') }}</small></strong>
+                        </span>
+                    @endif
+</div>
+<div class="form-group ">
+  <label class="text-xs"  for="recommendation">Rekomandimi</label>
+<textarea type="text"  required class="form-control form-control-user  @error('recommendation') is-invalid  @enderror" required="" name="recommendation" id="recommendation"  placeholder="Rekomandimi">{{old('recommendation')}}</textarea>
+  @if ($errors->has('recommendation'))
+                    <span class="help-block">
+                      <strong class="text-danger"><small>{{ $errors->first('recommendation') }}</small></strong>
+                    </span>
+                @endif
+</div>
               <div class="form-group">
                 <a class="btn btn-circle btn-secondary" href="{{ url()->previous() }}" ><i class="fa fa-chevron-left"></i></a>
                   <button type="submit"  class="btn btn-circle btn-primary float-right"><i class="fa fa-save"></i></button>

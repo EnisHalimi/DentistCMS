@@ -349,7 +349,7 @@ function jQuery()
         "ajax":"/reportDatatable",
         "columns": [
           {"data":"pacient_id"},
-          {"data":"starting_date"},
+          {"data":"user_id"},
           {"data":"created_at"},
           {"data": "Menaxhimi", "bSearchable": false }
         ],

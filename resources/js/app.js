@@ -7,7 +7,6 @@ import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import sqLocale from '@fullcalendar/core/locales/sq';
 if(window.location.href.indexOf("calendar") > -1 || window.location.pathname == '/' ) {
-  
 document.addEventListener('DOMContentLoaded', function() {
   var calendarEl = document.getElementById('calendar');
   var today = new Date();
@@ -57,10 +56,24 @@ function jQuery()
   
   $(document).ready(function(){
 
+    $('#dateDaily').on('change',function(){
+          $('#daily-form').submit();
+    });
+
+
+      $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+          localStorage.setItem('lastTab', $(this).attr('href'));
+      });
+  
+      var lastTab = localStorage.getItem('lastTab');
+      if (lastTab) {
+          $('[href="' + lastTab + '"]').tab('show');
+      }
+
     $('#searchPacient').DataTable(
       {
         "processing": true,
-        "serverSide": true,
+        "serverSide": true, "stateSave": true,
         "ajax":"/searchPacient",
         "columns": [
           {"data":"first_name"},
@@ -87,7 +100,7 @@ function jQuery()
     $('#searchUser').DataTable(
       {
         "processing": true,
-        "serverSide": true,
+        "serverSide": true, "stateSave": true,
         "ajax":"/searchUser",
         "columns": [
           {"data":"name"},
@@ -115,7 +128,7 @@ function jQuery()
       $('#searchService').DataTable(
         {
           "processing": true,
-          "serverSide": true,
+          "serverSide": true, "stateSave": true,
           "ajax":"/searchService",
           "columns": [
             {"data":"name"},
@@ -144,7 +157,7 @@ function jQuery()
       $('#searchTreatment').DataTable(
         {
           "processing": true,
-          "serverSide": true,
+          "serverSide": true, "stateSave": true,
           "ajax":"/searchTreatment",
           "columns": [
             {"data":"pacient_id"},
@@ -174,7 +187,7 @@ function jQuery()
     $('#PacientdataTable').DataTable(
       {
         "processing": true,
-        "serverSide": true,
+        "serverSide": true, "stateSave": true,
         "ajax":"/pacientDatatable",
         "columns": [
           {"data":"first_name"},
@@ -203,7 +216,7 @@ function jQuery()
     $('#UserdataTable').DataTable(
       {
         "processing": true,
-        "serverSide": true,
+        "serverSide": true, "stateSave": true,
         "ajax":"/userDatatable",
         "columns": [
           {"data":"name"},
@@ -232,7 +245,7 @@ function jQuery()
     $('#AppointmentdataTable').DataTable(
       {
         "processing": true,
-        "serverSide": true,
+        "serverSide": true, "stateSave": true,
         "ajax":"/appointmentDatatable",
         "columns": [
           {"data":"pacient_id"},
@@ -260,7 +273,7 @@ function jQuery()
     $('#VisitdataTable').DataTable(
       {
         "processing": true,
-        "serverSide": true,
+        "serverSide": true, "stateSave": true,
         "ajax":"/visitDatatable",
         "columns": [
           {"data":"pacient_id"},
@@ -289,7 +302,7 @@ function jQuery()
     $('#TreatmentdataTable').DataTable(
       {
         "processing": true,
-        "serverSide": true,
+        "serverSide": true, "stateSave": true,
         "ajax":"/treatmentDatatable",
         "columns": [
           {"data":"pacient_id"},
@@ -317,7 +330,7 @@ function jQuery()
     $('#ServicedataTable').DataTable(
       {
         "processing": true,
-        "serverSide": true,
+        "serverSide": true, "stateSave": true,
         "ajax":"/serviceDatatable",
         "columns": [
           {"data":"name"},
@@ -345,7 +358,7 @@ function jQuery()
     $('#ReportdataTable').DataTable(
       {
         "processing": true,
-        "serverSide": true,
+        "serverSide": true, "stateSave": true,
         "ajax":"/reportDatatable",
         "columns": [
           {"data":"pacient_id"},
@@ -373,7 +386,7 @@ function jQuery()
     $('#NotificationsdataTable').DataTable(
       {
         "processing": true,
-        "serverSide": true,
+        "serverSide": true, "stateSave": true,
         "ajax":"/notificationsDatatable",
         "columns": [
           {"data":"description",'bSortable': false},
@@ -399,7 +412,7 @@ function jQuery()
     $('#DebtdataTable').DataTable(
       {
         "processing": true,
-        "serverSide": true,
+        "serverSide": true, "stateSave": true,
         "ajax":"/debtDatatable",
         "columns": [
           {"data":"pacient"},
@@ -427,7 +440,7 @@ function jQuery()
     $('#RoledataTable').DataTable(
       {
         "processing": true,
-        "serverSide": true,
+        "serverSide": true, "stateSave": true,
         "ajax":"/roleDatatable",
         "columns": [
           {"data":"name"},
@@ -454,7 +467,7 @@ function jQuery()
       $('#BilldataTable').DataTable(
         {
           "processing": true,
-          "serverSide": true,
+          "serverSide": true, "stateSave": true,
           "ajax":"/billDatatable",
           "columns": [
             {"data":"subject"},

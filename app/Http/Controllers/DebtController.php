@@ -59,7 +59,7 @@ class DebtController extends Controller
         if(!auth()->user()->hasPermission('view-debt'))
             return redirect('/')->with('error', __('messages.noauthorization'));
         else
-            return view('debt.index'); 
+            return view('debt.debt'); 
     }
 
     /**

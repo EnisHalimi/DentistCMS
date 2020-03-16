@@ -42,7 +42,7 @@
 <body id="page-top">
   <!-- Page Wrapper -->
   <div id="wrapper">
-
+    @auth
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
@@ -68,6 +68,12 @@
         <a class="nav-link" href="/calendar">
           <i class="fas fa-fw fa-calendar-alt"></i>
           <span>Kalendari</span></a>
+      </li>
+
+      <li class="nav-item  @yield('daily')">
+        <a class="nav-link" href="/daily">
+          <i class="fas fa-fw fa-chart-pie"></i>
+          <span>Raporti Ditor</span></a>
       </li>
       <!-- Divider -->
       <hr class="sidebar-divider">
@@ -106,10 +112,10 @@
           <i class="fas fa-fw fa-scroll"></i>
           <span>Raporti</span></a>
       </li>
-      <li class="nav-item  @yield('service')">
-        <a class="nav-link" href="/services">
-          <i class="fas fa-fw fa-list"></i>
-          <span>Sherbimet</span></a>
+      <li class="nav-item  @yield('payment')">
+        <a class="nav-link" href="/payment">
+          <i class="fas fa-fw fa-credit-card"></i>
+          <span>Pagesat</span></a>
       </li>
       <li class="nav-item  @yield('debt') @yield('bill')">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -123,7 +129,7 @@
           </div>
         </div>
       </li>
-      <li class="nav-item  @yield('settings')">
+      <li class="nav-item  @yield('settings') @yield('services')">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
           <i class="fas fa- fw fa-cog"></i>
           <span>Aranzhimi</span>
@@ -132,6 +138,8 @@
           <div class="bg-white py-2 collapse-inner rounded">
             <a class="collapse-item" href="/user">Përdoruesit</a>
             <a class="collapse-item" href="/role">Rolet</a>
+            <a class="collapse-item" href="/services">Sherbimet</a>
+            <a class="collapse-item" href="/company">Firma</a>
           </div>
         </div>
       </li>
@@ -315,7 +323,7 @@
 
         </nav>
         <!-- End of Topbar -->
-
+        @endauth
         <!-- Begin Page Content -->
         <div class="container-fluid">
         @if(session('error'))

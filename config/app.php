@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
         niklasravnsborg\LaravelPdf\PdfServiceProvider::class,
+        
     ],
 
     /*
@@ -229,6 +230,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'DataTables' => Yajra\Datatables\DatatablesServiceProvider::class,
         'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class,
+        
     ],
 
 ];

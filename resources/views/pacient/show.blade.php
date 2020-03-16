@@ -210,7 +210,7 @@
               @foreach($reports as $report)
                 <tr>
                 <td>{{App\Pacient::getPacient($report->pacient_id)}}</td>
-                <td><a class="btn btn-circle btn-secondary btn-sm" href="/treatment/{{$report->treatment_id}}"><i class="fa fa-syringe"></i></a> {{App\Treatment::getStartingDate($report->treatment_id)}}</td>
+                <td>{{App\User::getUser($report->user_id)}}</td>
                 <td>{{$report->created_at}}</td>
                 <td><a class="btn btn-circle btn-secondary btn-sm" href="/report/{{$report->id}}"><i class="fa fa-eye"></i></a></td>
                 </tr>

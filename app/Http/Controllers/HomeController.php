@@ -11,6 +11,8 @@ use App\Report;
 use App\Services;
 use App\Visit;
 use App\Contact;
+use App\Debt;
+use App\Bill;
 use App\Notifications;
 use DataTables;
 use DB;
@@ -77,6 +79,29 @@ class HomeController extends Controller
         $users = User::where('role_id','=',0)->orWhere('role_id','=',1)->get();
         return view('calendar')->with('users',$users);
                             
+    }
+
+    public function daily(Request $request)
+    {
+        if(empty($request->input('date')))
+            $date = date('Y-m-d');
+        else
+            $date = $request->input('date');
+        $pacients = Pacient::whereDate('created_at','=',$date)->get();
+        $appointements = Appointment::whereDate('date_of_appointment','=',$date)->get();
+        $treatment = Treatment::whereDate('starting_date','=',$date)->get();
+        $visit = Visit::whereDate('date_of_visit','=',$date)->get();
+        $reports = Report::whereDate('created_at','=',$date)->get();
+        $debt = Debt::whereDate('created_at','=',$date)->get();
+        $bill = Bill::whereDate('created_at','=',$date)->get();
+        return view('daily')->with('pacients',$pacients)
+        ->with('appointements',$appointements)
+        ->with('treatment',$treatment)
+        ->with('visit',$visit)
+        ->with('reports',$reports)
+        ->with('debt',$debt)
+        ->with('bill',$bill)
+        ->with('date', $date);
     }
 
     public function settings()

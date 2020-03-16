@@ -26,6 +26,7 @@ Route::resource('role', 'RoleController');
 Route::resource('bill', 'BillController');
 Route::get('/notifications', 'HomeController@notifications');
 Route::get('/calendar', 'HomeController@calendar');
+Route::get('/daily', 'HomeController@daily');
 Route::get('/settings', 'HomeController@settings');
 Route::get('/settings/edit', 'HomeController@settingsEdit');
 Route::post('/settings/save', 'HomeController@settingsSave');

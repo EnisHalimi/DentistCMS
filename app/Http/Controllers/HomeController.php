@@ -13,10 +13,12 @@ use App\Visit;
 use App\Contact;
 use App\Debt;
 use App\Bill;
+use App\Payment;
 use App\Notifications;
 use DataTables;
 use DB;
 use Carbon\Carbon;
+use Cart;
 use Redirect,Response;
 
 class HomeController extends Controller
@@ -93,6 +95,7 @@ class HomeController extends Controller
         $visit = Visit::whereDate('date_of_visit','=',$date)->get();
         $reports = Report::whereDate('created_at','=',$date)->get();
         $debt = Debt::whereDate('created_at','=',$date)->get();
+        $payment = Payment::whereDate('created_at','=',$date)->get();
         $bill = Bill::whereDate('created_at','=',$date)->get();
         return view('daily')->with('pacients',$pacients)
         ->with('appointements',$appointements)
@@ -101,7 +104,8 @@ class HomeController extends Controller
         ->with('reports',$reports)
         ->with('debt',$debt)
         ->with('bill',$bill)
-        ->with('date', $date);
+        ->with('date', $date)
+        ->with('payment',$payment);
     }
 
     public function settings()
@@ -176,6 +180,47 @@ class HomeController extends Controller
         ->make(true);
         return $table;
                             
+    }
+
+
+    public function addToCart(Request $request)
+    {
+        
+        if($request->ajax())
+        {
+            $discount = '-'.$request->input('discount').'%';
+            $id = Cart::getContent()->count();
+            $condition = new \Darryldecode\Cart\CartCondition(array(
+                'name' => 'Discount',
+                'type' => 'discount',
+                'target' => 'total', 
+                'value' =>  $discount,
+                'order' => 1
+            ));
+            $cart = Cart::add(
+                array(
+                    'id' => ++$id,
+                    'name' => $request->input('name'),
+                    'price' => $request->input('price'),
+                    'quantity' => $request->input('quantity'),
+                    'attributes' => array(
+                        'tooth' => $request->input('tooth'),
+                        'discount' => $request->input('discount') ,
+                        'serviceId' => $request->input('id')),
+                    'conditions' => $condition
+                ));
+            return response()->json(['success'=>'U shtua në pagesë.']);
+        }
+    }
+
+
+    public function deleteFromCart(Request $request)
+    {
+        if($request->ajax())
+        {
+            Cart::remove($request->input('id'));
+            return response()->json(['success'=>'U largua në pagesë.']);
+        }
     }
 
     public function markAsRead(Request $request)

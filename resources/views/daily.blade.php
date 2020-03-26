@@ -387,16 +387,28 @@
               <table class="table table-bordered" width="100%"  cellspacing="0" >
                 <thead>
                   <tr>
-                    <th>Emri</th>
-                    <th>Mbiemri</th>
-                    <th>Numri Personal</th>
-                    <th>Data e lindjes</th>
-                    <th>Adresa</th>
-                    <th>Vendbanimi</th>
+                    <th>Pacienti</th>
+                    <th>Vlera</th>
+                    <th>Data</th>
                     <th>Shiko</th>
                   </tr>
                 </thead>
                 <tbody>
+                    @if(count($payment) > 0)
+                    @foreach($payment as $p)
+                  <tr>
+                    <td><a class="btn btn-circle btn-secondary btn-sm" href="/pacient/{{$p->pacient_id}}"><i class="fa fa-user"></i></a> {{App\Pacient::getPacient($p->pacient_id)}}</td>
+                    <td>{{$p->value}} €</td>
+                    <td>{{$p->created_at}}</td>
+                    <td><a href="/payment/{{$p->id}}" class="btn btn-circle btn-secondary btn-sm"><i class="fa fa-eye"></i></a> </td>
+  
+                  </tr>
+                  @endforeach
+                  @else
+                  <tr>
+                    <td colspan="7">Nuk janë regjistuar Borgje</td>
+                  </tr>
+                  @endif
                 </tbody>
               </table>
             </div>

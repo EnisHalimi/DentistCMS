@@ -32,8 +32,11 @@ return [
     'debt-add' => 'The debt has been added',
     'debt-edit' => 'The debt has been edited',
     'debt-delete' => 'The debt has been deleted',
-    'bill-add' => 'The patient has been added',
-    'bill-edit' => 'The patient has been edited',
-    'bill-delete' => 'The patient has been deleted',
+    'bill-add' => 'The bill has been added',
+    'bill-edit' => 'The bill has been edited',
+    'bill-delete' => 'The bill has been deleted',
+    'payment-add' => 'The payment has been added',
+    'payment-edit' => 'The payment has been edited',
+    'payment-delete' => 'The payment has been deleted',
 
 ];

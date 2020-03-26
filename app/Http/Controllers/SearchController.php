@@ -11,6 +11,7 @@ use DB;
 use DataTables;
 
 
+
 class SearchController extends Controller
 {
     public function search(Request $request)
@@ -70,6 +71,28 @@ class SearchController extends Controller
         ->make(true);
         return $table;
     }
+
+    public function searchServicePayment(Request $request)
+    {
+        $services = Services::all();
+        $table = DataTables::of($services)
+        ->addColumn('Shto' ,'
+        <a class="btn btn-circle btn-secondary btn-sm"  onclick="
+        addToCart({{$id}},\'{{$name}}\',{{$price}});
+        " ><i class="fa text-light fa-arrow-right"></i></a>
+        ')
+        ->addColumn('quantity' ,'
+        <input class="w-50" type="text" id="quantity-{{$id}}" name="quantity" value="1">    
+        ')
+        ->addColumn('tooth' ,'
+            <input class="w-50" type="text" id="tooth-{{$id}}" name="tooth" value="0">    
+        ')
+        ->editColumn('discount',' <input class="w-50" type="text" id="discount-{{$id}}" name="discount" value="{{$discount}}"> %')
+        ->rawColumns(['Shto','quantity','tooth','discount'])
+        ->make(true);
+        return $table;
+    }
+
 
     public function searchTreatment(Request $request)
     {

@@ -3,7 +3,8 @@ require('./bootstrap')
 require('./components/sb-admin-2')
 require('./components/jquery.easing.min')
 require('./components/datatables.min')
-import { Calendar } from '@fullcalendar/core';
+require('./components/cart')
+import { Calendar } from '@fullcalendar/core'; 
 import dayGridPlugin from '@fullcalendar/daygrid';
 import sqLocale from '@fullcalendar/core/locales/sq';
 if(window.location.href.indexOf("calendar") > -1 || window.location.pathname == '/' ) {
@@ -55,6 +56,23 @@ function jQuery()
 
   
   $(document).ready(function(){
+
+   
+    $("#delete-payment").submit(function(event){
+      event.preventDefault(); //prevent default action 
+      var post_url = $(this).attr("action"); //get form action url
+      var request_method = $(this).attr("method"); //get form GET/POST method
+      var form_data = $(this).serialize(); //Encode form elements for submission
+      
+      $.ajax({
+        url : post_url,
+        type: request_method,
+        data : form_data
+      }).done(function(response){ //
+        $("#server-results").html(response);
+        $("#payment-table").load( "/payment/create #payment-table");
+      });
+    });
 
     $('#dateDaily').on('change',function(){
           $('#daily-form').submit();
@@ -134,6 +152,36 @@ function jQuery()
             {"data":"name"},
             {"data":"price"},
             {"data":"discount"},
+            {"data": "Shto", "bSearchable": false }
+          ],
+          "language": {
+            "lengthMenu": "Shfaq _MENU_ për faqe",
+            "zeroRecords": "Nuk u gjet asnjë e dhënë",
+            "info": "Duke shfaqur faqen _PAGE_ nga _PAGES_",
+            "infoEmpty": "Nuk ka të dhëna",
+            "infoFiltered": "(Të filtruar nga _MAX_ total)",
+            "processing":     "Duke procesuar...",
+            "search":         "",
+            "paginate": {
+              "first":      "Fillimi",
+              "last":       "Fundi",
+              "next":       "Para",
+              "previous":   "Prapa"}
+            }
+        }
+      );
+
+      $('#searchServicePayment').DataTable(
+        {
+          "processing": true,
+          "serverSide": true, "stateSave": true,
+          "ajax":"/searchServicePayment",
+          "columns": [
+            {"data":"name"},
+            {"data":"price"},
+            {"data":"discount"},
+            {"data":"quantity"},
+            {"data":"tooth"},
             {"data": "Shto", "bSearchable": false }
           ],
           "language": {
@@ -493,9 +541,34 @@ function jQuery()
         }
       );
 
+      $('#PaymentdataTable').DataTable(
+        {
+          "processing": true,
+          "serverSide": true, "stateSave": true,
+          "ajax":"/paymentDatatable",
+          "columns": [
+            {"data":"pacient_id"},
+            {"data":"value"},
+            {"data":"created_at"},
+            {"data": "Menaxhimi", "bSearchable": false }
+          ],
+          "language": {
+            "lengthMenu": "Shfaq _MENU_ për faqe",
+            "zeroRecords": "Nuk u gjet asnjë e dhënë",
+            "info": "Duke shfaqur faqen _PAGE_ nga _PAGES_",
+            "infoEmpty": "Nuk ka të dhëna",
+            "infoFiltered": "(Të filtruar nga _MAX_ total)",
+            "processing":     "Duke procesuar...",
+            "search":         "Kërko:",
+            "paginate": {
+              "first":      "Fillimi",
+              "last":       "Fundi",
+              "next":       "Para",
+              "previous":   "Prapa"}
+            }
+        }
+      );
+
   });
 }
   jQuery();
-
-  
-

@@ -35,4 +35,7 @@ return [
     'bill-add' => 'Është shtuar shpenzimi',
     'bill-edit' => 'Është ndryshuar shpenzimi',
     'bill-delete' => 'Është fshirë shpenzimi',
+    'payment-add' => 'Është shtuar pagesa',
+    'payment-edit' => 'Është ndryshuar pagesa',
+    'payment-delete' => 'Është fshirë pagesa',
 ];

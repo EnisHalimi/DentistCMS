@@ -234,7 +234,6 @@ class TreatmentController extends Controller
         else
         {
             $treatment->services()->detach();
-            $treatment->report()->delete();
             $treatment->delete();           
             return redirect('/treatment')->with('success','Është fshirë Trajtimi');
         }

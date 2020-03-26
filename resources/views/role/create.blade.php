@@ -158,6 +158,20 @@
       </div>
     </div>
 
+    <div class="form-group ">
+      <label class="text-xs font-weight-bold"  >Pagesat</label> 
+      <div class="row">
+      <div class="col-sm-3"><label class="text-xs "  for="view-payment">Shiko</label>
+        <input   type="checkbox" name="permission[]" value="41" id="view-payment"></div>
+      <div class="col-sm-3"> <label class="text-xs "  for="create-payment">Krijo</label>
+        <input   type="checkbox" name="permission[]" value="42" id="create-payment"></div>
+      <div class="col-sm-3">  <label class="text-xs "  for="edit-payment">Ndrysho</label>
+        <input   type="checkbox" name="permission[]" value="43" id="edit-payment"></div>
+      <div class="col-sm-3"> <label class="text-xs "  for="delete-payment">Fshij</label>
+        <input   type="checkbox" name="permission[]" value="44" id="delete-payment"></div>
+      </div>
+    </div>
+
     <div class="form-group">
         <a class="btn btn-circle btn-secondary" href="{{ url()->previous() }}" ><i class="fa fa-chevron-left"></i></a>
           <button type="submit"  class="btn btn-circle btn-primary float-right"><i class="fa fa-save"></i></button>

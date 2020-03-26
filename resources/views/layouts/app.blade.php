@@ -19,7 +19,11 @@
     <!-- SB CSS -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+
   <script>
+
+    @yield('scripts')
+    
   function markAsRead(id) 
   {
     $.ajax({
@@ -37,6 +41,8 @@
       }
     });
   } 
+
+  
   </script>
 </head>
 <body id="page-top">
@@ -357,7 +363,7 @@
       <footer class="sticky-footer @if(App\User::getAppTheme() == true) bg-dark @else bg-white @endif ">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Kreative Programming Team 2019</span>
+            <span>Copyright &copy; Kreative Programming Team {{date('Y')}} </span>
           </div>
         </div>
       </footer>

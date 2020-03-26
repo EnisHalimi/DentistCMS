@@ -158,6 +158,19 @@
         <input   type="checkbox" name="permission[]" value="40" @if(App\Role::hasPermission($role->id, 'delete-bill')) checked @else @endif id="delete-bill"></div>
       </div>
     </div>
+    <div class="form-group ">
+      <label class="text-xs font-weight-bold"  >Pagesat</label> 
+      <div class="row">
+      <div class="col-sm-3"><label class="text-xs "  for="view-payment">Shiko</label>
+        <input   type="checkbox" name="permission[]" value="41" @if(App\Role::hasPermission($role->id, 'view-payment')) checked @else @endif id="view-payment"></div>
+      <div class="col-sm-3"> <label class="text-xs "  for="create-payment">Krijo</label>
+        <input   type="checkbox" name="permission[]" value="42" @if(App\Role::hasPermission($role->id, 'create-payment')) checked @else @endif id="create-payment"></div>
+      <div class="col-sm-3">  <label class="text-xs "  for="edit-payment">Ndrysho</label>
+        <input   type="checkbox" name="permission[]" value="43" @if(App\Role::hasPermission($role->id, 'edit-payment')) checked @else @endif id="edit-payment"></div>
+      <div class="col-sm-3"> <label class="text-xs "  for="delete-payment">Fshij</label>
+        <input   type="checkbox" name="permission[]" value="44" @if(App\Role::hasPermission($role->id, 'delete-payment')) checked @else @endif id="delete-payment"></div>
+      </div>
+    </div>
 
     <div class="form-group">
         <a class="btn btn-circle btn-secondary" href="{{ url()->previous() }}" ><i class="fa fa-chevron-left"></i></a>

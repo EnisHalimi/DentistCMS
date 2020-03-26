@@ -90,6 +90,14 @@
                                     Ndrysho @if(App\Role::hasPermission($role->id, 'edit-bill')) <i class="fa fa-check-square"></i> @else <i class="fa fa-square"></i> @endif | 
                                     Fshij @if(App\Role::hasPermission($role->id, 'delete-bill')) <i class="fa fa-check-square"></i> @else <i class="fa fa-square"></i> @endif</td>
                             </tr>
+
+                            <tr>
+                                <th>Pagesat:</th>
+                                <td scope="row"> Shiko @if(App\Role::hasPermission($role->id, 'view-payment')) <i class="fa fa-check-square"></i> @else <i class="fa fa-square"></i> @endif| 
+                                    Krjio @if(App\Role::hasPermission($role->id, 'create-payment')) <i class="fa fa-check-square"></i> @else <i class="fa fa-square"></i> @endif | 
+                                    Ndrysho @if(App\Role::hasPermission($role->id, 'edit-payment')) <i class="fa fa-check-square"></i> @else <i class="fa fa-square"></i> @endif | 
+                                    Fshij @if(App\Role::hasPermission($role->id, 'delete-payment')) <i class="fa fa-check-square"></i> @else <i class="fa fa-square"></i> @endif</td>
+                            </tr>
                             </tbody>
                     </table>
                    

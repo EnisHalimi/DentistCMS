@@ -58,31 +58,31 @@ class User extends Authenticatable
 
     public static function getLogo()
     {
-        $settings = DB::table('settings')->first();
-        if(empty($settings))
+        $company = DB::table('company')->first();
+        if(empty($company))
             return 'http://maestroselectronics.com/wp-content/uploads/2017/12/No_Image_Available.jpg';
-        if(substr($settings->logo, 0, 4 ) === "http")	
-			return $settings->logo;
-        return asset('img/'.$settings->logo.'');
+        if(substr($company->logo, 0, 4 ) === "http")	
+			return $company->logo;
+        return asset('img/'.$company->logo.'');
     }
 
     public static function getAppName()
     {
-        $settings = DB::table('settings')->first();
-        if(empty($settings))
+        $company = DB::table('company')->first();
+        if(empty($company))
             return 'DentistCMS';
-        return $settings->app_name;
+        return $company->name;
     }
 
     public static function getAppTheme()
     {
-        $settings = DB::table('settings')->first();
-        if(empty($settings))
+        $company = DB::table('company')->first();
+        if(empty($company))
         {
             return false;
         }
         else
-            return $settings->theme;
+            return $company->theme;
     }
 
     public function getCreatedAtAttribute($value)

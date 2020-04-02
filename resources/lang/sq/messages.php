@@ -38,4 +38,5 @@ return [
     'payment-add' => 'Është shtuar pagesa',
     'payment-edit' => 'Është ndryshuar pagesa',
     'payment-delete' => 'Është fshirë pagesa',
+    'company-edit' => 'Janë ndryshuar të dhënat e kompanisë',
 ];

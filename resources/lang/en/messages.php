@@ -38,5 +38,6 @@ return [
     'payment-add' => 'The payment has been added',
     'payment-edit' => 'The payment has been edited',
     'payment-delete' => 'The payment has been deleted',
+    'company-edit' => 'Company data has been edited',
 
 ];

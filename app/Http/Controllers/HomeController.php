@@ -41,13 +41,6 @@ class HomeController extends Controller
 
     public function index()
     {
-        $settings = DB::table('settings')->first();
-        if(empty($settings))
-        {
-            DB::table('settings')->insert(
-                ['app_name' => 'DentistCMS', 'logo' => 'http://maestroselectronics.com/wp-content/uploads/2017/12/No_Image_Available.jpg', 'theme' => false]
-            );
-        }
         $pacients = Pacient::whereDate('created_at','=',date("Y-m-d"))->orderBy('id', 'DESC')->get();
         $appointements = Appointment::whereBetween('date_of_appointment',[Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
         $treatment = Treatment::whereDate('created_at','=',date("Y-m-d"))->orderBy('id', 'DESC')->get();
@@ -108,43 +101,32 @@ class HomeController extends Controller
         ->with('payment',$payment);
     }
 
-    public function settings()
+    public function company()
     {
-        $settings = DB::table('settings')->first();
-        if(empty($settings))
-        {
-            DB::table('settings')->insert(
-                ['app_name' => 'DentistCMS', 'logo' => 'http://maestroselectronics.com/wp-content/uploads/2017/12/No_Image_Available.jpg', 'theme' => false]
-            );
-            $settings = DB::table('settings')->first();
-            return view('settings.settings')->with('settings', $settings);
-        }
-        return view('settings.settings')->with('settings', $settings);
+        $company = DB::table('company')->first();
+        return view('company.company')->with('company', $company);
                             
     }
 
-    public function settingsEdit()
-    {
-        $settings = DB::table('settings')->first();
-        if(empty($settings))
-        {
-            DB::table('settings')->insert(
-                ['app_name' => 'DentistCMS', 'logo' => 'http://maestroselectronics.com/wp-content/uploads/2017/12/No_Image_Available.jpg', 'theme' => false]
-            );
-            $settings = DB::table('settings')->first();
-            return view('settings.edit')->with('settings', $settings);
-        }
-        return view('settings.edit')->with('settings', $settings);
-                            
-    }
-
-    public function settingsSave(Request $request)
+    public function companySave(Request $request)
     {
         $this->validate($request,[
-            'app_name' =>'required',
+            'name' =>'required',
+            'nr_fiscal' =>'numeric',
+            'nr_business' =>'numeric',
+            'nr_tax' =>'numeric',
+            'tvsh' =>'numeric|required',
+            'phone' =>'required|min:9|numeric',
+            'adress' =>'required|min:2',
+            'email' => 'email',
+            'city' =>'required|min:2',
+            'account_1' =>'numeric|min:10',
+            'account_2' =>'numeric|min:10',
+            'account_3' =>'numeric|min:10',
             'logo' =>'image|nullable|max:1999',
         ]);
-        $settings =  DB::table('settings')->first();
+
+        $company =  DB::table('company')->first();
         if($request->input('theme') == 0)
             $theme = false;
         else
@@ -154,19 +136,44 @@ class HomeController extends Controller
             $fileNamewithExt = $request->file('logo')->getClientOriginalName();
             $fileName = pathInfo($fileNamewithExt, PATHINFO_FILENAME);
             $extension = $request->file('logo')->getClientOriginalExtension();
-            $fileNametoStore = $settings->app_name.'.'.$extension;
+            $fileNametoStore = $company->name.'.'.$extension;
             $request->file('logo')->move(public_path('img'), $fileNametoStore);
-            $add = DB::table('settings')->where('id', $settings->id)
-            ->update(['app_name' =>  $request->input('app_name'), 'logo' => $fileNametoStore, 'theme' => $theme]);
+            $add = DB::table('company')->where('id', $company->id)
+            ->update(['name' =>  $request->input('name'), 
+                        'logo' => $fileNametoStore, 
+                        'theme' => $theme,
+                        'nr_fiscal' => $request->input('nr_fiscal'),
+                        'nr_business' => $request->input('nr_business'),
+                        'nr_tax' => $request->input('nr_tax'),
+                        'tvsh' => $request->input('tvsh'),
+                        'phone' => $request->input('phone'),
+                        'adress' => $request->input('adress'),
+                        'email' => $request->input('email'),
+                        'city' => $request->input('city'),
+                        'account_1' => $request->input('account_1'),
+                        'account_2' => $request->input('account_2'),
+                        'account_3' => $request->input('account_3')]);
         }
         else
         {
-            $add = DB::table('settings')->where('id', $settings->id)
-            ->update(['app_name' =>  $request->input('app_name'), 'theme' => $theme]);
+            $add = DB::table('company')->where('id', $company->id)
+            ->update(['name' =>  $request->input('name'), 
+                        'theme' => $theme, 
+                        'nr_fiscal' => $request->input('nr_fiscal'),
+                        'nr_business' => $request->input('nr_business'),
+                        'nr_tax' => $request->input('nr_tax'),
+                        'tvsh' => $request->input('tvsh'),
+                        'phone' => $request->input('phone'),
+                        'adress' => $request->input('adress'),
+                        'email' => $request->input('email'),
+                        'city' => $request->input('city'),
+                        'account_1' => $request->input('account_1'),
+                        'account_2' => $request->input('account_2'),
+                        'account_3' => $request->input('account_3')]);
         }
         
 		
-        return redirect('/settings')->with('success','U ndryshua Aranzhimi');
+        return redirect('/company')->with('success',__('messages.company-edit'));
                             
     }
 

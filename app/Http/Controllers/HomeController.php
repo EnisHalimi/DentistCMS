@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Spatie\DbDumper\Databases\MySql;
 use Illuminate\Http\Request;
 use App\User;
 use App\Appointment;
@@ -66,14 +67,14 @@ class HomeController extends Controller
     {
         $notifications = Notifications::orderBy('created_at', 'DESC');
         return view('notifications')->with('notifications', $notifications);
-                            
+
     }
 
     public function calendar()
     {
         $users = User::where('role_id','=',0)->orWhere('role_id','=',1)->get();
         return view('calendar')->with('users',$users);
-                            
+
     }
 
     public function daily(Request $request)
@@ -105,7 +106,22 @@ class HomeController extends Controller
     {
         $company = DB::table('company')->first();
         return view('company.company')->with('company', $company);
-                            
+
+    }
+
+    public function backup()
+    {
+        $file_name = public_path('Metropolis_' . date('Y_m_d', time()) . '.sql');
+        MySql::create()
+        ->setDbName('homestead')
+        ->setUserName('homestead')
+        ->setPassword('secret')
+        ->dumpToFile($file_name);
+        $headers = array(
+            'Content-Type: application/octet-stream',
+          );
+        return Response::download($file_name, 'Metropolis_' . date('Y_m_d', time()) . '.sql', $headers)->deleteFileAfterSend(true);
+
     }
 
     public function companySave(Request $request)
@@ -139,8 +155,8 @@ class HomeController extends Controller
             $fileNametoStore = $company->name.'.'.$extension;
             $request->file('logo')->move(public_path('img'), $fileNametoStore);
             $add = DB::table('company')->where('id', $company->id)
-            ->update(['name' =>  $request->input('name'), 
-                        'logo' => $fileNametoStore, 
+            ->update(['name' =>  $request->input('name'),
+                        'logo' => $fileNametoStore,
                         'theme' => $theme,
                         'nr_fiscal' => $request->input('nr_fiscal'),
                         'nr_business' => $request->input('nr_business'),
@@ -157,8 +173,8 @@ class HomeController extends Controller
         else
         {
             $add = DB::table('company')->where('id', $company->id)
-            ->update(['name' =>  $request->input('name'), 
-                        'theme' => $theme, 
+            ->update(['name' =>  $request->input('name'),
+                        'theme' => $theme,
                         'nr_fiscal' => $request->input('nr_fiscal'),
                         'nr_business' => $request->input('nr_business'),
                         'nr_tax' => $request->input('nr_tax'),
@@ -171,10 +187,10 @@ class HomeController extends Controller
                         'account_2' => $request->input('account_2'),
                         'account_3' => $request->input('account_3')]);
         }
-        
-		
+
+
         return redirect('/company')->with('success',__('messages.company-edit'));
-                            
+
     }
 
     public function getNotificationsDataTable()
@@ -186,13 +202,13 @@ class HomeController extends Controller
         ->rawColumns(['description','created_at'])
         ->make(true);
         return $table;
-                            
+
     }
 
 
     public function addToCart(Request $request)
     {
-        
+
         if($request->ajax())
         {
             $discount = '-'.$request->input('discount').'%';
@@ -200,7 +216,7 @@ class HomeController extends Controller
             $condition = new \Darryldecode\Cart\CartCondition(array(
                 'name' => 'Discount',
                 'type' => 'discount',
-                'target' => 'total', 
+                'target' => 'total',
                 'value' =>  $discount,
                 'order' => 1
             ));
@@ -260,6 +276,6 @@ class HomeController extends Controller
         return Response::json($data);
     }
 
-    
-    
+
+
 }

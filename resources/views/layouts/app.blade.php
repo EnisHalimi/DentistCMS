@@ -23,8 +23,8 @@
   <script>
 
     @yield('scripts')
-    
-  function markAsRead(id) 
+
+  function markAsRead(id)
   {
     $.ajax({
       type:'POST',
@@ -40,9 +40,9 @@
         }, 1000);
       }
     });
-  } 
+  }
 
-  
+
   </script>
 </head>
 <body id="page-top">
@@ -84,8 +84,8 @@
       <!-- Divider -->
       <hr class="sidebar-divider">
 
-     
-      
+
+
       <!-- Nav Item - Charts -->
       <li class="nav-item  @yield('appointment')">
         <a class="nav-link" href="/appointment">
@@ -93,7 +93,7 @@
           <span>Terminet</span></a>
       </li>
 
-    
+
 
       <li class="nav-item  @yield('pacient')">
         <a class="nav-link" href="/pacient">
@@ -149,8 +149,8 @@
           </div>
         </div>
       </li>
-    
-      
+
+
       <div class="text-center d-none d-md-inline">
           <button class="rounded-circle border-0" id="sidebarToggle"></button>
         </div>
@@ -183,7 +183,7 @@
               </div>
             </div>
           </form>
-          @else 
+          @else
           @endif
 
           <!-- Topbar Navbar -->
@@ -216,9 +216,9 @@
                 <!-- Counter - Alerts -->
                 @if(App\Notifications::getNotificationsNumber() > 0)
                 <span id="not-number" class="badge badge-danger badge-counter">{{App\Notifications::getNotificationsNumber()}}</span>
-                @else 
+                @else
                 @endif
-                
+
               </a>
               <!-- Dropdown - Alerts -->
               <div class="dropdown-list dropdown-menu dropdown-menu-right keep-open-on-click shadow animated--grow-in" aria-labelledby="alertsDropdown">
@@ -237,7 +237,7 @@
                 </a>
                 </li>
                 @else
-                
+
                 @foreach(App\Notifications::getNotifications() as $not)
               <li id="not{{$not->id}}" class="list-group-item p-0">
                 <div class="dropdown-item d-flex align-items-center" >
@@ -258,14 +258,14 @@
                 </div>
               </li>
                 @endforeach
-                
+
                 </ul>
                 @endif
                 <a class="dropdown-item text-center small text-gray-500" href="/notifications">Shiko të gjitha njoftimet</a>
               </div>
             </li>
 
-            
+
 
             <div class="topbar-divider d-none d-sm-block"></div>
 
@@ -285,6 +285,10 @@
                   <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Aranzhimi
                 </a>
+                <a class="dropdown-item" href="/backup">
+                    <i class="fas fa-database fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Ruaj Databazën
+                  </a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
@@ -306,7 +310,7 @@
         <div class="modal-body">A jeni i sigurtë që dëshironi të dilni?</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Jo</button>
-          
+
             <button type="submit" class="btn btn-primary" >Dil</button>
            </form>
         </div>
@@ -315,7 +319,7 @@
   </div>
 
             </li>
-            @else 
+            @else
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link text-secondary @yield('login')" href="/login" id="userDropdown">
               Log in
@@ -324,7 +328,7 @@
             </li>
 
           </ul>
-       
+
         @endif
 
         </nav>
@@ -339,7 +343,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-              
+
         @endif
               @if(session('success'))
               <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -348,8 +352,8 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
-		            
-	            
+
+
             @endif
 
             @yield('content')
@@ -380,9 +384,9 @@
     <i class="fas fa-angle-up"></i>
   </a>
 
- 
-    
-  
+
+
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js')}}"></script>
 </html>

@@ -27,8 +27,6 @@
         "@fullcalendar/core": "^4.4.0",
         "@fullcalendar/daygrid": "^4.4.0",
         "datatables.net": "^1.10.20",
-        "jquery-ui": "^1.12.1",
-        "npm-check-updates": "^4.0.4",
-        "shopify-cartjs": "^0.4.3"
+        "jquery-ui": "^1.12.1"
     }
 }

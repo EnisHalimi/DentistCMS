@@ -3,22 +3,12 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Bill extends Model
 {
-    
-    public function getDeadlineAttribute($value)
-    {
-        return date('d/m/Y',strtotime($value));
-    }
+    use LogsActivity;
 
-    public function getCreatedAtAttribute($value)
-    {
-        return date('d/m/Y H:m:s',strtotime($value));
-    }
+    protected static $logAttributes = ['subject', 'bill_nr','deadline','value','created_at'];
 
-    public function getDeadlineDateAttribute()
-    {
-        return Carbon::createFromFormat('d/m/Y', $this->deadline)->format('Y-m-d');
-    }
 }

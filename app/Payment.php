@@ -2,23 +2,26 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model; 
-use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+
 
 class Payment extends Model
 {
+
+    use LogsActivity;
+
+    protected static $logAttributes = ['pacient.first_name','pacient.last_name', 'pacient.personal_number', 'value','created_at'];
+
+    public function pacient()
+    {
+        return $this->belongsTo('App\Pacient');
+    }
+
     public function services()
     {
         return $this->belongsToMany('App\Services','payments_services')->withPivot('tooth', 'discount','quantity');
     }
 
-    public function getCreatedAtAttribute($value)
-    {
-        return date('d/m/Y H:m:s',strtotime($value));
-    }
 
-    public function getCreatedAttribute()
-    {
-        return Carbon::createFromFormat('d/m/Y H:m:s', $this->created_at)->format('d/m/Y');
-    }
 }

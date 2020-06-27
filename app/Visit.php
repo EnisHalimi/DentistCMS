@@ -3,17 +3,19 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Visit extends Model
-{   
-    protected $dates = ['created_at', 'date_of_visit'];
+{
+    use LogsActivity;
+
+    protected static $logAttributes = ['time_of_visit', 'date_of_visit','pacient.first_name','pacient.last_name', 'pacient.personal_number','user.name'];
 
     public function treatment()
     {
         return $this->hasOne('App\Treatment');
     }
-    
+
     public function user()
     {
         return $this->belongsTo('App\User');
@@ -31,18 +33,4 @@ class Visit extends Model
         return $pacient->first_name. ' '.$pacient->last_name;
     }
 
-    public function getDateOfVisitAttribute($value)
-    {
-        return date('d/m/Y',strtotime($value));
-    }
-
-    public function getCreatedAtAttribute($value)
-    {
-        return date('d/m/Y H:m',strtotime($value));
-    }
-
-    public function getVisitDateAttribute()
-    {
-        return Carbon::createFromFormat('d/m/Y', $this->date_of_visit)->format('Y-m-d');
-    }
 }

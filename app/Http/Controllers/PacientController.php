@@ -10,6 +10,7 @@ use App\Appointment;
 use App\Visit;
 use App\Report;
 use App\Debt;
+use App\Payment;
 use DB;
 
 class PacientController extends Controller
@@ -33,7 +34,7 @@ class PacientController extends Controller
                         </button>
                     </div>
                     <div class="modal-body">
-                        
+
                         <form id="form{{$id}}" class="d-inline" method="POST" action="{{ route(\'pacient.destroy\',$id)}}" accept-charset="UTF-8">
                             {{ csrf_field() }}
                             <input name="_method" type="hidden" value="DELETE">
@@ -41,20 +42,20 @@ class PacientController extends Controller
                                 <input type="checkbox"  name="data"  class="custom-control-input" id="data">
                             <label class="custom-control-label" for="data">Fshini të dhënat e Pacientit?</label>
                               </div>
-                           
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-circle btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i></button>
-                       
-                           
+
+
                             <button type="submit" form="form{{$id}}" class="btn btn-circle btn-danger"><i class="fa fa-trash"></i></button>
                         </form>
-                        
+
                     </div>
                 </div>
             </div>
         </div> ')
-    
+
         ->rawColumns(['Menaxhimi'])
         ->make(true);
         return $table;
@@ -82,11 +83,11 @@ class PacientController extends Controller
     {
         if(!auth()->user()->hasPermission('create-pacient'))
         {
-            return redirect('/')->with('error',__('messages.noauthorization')); 
+            return redirect('/')->with('error',__('messages.noauthorization'));
         }
         else
         {
-            $this->validate($request,[  
+            $this->validate($request,[
                 'Emri'=> 'required|alpha|min:3',
                 'Emri_Prindit'=> 'required|alpha|min:3',
                 'Mbiemri'=> 'required|alpha|min:3',
@@ -121,6 +122,7 @@ class PacientController extends Controller
         $visit = Visit::where('pacient_id','=',$id)->get();
         $report = Report::where('pacient_id','=',$id)->get();
         $debt = Debt::where('pacient_id','=',$id)->get();
+        $payment = Payment::where('pacient_id','=',$id)->get();
         $appointment = Appointment::where('pacient_id','=',$id)->get();
         if(!auth()->user()->hasPermission('view-pacient'))
             return redirect('/')->with('error', __('messages.noauthorization'));
@@ -131,6 +133,7 @@ class PacientController extends Controller
                     ->with('visits',$visit)
                     ->with('reports',$report)
                     ->with('debt',$debt)
+                    ->with('payment',$payment)
                     ->with('appointments',$appointment);
     }
 
@@ -160,7 +163,7 @@ class PacientController extends Controller
     {
         if(!auth()->user()->hasPermission('edit-pacient'))
         {
-            return redirect('/')->with('error',__('messages.noauthorization')); 
+            return redirect('/')->with('error',__('messages.noauthorization'));
         }
         else
         {
@@ -203,21 +206,21 @@ class PacientController extends Controller
         $pacient = Pacient::find($id);
         if(!auth()->user()->hasPermission('delete-pacient'))
         {
-            return redirect('/')->with('error',__('messages.noauthorization')); 
+            return redirect('/')->with('error',__('messages.noauthorization'));
         }
         else
         {
             $pacient->appointment()->delete();
             $pacient->visit()->delete();
-            $treatment = $pacient->treatment()->get();   
+            $treatment = $pacient->treatment()->get();
             foreach($treatment as $tr)
             {
                 $tr->report()->delete();
                 $tr->services()->detach();
-                $tr->delete();   
+                $tr->delete();
             }
             $pacient->report()->delete();
-            $pacient->delete();           
+            $pacient->delete();
             return redirect('/pacient')->with('success',__('messages.patient-delete'));
         }
     }

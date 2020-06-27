@@ -6,9 +6,16 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use DB;
 use App\Role;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable
 {
+
+    use LogsActivity;
+
+    protected static $logAttributes = ['name','email', 'role.name','color','created_at'];
+
+
     use Notifiable;
     /**
      * The attributes that are mass assignable.
@@ -61,7 +68,7 @@ class User extends Authenticatable
         $company = DB::table('company')->first();
         if(empty($company))
             return 'http://maestroselectronics.com/wp-content/uploads/2017/12/No_Image_Available.jpg';
-        if(substr($company->logo, 0, 4 ) === "http")	
+        if(substr($company->logo, 0, 4 ) === "http")
 			return $company->logo;
         return asset('img/'.$company->logo.'');
     }
@@ -85,12 +92,8 @@ class User extends Authenticatable
             return $company->theme;
     }
 
-    public function getCreatedAtAttribute($value)
-    {
-        return date('d/m/Y H:m',strtotime($value));
-    }
 
-    public function hasPermission($perm) 
+    public function hasPermission($perm)
     {
         $role = Role::find($this->role_id);
         foreach ($role->permissions as $permission) {

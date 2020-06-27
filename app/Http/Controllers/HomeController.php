@@ -21,6 +21,7 @@ use DB;
 use Carbon\Carbon;
 use Cart;
 use Redirect,Response;
+use Spatie\Activitylog\Models\Activity;
 
 class HomeController extends Controller
 {
@@ -65,8 +66,7 @@ class HomeController extends Controller
 
     public function notifications()
     {
-        $notifications = Notifications::orderBy('created_at', 'DESC');
-        return view('notifications')->with('notifications', $notifications);
+        return view('notifications');
 
     }
 
@@ -106,6 +106,12 @@ class HomeController extends Controller
     {
         $company = DB::table('company')->first();
         return view('company.company')->with('company', $company);
+
+    }
+
+    public function logs()
+    {
+        return view('logs');
 
     }
 
@@ -193,6 +199,368 @@ class HomeController extends Controller
 
     }
 
+    public function getLogsDataTable()
+    {
+        $activity = Activity::all();
+        $table = DataTables::of($activity)
+        ->editColumn ('Subjekti','@if($subject_type == "App\Appointment") Termin
+                                    @elseif($subject_type == "App\Bill") Fature
+                                    @elseif($subject_type == "App\Debt") Borgj
+                                    @elseif($subject_type == "App\Pacient") Pacient
+                                    @elseif($subject_type == "App\Payment") Pagese
+                                    @elseif($subject_type == "App\Report") Raport
+                                    @elseif($subject_type == "App\Role") Roli
+                                    @elseif($subject_type == "App\Services") Sherbim
+                                    @elseif($subject_type == "App\Treatment") Trajtim
+                                    @elseif($subject_type == "App\User") Perdorues
+                                    @elseif($subject_type == "App\Vizit")  Vizit
+                                    @else Njoftim @endif')
+        ->editColumn ('Pershkrimi','@if($description == "logged_in") Kyqja @elseif($description == "created") Shtuar @elseif($description == "updated") Ndryshuar @else Fshirë @endif')
+        ->editColumn ('Perdoruesi','<a class="btn btn-circle btn-secondary btn-sm" href="/user/{{$causer_id}}"><i class="fa fa-user-md"></i></a> {{App\User::getUser($causer_id)}}')
+        ->editColumn ('Data','{{\Carbon\Carbon::parse($created_at)->format("d/m/Y H:i:s")}}')
+        ->addColumn('Info','<button type="button" class="btn btn-secondary btn-circle" data-toggle="modal" data-target="#exampleModal{{$id}}">
+        <i class="fa fa-eye"></i>
+      </button>
+
+      <!-- Modal -->
+      <div class="modal fade bd-example-modal-lg"  id="exampleModal{{$id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{$id}}" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel{{$id}}">Të dhënat</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+            @if($subject_type === "App\Appointment")
+            <table class="table table-stripped">
+            <tbody>
+                <tr>
+                    <th>Pacienti:</th>
+                    <td scope="row">{{$properties["attributes"]["pacient.first_name"]}} {{$properties["attributes"]["pacient.last_name"]}} {{$properties["attributes"]["pacient.personal_number"]}}</td>
+                </tr>
+                <tr>
+                    <th>Mjeku:</th>
+                    <td scope="row">{{$properties["attributes"]["user.name"]}}</td>
+                </tr>
+                <tr>
+                    <th>Data e terminit:</th>
+                    <td scope="row">{{$properties["attributes"]["date_of_appointment"]}}</td>
+                </tr>
+                <tr>
+                    <th>Ora e terminit:</th>
+                    <td scope="row">{{$properties["attributes"]["time_of_appointment"]}}</td>
+                </tr>
+            </tbody>
+            </table>
+            @elseif($subject_type == "App\Bill")
+            <table class="table table-stripped">
+            <tbody>
+                <tr>
+                    <th>Subjekti:</th>
+                    <td scope="row">{{$properties["attributes"]["subject"]}}</td>
+                </tr>
+                <tr>
+                    <th>Nr i faturës:</th>
+                    <td scope="row">{{$properties["attributes"]["bill_nr"]}}</td>
+                </tr>
+                <tr>
+                    <th>Vlera:</th>
+                    <td scope="row">{{$properties["attributes"]["value"]}} €</td>
+                </tr>
+                <tr>
+                    <th>Afati:</th>
+                    <td scope="row">{{$properties["attributes"]["deadline"]}}</td>
+                </tr>
+                <tr>
+                    <th>Data:</th>
+                    <td scope="row">{{$properties["attributes"]["created_at"]}}</td>
+                </tr>
+            </tbody>
+            </table>
+            @elseif($subject_type == "App\Debt")
+            <table class="table table-stripped">
+            <tbody>
+            <tr>
+                <th>Pacienti:</th>
+                <td scope="row">{{$properties["attributes"]["pacient.first_name"]}} {{$properties["attributes"]["pacient.last_name"]}} {{$properties["attributes"]["pacient.personal_number"]}}</td>
+            </tr>
+            <tr>
+                <th>Vlera:</th>
+                <td scope="row">{{$properties["attributes"]["value"]}} €</td>
+            </tr>
+            <tr>
+                <th>Afati:</th>
+                <td scope="row">{{$properties["attributes"]["deadline"]}}</td>
+            </tr>
+            <tr>
+                <th>Data:</th>
+                <td scope="row">{{$properties["attributes"]["created_at"]}}</td>
+            </tr>
+            </tbody>
+            </table>
+            @elseif($subject_type == "App\Pacient")
+            <table class="table table-stripped">
+            <tbody>
+                <tr>
+                    <th>Emri:</th>
+                    <td scope="row">{{$properties["attributes"]["first_name"]}}</td>
+                </tr>
+                <tr>
+                    <th>Emri i prindit:</th>
+                    <td scope="row">{{$properties["attributes"]["fathers_name"]}}</td>
+                </tr>
+                <tr>
+                    <th>Mbiemri:</th>
+                    <td scope="row">{{$properties["attributes"]["last_name"]}}</td>
+                </tr>
+                <tr>
+                    <th>Numri Personal:</th>
+                    <td scope="row">{{$properties["attributes"]["personal_number"]}}</td>
+                </tr>
+                <tr>
+                    <th>Gjinia:</th>
+                    <td scope="row">{{$properties["attributes"]["gender"]}}</td>
+                </tr>
+                <tr>
+                    <th>Data e lindjes:</th>
+                    <td scope="row">{{$properties["attributes"]["date_of_birth"]}}</td>
+                </tr>
+                <tr>
+                    <th>Adresa:</th>
+                    <td scope="row">{{$properties["attributes"]["address"]}}</td>
+                </tr>
+                <tr>
+                    <th>Vendbanimi:</th>
+                    <td scope="row">{{$properties["attributes"]["residence"]}}</td>
+                </tr>
+                <tr>
+                    <th>Qyteti:</th>
+                    <td scope="row">{{$properties["attributes"]["city"]}}</td>
+                </tr>
+                <tr>
+                    <th>Telefoni:</th>
+                    <td scope="row">{{$properties["attributes"]["phone"]}}</td>
+                </tr>
+                <tr>
+                    <th>Email:</th>
+                    <td scope="row">{{$properties["attributes"]["email"]}}</td>
+                </tr>
+            </tbody>
+            </table>
+            @elseif($subject_type == "App\Payment")
+            <table class="table table-stripped">
+            <tbody>
+                <tr>
+                    <th>Pacienti:</th>
+                    <td scope="row">{{$properties["attributes"]["pacient.first_name"]}} {{$properties["attributes"]["pacient.last_name"]}} {{$properties["attributes"]["pacient.personal_number"]}}</td>
+                </tr>
+                <tr>
+                    <th>Vlera:</th>
+                    <td scope="row">{{$properties["attributes"]["value"]}}</td>
+                </tr>
+                <tr>
+                    <th>Data:</th>
+                    <td scope="row">{{$properties["attributes"]["created_at"]}}</td>
+                </tr>
+            </tbody>
+            </table>
+            @elseif($subject_type == "App\Report")
+            <table class="table table-stripped">
+             <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col">Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>Pacienti:</th>
+                    <td scope="row">{{$properties["attributes"]["pacient.first_name"]}} {{$properties["attributes"]["pacient.last_name"]}} {{$properties["attributes"]["pacient.personal_number"]}}</td>
+                </tr>
+                <tr>
+                    <th>Mjeku:</th>
+                    <td scope="row">{{$properties["attributes"]["user.name"]}}</td>
+                </tr>
+                <tr>
+                    <th>Rekomandimi:</th>
+                    <td scope="row">{{$properties["attributes"]["recommendation"]}}</td>
+                </tr>
+                <tr>
+                    <th>Ankesa:</th>
+                    <td scope="row">{{$properties["attributes"]["complaint"]}}</td>
+                </tr>
+                <tr>
+                    <th>Vlersimi:</th>
+                    <td scope="row">{{$properties["attributes"]["evaluation"]}}</td>
+                </tr>
+                <tr>
+                    <th>Diagnoza:</th>
+                    <td scope="row">{{$properties["attributes"]["diagnosis"]}}</td>
+                </tr>
+                <tr>
+                    <th>Data:</th>
+                    <td scope="row">{{$properties["attributes"]["created_at"]}}</td>
+                </tr>
+            </tbody>
+            </table>
+            @elseif($subject_type == "App\Role")
+            <table class="table table-stripped">
+           <tbody>
+                <tr>
+                    <th>Emri:</th>
+                    <td scope="row">{{$properties["attributes"]["name"]}}</td>
+                </tr>
+                <tr>
+                    <th>Shkurtesa:</th>
+                    <td scope="row">{{$properties["attributes"]["slug"]}}</td>
+                </tr>
+                <tr>
+                    <th>Data:</th>
+                    <td scope="row">{{$properties["attributes"]["created_at"]}}</td>
+                </tr>
+           </tbody>
+           </table>
+            @elseif($subject_type == "App\Services")
+            <table class="table table-stripped">
+            <tbody>
+                <tr>
+                    <th>Shërbimi:</th>
+                    <td scope="row">{{$properties["attributes"]["name"]}}</td>
+                </tr>
+                <tr>
+                    <th>Cmimi:</th>
+                    <td scope="row">{{$properties["attributes"]["price"]}}</td>
+                </tr>
+                <tr>
+                    <th>Zbritja:</th>
+                    <td scope="row">{{$properties["attributes"]["discount"]}}</td>
+                </tr>
+                <tr>
+                    <th>Data:</th>
+                    <td scope="row">{{$service->created_at}} </td>
+                </tr>
+            </tbody>
+            </table>
+            @elseif($subject_type == "App\Treatment")
+            <table class="table table-stripped">
+            <tbody>
+                <tr>
+                    <th>Pacienti:</th>
+                    <td scope="row">{{$properties["attributes"]["pacient.first_name"]}} {{$properties["attributes"]["pacient.last_name"]}} {{$properties["attributes"]["pacient.personal_number"]}}</td>
+                </tr>
+                <tr>
+                    <th>Data e fillimit</th>
+                    <td scope="row">{{$properties["attributes"]["starting_date"]}}</td>
+                </tr>
+                <tr>
+                    <th>Kohëzgjatja:</th>
+                    <td scope="row">{{$properties["attributes"]["duration"]}}</td>
+                </tr>
+                <tr>
+                    <th>Data:</th>
+                    <td scope="row">{{$properties["attributes"]["created_at"]}}</td>
+                </tr>
+            </tbody>
+            </table>
+            @elseif($subject_type == "App\User")
+            @if($description == "logged_in")
+                <table class="table table-stripped">
+                <tbody>
+                    <tr>
+                        <th>Kyqja:</th>
+                        <td scope="row">{{$created_at}} </td>
+                    </tr>
+                    </tbody>
+                </table>
+            @else
+            <table class="table table-stripped">
+            <tbody>
+            <tr>
+                <th>Emri dhe Mbiemri:</th>
+                <td scope="row">{{$properties["attributes"]["name"]}}</td>
+            </tr>
+            <tr>
+                <th>E-mail:</th>
+                <td scope="row">{{$properties["attributes"]["email"]}}</td>
+            </tr>
+            <tr>
+                <th>Roli:</th>
+                <td scope="row">{{$properties["attributes"]["role.name"]}}</td>
+            </tr>
+            <tr>
+                <th>Ngjyra:</th>
+                <td scope="row"><div class="p-2 w-50" style="background-color:{{$properties["attributes"]["color"]}};"></div></td>
+            </tr>
+            <tr>
+                <th>Data:</th>
+                <td scope="row">{{$properties["attributes"]["created_at"]}}</td>
+            </tr>
+            </tbody>
+            </table>
+            @endif
+            @elseif($subject_type == "App\Visit")
+            <table class="table table-stripped">
+            <tbody>
+                <tr>
+                    <th>Pacienti:</th>
+                    <td scope="row">{{$properties["attributes"]["pacient.first_name"]}} {{$properties["attributes"]["pacient.last_name"]}} {{$properties["attributes"]["pacient.personal_number"]}}</td>
+                </tr>
+                <tr>
+                    <th>Dentisti:</th>
+                    <td scope="row">{{$properties["attributes"]["user.name"]}}</td>
+                </tr>
+                <tr>
+                    <th>Data e vizitës:</th>
+                    <td scope="row">{{$properties["attributes"]["date_of_visit"]}}</td>
+                </tr>
+                <tr>
+                    <th>Ora e vizitës:</th>
+                    <td scope="row">{{$properties["attributes"]["time_of_visit"]}}</td>
+                </tr>
+            </tbody>
+            </table>
+
+            @else
+            <table class="table table-stripped">
+            <tbody>
+                <tr>
+                    <th>Pershkrimi:</th>
+                    <td scope="row">{{$properties["attributes"]["description"]}}</td>
+                </tr>
+                <tr>
+                    <th>Tipi:</th>
+                    <td scope="row">{{$properties["attributes"]["type"]}}</td>
+                </tr>
+                <tr>
+                    <th>Data:</th>
+                    <td scope="row">{{$properties["attributes"]["date"]}} </td>
+                </tr>
+            </tbody>
+            </table>
+            @endif
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-circle btn-secondary" data-dismiss="modal"><i class="fa fa-times"> </i></button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+       ')
+        ->rawColumns(['Subjekti','Pershkrimi','Perdoruesi','Info'])
+        ->make(true);
+        return $table;
+
+    }
+
     public function getNotificationsDataTable()
     {
         $notifications = Notifications::orderBy('created_at','desc');
@@ -267,8 +635,8 @@ class HomeController extends Controller
             $color = User::getUserColor($appointment->user_id);
             $data[] = array(
                 'title' => $appointment->time_of_appointment.' - '.$pacient,
-                'start' => $appointment->appointment_date,
-                'end' => $appointment->appointment_date,
+                'start' => $appointment->date_of_appointment,
+                'end' => $appointment->date_of_appointment,
                 'backgroundColor' => $color,
                 'borderColor' =>  $color
             );

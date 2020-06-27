@@ -4,7 +4,7 @@ require('./components/sb-admin-2')
 require('./components/jquery.easing.min')
 require('./components/datatables.min')
 require('./components/cart')
-import { Calendar } from '@fullcalendar/core'; 
+import { Calendar } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import sqLocale from '@fullcalendar/core/locales/sq';
 if(window.location.href.indexOf("calendar") > -1 || window.location.pathname == '/' ) {
@@ -28,12 +28,12 @@ document.addEventListener('DOMContentLoaded', function() {
       week:     'Java',
       day:      'Dita',
       list:     'Lista'
-    }, 
+    },
     themeSystem: 'jquery-ui',
     eventTextColor: 'white',
     defaultDate: yyyy+'-'+mm+'-'+dd,
     navLinks: true,
-    eventLimit: true, 
+    eventLimit: true,
     events: '/getAppointments'
 
   });
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
   console.log('executed');
 }
 
-function jQuery() 
+function jQuery()
 {
   $.ajaxSetup({
     headers: {
@@ -54,16 +54,16 @@ function jQuery()
       if ($(this).hasClass('keep-open-on-click')) { e.stopPropagation(); }
   });
 
-  
+
   $(document).ready(function(){
 
-   
+
     $("#delete-payment").submit(function(event){
-      event.preventDefault(); //prevent default action 
+      event.preventDefault(); //prevent default action
       var post_url = $(this).attr("action"); //get form action url
       var request_method = $(this).attr("method"); //get form GET/POST method
       var form_data = $(this).serialize(); //Encode form elements for submission
-      
+
       $.ajax({
         url : post_url,
         type: request_method,
@@ -82,7 +82,7 @@ function jQuery()
       $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
           localStorage.setItem('lastTab', $(this).attr('href'));
       });
-  
+
       var lastTab = localStorage.getItem('lastTab');
       if (lastTab) {
           $('[href="' + lastTab + '"]').tab('show');
@@ -569,6 +569,39 @@ function jQuery()
         }
       );
 
+
+      $('#LogsdataTable').DataTable(
+        {
+          "processing": true,
+          "serverSide": true, "stateSave": true,
+          "ajax":"/logsDatatable",
+          "columns": [
+            {"data":"Subjekti"},
+            {"data":"Pershkrimi"},
+            {"data":"Perdoruesi"},
+            {"data":"Data"},
+            {"data":"Info"}
+          ],
+          "language": {
+            "lengthMenu": "Shfaq _MENU_ për faqe",
+            "zeroRecords": "Nuk u gjet asnjë e dhënë",
+            "info": "Duke shfaqur faqen _PAGE_ nga _PAGES_",
+            "infoEmpty": "Nuk ka të dhëna",
+            "infoFiltered": "(Të filtruar nga _MAX_ total)",
+            "processing":     "Duke procesuar...",
+            "search":         "Kërko:",
+            "paginate": {
+              "first":      "Fillimi",
+              "last":       "Fundi",
+              "next":       "Para",
+              "previous":   "Prapa"}
+            },
+            "order": [[ 3, "desc" ]]
+        }
+      );
   });
 }
+
+
+
   jQuery();

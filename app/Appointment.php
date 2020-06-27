@@ -3,12 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Appointment extends Model
 {
+    use LogsActivity;
 
-    protected $dates = ['created_at', 'date_of_appointment'];
+    protected static $logAttributes = ['time_of_appointment', 'date_of_appointment','pacient.first_name','pacient.last_name', 'pacient.personal_number','user.name'];
 
     public function user()
     {
@@ -33,18 +34,8 @@ class Appointment extends Model
     }
 
     public static function getAppointmentNumberToday($date)
-    {   
+    {
         $appointment = Appointment::where('date_of_appointment', '=', $date)->get();
         return count($appointment);
-    }
-
-    public function getDateOfAppointmentAttribute($value)
-    {
-        return date('d/m/Y',strtotime($value));
-    }
-
-    public function getAppointmentDateAttribute()
-    {
-        return Carbon::createFromFormat('d/m/Y', $this->date_of_appointment)->format('Y-m-d');
     }
 }

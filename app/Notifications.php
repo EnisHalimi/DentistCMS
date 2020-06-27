@@ -3,11 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Notifications extends Model
 {
+    use LogsActivity;
 
-    protected $dates = ['created_at', 'date'];
+    protected static $logAttributes = ['description', 'date','type'];
 
     public static function getNotificationsNumber()
     {
@@ -29,5 +32,5 @@ class Notifications extends Model
         return date('d/m/Y H:m:s',strtotime($value));
     }
 
-    
+
 }

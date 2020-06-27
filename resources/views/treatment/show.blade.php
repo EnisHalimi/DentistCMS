@@ -21,7 +21,7 @@
                             <th>Pacienti:</th>
                             <td scope="row"><a class="btn btn-circle btn-secondary btn-sm" href="/pacient/{{$treatment->pacient_id}}"><i class="fa fa-user"></i></a> {{App\Pacient::getPacientName($treatment->pacient_id)}}</td>
                         </tr>
-                       
+
                         <tr>
                             <th>Data e fillimit</th>
                             <td scope="row">{{$treatment->starting_date}}</td>
@@ -32,7 +32,7 @@
                         </tr>
                         <tr>
                             <th>Foto:</th>
-                            <td scope="row"><img src="{{asset('img/grafite/'.$treatment->file.'')}}" class="img-fluid" /></td></td>
+                            <td scope="row"><img src="{{asset('img/grafite/'.$treatment->file.'')}}" class="img-fluid" /></td>
                         </tr>
                         @foreach($services as $service)
                         <tr>
@@ -42,7 +42,7 @@
                         @endforeach
                         </tbody>
                 </table>
-               
+
             <hr>
             <a class="btn btn-circle btn-secondary" href="{{ url()->previous() }}" ><i class="fa fa-chevron-left"></i></a>
                     <a href="/treatment/{{$treatment->id}}/edit"  class="btn btn-circle btn-primary"><i class="fa fa-pen"></i></a>
@@ -66,11 +66,11 @@
                                         <input name="_method" type="hidden" value="DELETE">
                                         <button type="submit" class="btn btn-circle btn-danger"><i class="fa fa-trash"></i></button>
                                     </form>
-                                    
+
                                 </div>
                             </div>
                         </div>
-                    </div> 
+                    </div>
           </div>
         </div>
       </div>

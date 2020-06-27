@@ -6,10 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 use App\Report;
 use App\Pacient;
 use App\Treatment;
-use Carbon\Carbon;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Report extends Model
 {
+    use LogsActivity;
+
+    protected static $logAttributes = ['user.name', 'pacient.first_name','pacient.last_name', 'pacient.personal_number','recommendation','complaint','evaluation','diagnosis','created_at'];
 
     public function user()
     {
@@ -20,16 +23,5 @@ class Report extends Model
     {
         return $this->belongsTo('App\Pacient');
     }
-    
 
-    public function getCreatedAtAttribute($value)
-    {
-        return date('d/m/Y H:m',strtotime($value));
-    }
-
-     
-    public function getCreatedAttribute()
-    {
-        return Carbon::createFromFormat('d/m/Y H:m', $this->created_at)->format('d/m/Y');
-    }
 }

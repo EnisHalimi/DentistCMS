@@ -21,12 +21,12 @@
                                 <td scope="row">{{$service->name}}</td>
                             </tr>
                             <tr>
-                                <th>E-mail:</th>
+                                <th>Qmimi:</th>
                                 <td scope="row">{{$service->price}}</td>
                             </tr>
-                           
+
                             <tr>
-                                <th>Pozita:</th>
+                                <th>Zbritja:</th>
                                 <td scope="row">{{$service->discount}}</td>
                             </tr>
                             <tr>
@@ -35,7 +35,7 @@
                             </tr>
                             </tbody>
                     </table>
-                   
+
                 <hr>
                 <a class="btn btn-circle btn-secondary" href="{{ url()->previous() }}" ><i class="fa fa-chevron-left"></i></a>
                         <a href="/services/{{$service->id}}/edit"  class="btn btn-circle btn-primary"><i class="fa fa-pen"></i></a>
@@ -59,15 +59,15 @@
                                             <input name="_method" type="hidden" value="DELETE">
                                             <button type="submit" class="btn btn-circle btn-danger"><i class="fa fa-trash"></i></button>
                                         </form>
-                                        
+
                                     </div>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
               </div>
             </div>
 
-          
+
           </div>
         </div>
       </div>

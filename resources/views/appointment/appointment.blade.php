@@ -12,13 +12,11 @@
       <h1 class="h3 mb-4 @if(App\User::getAppTheme() == true) text-gray-100 @else text-gray-800 @endif">Terminet</h1>
     </div>
     <div class="col-sm-6 ">
-      <button type="button" class="btn btn-circle btn-success float-right"  data-toggle="modal" data-target="#exampleModal">
-        <i class="fa fa-plus"></i>
-      </button>
+        <a href="/appointment/create" class="btn btn-circle btn-success float-right"><i class="fa fa-plus"></i></a>
       </div>
   </div>
-  
-  
+
+
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
     <div class="card-header py-3">
@@ -37,7 +35,7 @@
             </tr>
           </thead>
           <tbody>
-            
+
           </tbody>
         </table>
       </div>
@@ -45,5 +43,5 @@
   </div>
 
 </div>
-<!-- /.container-fluid --> 
+<!-- /.container-fluid -->
 @endsection

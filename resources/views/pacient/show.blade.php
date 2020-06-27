@@ -24,7 +24,7 @@
                                 <th>Emri i prindit:</th>
                                 <td scope="row">{{$pacient->fathers_name}}</td>
                             </tr>
-                           
+
                             <tr>
                                 <th>Mbiemri:</th>
                                 <td scope="row">{{$pacient->last_name}}</td>
@@ -41,7 +41,7 @@
                                     <th>Data e lindjes:</th>
                                     <td scope="row">{{$pacient->date_of_birth}}</td>
                                 </tr>
-                               
+
                                 <tr>
                                     <th>Adresa:</th>
                                     <td scope="row">{{$pacient->address}}</td>
@@ -78,7 +78,7 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                        
+
                                       <form id="form{{$pacient->id}}" class="d-inline" method="POST" action="{{ route('pacient.destroy',$pacient->id)}}" accept-charset="UTF-8">
                                           {{ csrf_field() }}
                                           <input name="_method" type="hidden" value="DELETE">
@@ -86,23 +86,23 @@
                                               <input type="checkbox"  name="data"  class="custom-control-input" id="data">
                                           <label class="custom-control-label" for="data">Fshini të dhënat e Pacientit?</label>
                                             </div>
-                                         
+
                                   </div>
                                   <div class="modal-footer">
                                       <button type="button" class="btn btn-circle btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i></button>
-                                     
-                                         
+
+
                                           <button type="submit" form="form{{$pacient->id}}" class="btn btn-circle btn-danger"><i class="fa fa-trash"></i></button>
                                       </form>
-                                      
+
                                   </div>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
             </div>
           </div>
 
-         
+
         </div>
         <div class="card-body">
                 <div class="text-center">
@@ -120,7 +120,7 @@
                           </tr>
                         </thead>
                         <tbody>
-                          @if(count($appointments)>0)  
+                          @if(count($appointments)>0)
                           @foreach($appointments as $appointment)
                             <tr>
                             <td>{{App\Pacient::getPacient($appointment->pacient_id)}}</td>
@@ -149,7 +149,7 @@
               </tr>
             </thead>
             <tbody>
-              @if(count($visits)>0)  
+              @if(count($visits)>0)
               @foreach($visits as $visit)
                 <tr>
                 <td>{{App\Pacient::getPacient($visit->pacient_id)}}</td>
@@ -178,7 +178,7 @@
               </tr>
             </thead>
             <tbody>
-              @if(count($treatments)>0)  
+              @if(count($treatments)>0)
               @foreach($treatments as $treatment)
                 <tr>
                 <td>{{App\Pacient::getPacient($treatment->pacient_id)}}</td>
@@ -206,7 +206,7 @@
               </tr>
             </thead>
             <tbody>
-              @if(count($reports)>0)  
+              @if(count($reports)>0)
               @foreach($reports as $report)
                 <tr>
                 <td>{{App\Pacient::getPacient($report->pacient_id)}}</td>
@@ -234,7 +234,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        @if(count($debt)>0)  
+                        @if(count($debt)>0)
                         @foreach($debt as $db)
                           <tr>
                           <td>{{App\Pacient::getPacient($db->pacient_id)}}</td>
@@ -250,8 +250,35 @@
                         @endif
                       </tbody>
                     </table>
+                    <hr class="mb-5">
+          <table class="table table-bordered"  width="100%" cellspacing="0">
+                  <h3>Pagesat</h3> <hr>
+                      <thead class="bg-dark text-light">
+                        <tr>
+                          <th>Pacienti</th>
+                          <th>Data</th>
+                          <th>Vlera</th>
+                          <th>Shiko</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        @if(count($payment)>0)
+                        @foreach($payment as $p)
+                          <tr>
+                          <td>{{App\Pacient::getPacient($p->pacient_id)}}</td>
+                          <td>{{$p->created_at}}</td>
+                          <td>{{$p->value}} €</td>
+                          <td><a class="btn btn-circle btn-secondary btn-sm" href="/payment/{{$p->id}}"><i class="fa fa-eye"></i></a></td>
+                          </tr>
+                        @endforeach
+                        @else
+                        <tr>
+                            <td colspan="5">Nuk ka të dhëna</td> </tr>
+                        @endif
+                      </tbody>
+                    </table>
 
-       
+
     </div>
       </div>
     </div>

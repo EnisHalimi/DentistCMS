@@ -18,7 +18,7 @@
               <form class="user" method="POST" action="{{ route('user.store') }}">
                         {{ csrf_field() }}
                 <div class="form-group ">
-                  <label class="text-xs"  for="password">Emri dhe Mbiemri</label>
+                  <label class="text-xs"  for="name">Emri dhe Mbiemri</label>
                   <input id="name" name="Emri_dhe_Mbiemri" value="{{ old('Emri_dhe_Mbiemri') }}" required autofocus type="text" class="form-control form-control-user @error('Emri_dhe_Mbiemri') is-invalid @enderror"  placeholder="Emri dhe Mbiemri">
                   @if ($errors->has('Emri_dhe_Mbiemri'))
                                     <span class="help-block">
@@ -27,7 +27,7 @@
                                 @endif
                 </div>
                 <div class="form-group">
-                  <label class="text-xs"  for="password">E-mail</label>
+                  <label class="text-xs"  for="email">E-mail</label>
                   <input  id="email" name="email" value="{{ old('email') }}" required type="email" class="form-control form-control-user @error('email') is-invalid @enderror" placeholder="Email Address">
                   @if ($errors->has('email'))
                                     <span class="help-block">
@@ -37,7 +37,7 @@
                 </div>
                 <div class="form-group">
                   <label class="text-xs"  for="role">Pozita</label>
-                        <select class="form-control form-control-user @error('role') is-invalid @enderror" id="role" name="role" placeholder="Pozita"> 
+                        <select class="form-control form-control-user @error('role') is-invalid @enderror" id="role" name="role" placeholder="Pozita">
                         @foreach($roles as $role)
                           <option value="{{$role->id}}">{{$role->name}}</option>
                         @endforeach
@@ -50,7 +50,7 @@
                 </div>
                 <div class="form-group">
                   <label class="text-xs"  for="color">Ngjyra</label>
-                        <select class="form-control form-control-user @error('color') is-invalid @enderror" id="color" name="color" placeholder="Ngjyra"> 
+                        <select class="form-control form-control-user @error('color') is-invalid @enderror" id="color" name="color" placeholder="Ngjyra">
                           <option value="#4e73df">Kaltër</option>
                           <option value="#00008b">Kaltër e errët</option>
                           <option value="#6f42c1">Vjollce</option>
@@ -71,11 +71,11 @@
                                 @endif
                 </div>
                 <div class="form-group row">
-                  
+
                   <div class="col-sm-6 mb-3 mb-sm-0">
                     <label class="text-xs"  for="password">Passwordi</label>
                     <input id="password" name="password" required type="password" class="form-control form-control-user @error('password') is-invalid @enderror"  placeholder="Password">
-                    
+
                     @if ($errors->has('password'))
                                     <span class="help-block">
                                         <strong class="text-danger"><small>{{ $errors->first('password') }}</small></strong>
@@ -83,7 +83,7 @@
                                 @endif
                   </div>
                   <div class="col-sm-6">
-                    <label class="text-xs"  for="password">Përsërit Password</label>
+                    <label class="text-xs"  for="password-confirm">Përsërit Password</label>
                     <input id="password-confirm" name="password_confirmation" required type="password" class="form-control form-control-user @error('password') is-invalid @enderror" placeholder="Përsërit Password">
                   </div>
                 </div>

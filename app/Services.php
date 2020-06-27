@@ -4,9 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Services;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Services extends Model
 {
+
+    use LogsActivity;
+
+    protected static $logAttributes = ['name','price','discount','created_at'];
+
     public function treatments()
     {
         return $this->belongsToMany('App\Treatment','services_treatment');
@@ -23,8 +29,4 @@ class Services extends Model
         return $service->name;
     }
 
-    public function getCreatedAtAttribute($value)
-    {
-        return date('d/m/Y H:m',strtotime($value));
-    }
 }

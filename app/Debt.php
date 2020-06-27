@@ -3,23 +3,16 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Carbon\Carbon;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Debt extends Model
 {
+    use LogsActivity;
 
-    public function getDeadlineAttribute($value)
-    {
-        return date('d/m/Y',strtotime($value));
-    }
+    protected static $logAttributes = ['pacient.first_name','pacient.last_name', 'pacient.personal_number', 'deadline','value','created_at'];
 
-    public function getCreatedAtAttribute($value)
+    public function pacient()
     {
-        return date('d/m/Y H:m:s',strtotime($value));
-    }
-
-    public function getDeadlineDateAttribute()
-    {
-        return Carbon::createFromFormat('d/m/Y', $this->deadline)->format('Y-m-d');
+        return $this->belongsTo('App\Pacient');
     }
 }

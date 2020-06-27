@@ -5,12 +5,14 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Pacient;
 use App\Treatment;
-use Carbon\Carbon;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Treatment extends Model
 {
 
-    protected $dates = ['created_at', 'starting_date'];
+    use LogsActivity;
+
+    protected static $logAttributes = ['pacient.first_name','pacient.last_name', 'pacient.personal_number','starting_date','duration','created_at'];
 
     public function pacient()
     {
@@ -30,24 +32,4 @@ class Treatment extends Model
         return $pacient->first_name.' '.$pacient->last_name.' ('.$treatment->starting_date.' | '.$treatment->duration.')';
     }
 
-    public static function getStartingDate($id)
-    {
-        $treatment = Treatment::find($id);
-        return $treatment->starting_date;
-    }
-
-    public function getStartingDateAttribute($value)
-    {
-        return date('d/m/Y',strtotime($value));
-    }
-
-    public function getCreatedAtAttribute($value)
-    {
-        return date('d/m/Y H:m',strtotime($value));
-    }
-
-    public function getDateStartingAttribute()
-    {
-        return Carbon::createFromFormat('d/m/Y', $this->starting_date)->format('Y-m-d');
-    }
 }

@@ -40,11 +40,12 @@ class PaymentController extends Controller
                         <input name="_method" type="hidden" value="DELETE">
                         <button type="submit" class="btn btn-circle btn-danger"><i class="fa fa-trash"></i></button>
                     </form>
-                    
+
                 </div>
             </div>
         </div>
     </div> ')
+        ->editColumn('created_at','{{\Carbon\Carbon::parse($created_at)->format("d/m/Y H:i:s")}}')
         ->editColumn('value','{{$value}} €')
         ->editColumn('pacient_id','<a class="btn btn-circle btn-secondary btn-sm" href="/pacient/{{$pacient_id}}"><i class="fa fa-user"></i></a>  {{App\Pacient::getPacientName($pacient_id)}}')
         ->rawColumns(['Menaxhimi','pacient_id'])
@@ -159,7 +160,7 @@ class PaymentController extends Controller
             $condition = new \Darryldecode\Cart\CartCondition(array(
                 'name' => 'Discount',
                 'type' => 'discount',
-                'target' => 'total', 
+                'target' => 'total',
                 'value' =>  $discount,
                 'order' => 1
             ));
@@ -233,13 +234,13 @@ class PaymentController extends Controller
         if(auth()->user()->hasPermission('delete-payment'))
         {
             $payment->services()->detach();
-            $payment->delete();           
+            $payment->delete();
             return redirect('/payment')->with('success',__('messages.payment-delete'));
-           
+
         }
         else
         {
-            return redirect('/')->with('error',__('messages.noauthorization')); 
+            return redirect('/')->with('error',__('messages.noauthorization'));
         }
     }
 }

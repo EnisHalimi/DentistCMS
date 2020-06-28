@@ -42,15 +42,16 @@ class ReportController extends Controller
                             <input name="_method" type="hidden" value="DELETE">
                             <button type="submit" class="btn btn-circle btn-danger"><i class="fa fa-trash"></i></button>
                         </form>
-                        
+
                     </div>
                 </div>
             </div>
-        </div> 
+        </div>
         <form method="GET" action="{{ url(\'raporti\') }}" class="d-inline form-inline">
         <input id="id" hidden name="id" value="{{$id}}"/>
       <button type="submit" class="btn btn-circle btn-success "><i class="fa fa-print"></i></button>
       </form>')
+      ->editColumn('created_at',' {{\Carbon\Carbon::parse($created_at)->format("d/m/Y H:i:s")}}')
         ->editColumn('pacient_id',' <a class="btn btn-circle btn-secondary btn-sm" href="/pacient/{{$pacient_id}}"><i class="fa fa-user"></i></a> {{App\Pacient::getPacient($pacient_id)}}')
         ->editColumn('user_id',' <a class="btn btn-circle btn-secondary btn-sm" href="/user/{{$user_id}}"><i class="fa fa-user-md"></i></a> {{App\User::getUser($user_id)}}')
         ->rawColumns(['Menaxhimi','pacient_id','user_id'])
@@ -107,7 +108,7 @@ class ReportController extends Controller
     {
         if(!auth()->user()->hasPermission('create-report'))
         {
-            return redirect('/')->with('error',__('messages.noauthorization')); 
+            return redirect('/')->with('error',__('messages.noauthorization'));
         }
         else
         {
@@ -119,7 +120,7 @@ class ReportController extends Controller
                 'diagnosis' => 'required|min:3',
                 'recommendation' => 'required|min:3',
             ]);
-            
+
             $report = new Report;
             $report->user_id = $request->input('user-id');
             $report->complaint = $request->input('complaint');
@@ -176,7 +177,7 @@ class ReportController extends Controller
     {
         if(!auth()->user()->hasPermission('edit-report'))
         {
-            return redirect('/')->with('error',__('messages.noauthorization')); 
+            return redirect('/')->with('error',__('messages.noauthorization'));
         }
         else
         {
@@ -211,12 +212,12 @@ class ReportController extends Controller
         $report = Report::find($id);
         if(!auth()->user()->hasPermission('delete-report'))
         {
-            return redirect('/')->with('error',__('messages.noauthorization')); 
+            return redirect('/')->with('error',__('messages.noauthorization'));
         }
         else
         {
-            $report->delete();           
+            $report->delete();
             return redirect('/report')->with('success',__('message.report-delete'));
-        }   
+        }
     }
 }

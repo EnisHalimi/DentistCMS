@@ -211,7 +211,7 @@
                 <tr>
                 <td>{{App\Pacient::getPacient($report->pacient_id)}}</td>
                 <td>{{App\User::getUser($report->user_id)}}</td>
-                <td>{{$report->created_at}}</td>
+                <td>{{\Carbon\Carbon::parse($report->created_at)->format("d/m/Y H:i:s")}}</td>
                 <td><a class="btn btn-circle btn-secondary btn-sm" href="/report/{{$report->id}}"><i class="fa fa-eye"></i></a></td>
                 </tr>
               @endforeach
@@ -238,7 +238,7 @@
                         @foreach($debt as $db)
                           <tr>
                           <td>{{App\Pacient::getPacient($db->pacient_id)}}</td>
-                          <td>{{$db->created_at}}</td>
+                          <td>{{\Carbon\Carbon::parse($db->created_at)->format("d/m/Y H:i:s")}}</td>
                           <td>{{$db->value}} €</td>
                           <td>{{$db->deadline}}</td>
                           <td><a class="btn btn-circle btn-secondary btn-sm" href="/debt/{{$db->id}}"><i class="fa fa-eye"></i></a></td>
@@ -266,7 +266,7 @@
                         @foreach($payment as $p)
                           <tr>
                           <td>{{App\Pacient::getPacient($p->pacient_id)}}</td>
-                          <td>{{$p->created_at}}</td>
+                          <td>{{\Carbon\Carbon::parse($p->created_at)->format("d/m/Y H:i:s")}}</td>
                           <td>{{$p->value}} €</td>
                           <td><a class="btn btn-circle btn-secondary btn-sm" href="/payment/{{$p->id}}"><i class="fa fa-eye"></i></a></td>
                           </tr>

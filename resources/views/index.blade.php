@@ -4,7 +4,7 @@
 @section('content')
         <!-- Begin Page Content -->
         <div class="container-fluid">
-          
+
 
           <!-- Page Heading -->
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -151,7 +151,7 @@
                             <td>{{$pacient->date_of_birth}}</td>
                             <td>{{$pacient->residence}}</td>
                             <td><a href="/pacient/{{$pacient->id}}" class="btn btn-circle btn-secondary btn-sm"><i class="fa fa-eye"></i></a> </td>
-    
+
                           </tr>
                           @endforeach
                           @else
@@ -186,9 +186,9 @@
                           <tr>
                             <td>{{App\Pacient::getPacientName($report->pacient_id)}}</td>
                             <td>{{App\User::getUser($report->user_id)}}</td>
-                            <td>{{$report->created_at}}</td>
+                            <td>{{\Carbon\Carbon::parse($report->created_at)->format("d/m/Y H:i:s")}}</td>
                             <td><a href="/report/{{$report->id}}" class="btn btn-circle btn-secondary btn-sm"><i class="fa fa-eye"></i></a> </td>
-    
+
                           </tr>
                           @endforeach
                           @else

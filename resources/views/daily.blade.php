@@ -10,7 +10,7 @@
     <h1 class="h3 mb-4 @if(App\User::getAppTheme() == true) text-gray-100 @else text-gray-800 @endif">Raporti Ditor</h1>
   </div>
   <div class="col-sm-3 ">
- 
+
   </div>
   <div class="col-sm-3 ">
     <form id="daily-form" method="GET" action="{{url('/daily')}}">
@@ -62,7 +62,7 @@
   <div class="tab-content w-100" id="myTabContent">
     <div class="tab-pane fade show active" id="pacient" role="tabpanel" aria-labelledby="pacient-tab">
       <div class="container-fluid mt-4">
-        
+
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
           <div class="card-header py-3">
@@ -106,12 +106,12 @@
             </div>
           </div>
         </div>
-      
+
       </div>
      </div>
-    <div class="tab-pane fade" id="appointment" role="tabpanel" aria-labelledby="appointment-tab"> 
+    <div class="tab-pane fade" id="appointment" role="tabpanel" aria-labelledby="appointment-tab">
       <div class="container-fluid mt-4">
-        
+
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
           <div class="card-header py-3">
@@ -151,13 +151,13 @@
             </div>
           </div>
         </div>
-      
+
       </div>
 
     </div>
-    <div class="tab-pane fade" id="visit" role="tabpanel" aria-labelledby="visit-tab"> 
+    <div class="tab-pane fade" id="visit" role="tabpanel" aria-labelledby="visit-tab">
       <div class="container-fluid mt-4">
-        
+
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
           <div class="card-header py-3">
@@ -197,12 +197,12 @@
             </div>
           </div>
         </div>
-      
+
       </div>
     </div>
-    <div class="tab-pane fade" id="treatment" role="tabpanel" aria-labelledby="treatment-tab"> 
+    <div class="tab-pane fade" id="treatment" role="tabpanel" aria-labelledby="treatment-tab">
       <div class="container-fluid mt-4">
-        
+
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
           <div class="card-header py-3">
@@ -240,12 +240,12 @@
             </div>
           </div>
         </div>
-      
+
       </div>
     </div>
-    <div class="tab-pane fade" id="report" role="tabpanel" aria-labelledby="report-tab"> 
+    <div class="tab-pane fade" id="report" role="tabpanel" aria-labelledby="report-tab">
       <div class="container-fluid mt-4">
-        
+
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
           <div class="card-header py-3">
@@ -268,7 +268,8 @@
                 <tr>
                   <td><a class="btn btn-circle btn-secondary btn-sm" href="/pacient/{{$report->pacient_id}}"><i class="fa fa-user"></i></a> {{App\Pacient::getPacient($report->pacient_id)}}</td>
                   <td><a class="btn btn-circle btn-secondary btn-sm" href="/user/{{$report->user_id}}"><i class="fa fa-user-md"></i></a> {{App\User::getUser($report->user_id)}}</td>
-                  <td>{{$report->created_at}}</td>
+                  <td>
+                    {{\Carbon\Carbon::parse($report->created_at)->format("d/m/Y H:i:s")}}</td>
                   <td><a href="/report/{{$report->id}}" class="btn btn-circle btn-secondary btn-sm"><i class="fa fa-eye"></i></a> </td>
 
                 </tr>
@@ -283,12 +284,12 @@
             </div>
           </div>
         </div>
-      
+
       </div>
     </div>
-    <div class="tab-pane fade" id="bill" role="tabpanel" aria-labelledby="bill-tab"> 
+    <div class="tab-pane fade" id="bill" role="tabpanel" aria-labelledby="bill-tab">
       <div class="container-fluid mt-4">
-        
+
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
           <div class="card-header py-3">
@@ -328,12 +329,12 @@
             </div>
           </div>
         </div>
-      
+
       </div>
     </div>
-    <div class="tab-pane fade" id="debt" role="tabpanel" aria-labelledby="debt-tab"> 
+    <div class="tab-pane fade" id="debt" role="tabpanel" aria-labelledby="debt-tab">
       <div class="container-fluid mt-4">
-        
+
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
           <div class="card-header py-3">
@@ -371,12 +372,12 @@
             </div>
           </div>
         </div>
-      
+
       </div>
     </div>
-    <div class="tab-pane fade" id="payment" role="tabpanel" aria-labelledby="payment-tab"> 
+    <div class="tab-pane fade" id="payment" role="tabpanel" aria-labelledby="payment-tab">
       <div class="container-fluid mt-4">
-        
+
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
           <div class="card-header py-3">
@@ -399,9 +400,9 @@
                   <tr>
                     <td><a class="btn btn-circle btn-secondary btn-sm" href="/pacient/{{$p->pacient_id}}"><i class="fa fa-user"></i></a> {{App\Pacient::getPacient($p->pacient_id)}}</td>
                     <td>{{$p->value}} €</td>
-                    <td>{{$p->created_at}}</td>
+                    <td>{{\Carbon\Carbon::parse($p->created_at)->format("d/m/Y H:i:s")}}</td>
                     <td><a href="/payment/{{$p->id}}" class="btn btn-circle btn-secondary btn-sm"><i class="fa fa-eye"></i></a> </td>
-  
+
                   </tr>
                   @endforeach
                   @else
@@ -414,7 +415,7 @@
             </div>
           </div>
         </div>
-      
+
       </div>
     </div>
   </div>
@@ -422,5 +423,5 @@
 
   </div>
 </div>
- 
+
 @endsection

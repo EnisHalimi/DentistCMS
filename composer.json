@@ -17,7 +17,6 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "niklasravnsborg/laravel-pdf": "^4.0",
-        "spatie/db-dumper": "^2.16",
         "spatie/laravel-activitylog": "^3.14",
         "yajra/laravel-datatables-oracle": "~9.0"
     },

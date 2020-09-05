@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Spatie\DbDumper\Databases\MySql;
 use Illuminate\Http\Request;
 use App\User;
 use App\Appointment;
@@ -11,7 +10,6 @@ use App\Pacient;
 use App\Report;
 use App\Services;
 use App\Visit;
-use App\Contact;
 use App\Debt;
 use App\Bill;
 use App\Payment;
@@ -131,21 +129,6 @@ class HomeController extends Controller
     public function logs()
     {
         return view('logs');
-
-    }
-
-    public function backup()
-    {
-        $file_name = public_path('Metropolis_' . date('Y_m_d', time()) . '.sql');
-        MySql::create()
-        ->setDbName('homestead')
-        ->setUserName('homestead')
-        ->setPassword('secret')
-        ->dumpToFile($file_name);
-        $headers = array(
-            'Content-Type: application/octet-stream',
-          );
-        return Response::download($file_name, 'Metropolis_' . date('Y_m_d', time()) . '.sql', $headers)->deleteFileAfterSend(true);
 
     }
 
@@ -463,7 +446,7 @@ class HomeController extends Controller
                 </tr>
                 <tr>
                     <th>Data:</th>
-                    <td scope="row">{{$service->created_at}} </td>
+                    <td scope="row">{{$properties["attributes"]["created_at"]}} </td>
                 </tr>
             </tbody>
             </table>

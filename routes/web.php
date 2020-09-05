@@ -57,5 +57,4 @@ Route::get('/getAppointments', 'HomeController@getAppointments' );
 Route::post('/addCart', 'HomeController@addToCart' );
 Route::post('/updateCart', 'HomeController@updateToCart' );
 Route::post('/deleteCart', 'HomeController@deleteFromCart' );
-Route::get('/backup', 'HomeController@backup' );
 Route::get('/logs', 'HomeController@logs' );

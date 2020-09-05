@@ -106,7 +106,7 @@ bottom: 0">
 </tr>
 <tr>
 	<td height="23" align="left" valign=bottom><font face="Times New Roman"><br></font></td>
-	<td align="left" valign=bottom><b><font face="Times New Roman" size=4>Ditë {{$payment->created}} g.</font></b></td>
+	<td align="left" valign=bottom><b><font face="Times New Roman" size=4>Ditë {{date('d/m/Y', strtotime($payment->created_at))}}.</font></b></td>
 	<td align="left" valign=bottom><font color="#000000"><br></font></td>
 	<td colspan=2 align="center" valign=bottom><b><font face="Times New Roman" size=4>___________________</font></b></td>
 </tr>

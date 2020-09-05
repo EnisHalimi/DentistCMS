@@ -279,7 +279,7 @@ bottom: 0">
 			e vizitës:</b></span></font></font></span></font></font></p>
 		</td>
 		<td width="136" style="background: transparent" style="border: none; padding: 0cm"><p lang="en-US" class="western" align="left" style="font-style: normal; font-weight: normal; text-decoration: none">
-			<font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none">{{$report->created	}}</span></font></font></p>
+			<font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none">{{date('d/m/Y', strtotime($report->created_at))}}</span></font></font></p>
 		</td>
 		<td width="136" style="background: transparent" style="border: none; padding: 0cm; text-align: right"><p lang="en-US" class="western" align="left" style="font-style: normal; font-weight: normal; text-decoration: none">
 			<font face="Liberation Serif, serif"><font size="3" style="font-size: 12pt"><span style="text-decoration: none"><font face="Calibri, sans-serif"><font size="2" style="font-size: 11pt"><span lang="en"><b>Mjeku:</b></span></font></font></span></font></font></p>

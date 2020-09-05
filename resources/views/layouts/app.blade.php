@@ -281,7 +281,7 @@
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profili
                 </a>
-                <a class="dropdown-item" href="/settings">
+                <a class="dropdown-item" href="/logs">
                   <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Aranzhimi
                 </a>

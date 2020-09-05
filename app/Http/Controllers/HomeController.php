@@ -104,8 +104,27 @@ class HomeController extends Controller
 
     public function company()
     {
-        $company = DB::table('company')->first();
-        return view('company.company')->with('company', $company);
+         $company = DB::table('company')->first();
+        if($company == null)
+        {
+            $companyNew  = DB::table('company')->insert(['name' =>  'DentistCMS',
+                        'logo' => 'no-logo.png',
+                        'theme' => false,
+                        'nr_fiscal' =>'123456789',
+                        'nr_business' => '123456789',
+                        'nr_tax' =>'123456789',
+                        'tvsh' =>'18',
+                        'phone' => '123456789',
+                        'adress' =>'Rruga',
+                        'email' => 'dentistCMS@gmail.com',
+                        'city' => 'Prizren',
+                        'account_1' =>'1234567890123456',
+                        'account_2' => '1234567890123456',
+                        'account_3' => '1234567890123456']);
+            return redirect('/company');
+        }
+        else
+            return view('company.company')->with('company', $company);
 
     }
 
@@ -216,7 +235,7 @@ class HomeController extends Controller
                                     @elseif($subject_type == "App\Vizit")  Vizit
                                     @else Njoftim @endif')
         ->editColumn ('Pershkrimi','@if($description == "logged_in") Kyqja @elseif($description == "created") Shtuar @elseif($description == "updated") Ndryshuar @else Fshirë @endif')
-        ->editColumn ('Perdoruesi','<a class="btn btn-circle btn-secondary btn-sm" href="/user/{{$causer_id}}"><i class="fa fa-user-md"></i></a> {{App\User::getUser($causer_id)}}')
+        ->editColumn ('Perdoruesi','@if($causer_id != null)<a class="btn btn-circle btn-secondary btn-sm" href="/user/{{$causer_id}}"><i class="fa fa-user-md"></i></a> {{App\User::getUser($causer_id)}} @else Ska @endif')
         ->editColumn ('Data','{{\Carbon\Carbon::parse($created_at)->format("d/m/Y H:i:s")}}')
         ->addColumn('Info','<button type="button" class="btn btn-secondary btn-circle" data-toggle="modal" data-target="#exampleModal{{$id}}">
         <i class="fa fa-eye"></i>
